@@ -14,4 +14,16 @@
 - [Reactstrap](https://reactstrap.github.io/) Bootstrap for react!
 - [Semantic UI](https://react.semantic-ui.com/)
 - [React Animation](https://nearform.github.io/react-animation/) Awesome simple to use library for quick easy component based animations
-# react-template
+
+# README template
+
+## Name of the project
+Overview of the project
+### Link to your wireframes/prototype
+### Link to the deployed project
+### Link to your project board
+### User Stories
+### Features
+### Screenshots
+### Contributors
+### Loom video walkthrough
