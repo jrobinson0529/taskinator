@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Taskinator.DataAccess;
 
 namespace Taskinator
 {
@@ -26,6 +27,14 @@ namespace Taskinator
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IConfiguration>(Configuration); // -> any time someone asks for this thing, give them the same copy forever. Until the app stops
+
+            services.AddTransient<OrdersRepository>();
+            services.AddTransient<PaymentsRepository>();
+            services.AddTransient<RobotCategoriesRepository>();
+            services.AddTransient<RobotsOrdersRepository>();
+            services.AddTransient<RobotsRepository>();
+            services.AddTransient<UsersRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
