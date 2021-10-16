@@ -16,5 +16,38 @@ namespace Taskinator.DataAccess
         {
             _connectionString = config.GetConnectionString("Taskinator");
         }
+
+        // Get all orders regardless of customer
+        internal IEnumerable<Orders> GetAllOrders()
+        {
+            var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * FROM Orders";
+            var orders = db.Query<Orders>(sql);
+            return orders;
+        }
+
+        // Get all orders from a specific customer
+        internal IEnumerable<Orders> GetAllOrdersFromSpecificCustomer(Guid id)
+        {
+            var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT *
+                        FROM Orders
+                        WHERE customerId = @id";
+            var order = db.Query<Orders>(sql, new { id });
+            return order;
+        }
+
+        // Get a single order from order id
+        internal IEnumerable<Orders> GetSingleOrderFromSpecificCustomer(Guid orderId)
+        {
+            var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT *
+                           FROM Orders
+                            WHERE id = @orderId";
+            var order = db.Query<Orders>(sql, new { orderId });
+            return order;
+        }
+
+
     }
 }
