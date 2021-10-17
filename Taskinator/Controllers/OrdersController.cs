@@ -12,11 +12,17 @@ namespace Taskinator.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        OrdersRepository _ordersRepository;
+        OrdersRepository _ordersRepo;
+        UsersRepository _usersRepo;
+        PaymentsRepository _paymentsRepo;
 
-        public OrdersController(OrdersRepository ordersRepository)
+        public OrdersController(OrdersRepository ordersRepo, 
+                                UsersRepository userRepo,
+                                PaymentsRepository paymentsRepo)
         {
-            _ordersRepository = ordersRepository;
+            _ordersRepo = ordersRepo;
+            _usersRepo = userRepo;
+            _paymentsRepo = paymentsRepo;
         }
 
 
@@ -24,23 +30,57 @@ namespace Taskinator.Controllers
         //Get all orders from database (admin function?)
         public IActionResult GetAllOrders()
         {
-            return Ok(_ordersRepository.GetAllOrders());
+            return Ok(_ordersRepo.GetAllOrders());
         }
 
         //Get all orders from a specific customer
 
-        [HttpGet("/allOrders/{id}")]
+        [HttpGet("/allOrders/{customerId}")]
         public IActionResult GetAllOrdersFromACustomer(Guid id)
         {
-            return Ok(_ordersRepository.GetAllOrdersFromSpecificCustomer(id));
+            return Ok(_ordersRepo.GetAllOrdersFromSpecificCustomer(id));
         }
 
         // Get a single order
-        [HttpGet("/singleOrders/{orderId}")]
+        [HttpGet("/singleOrder/{orderId}")]
         public IActionResult GetSingleOrderFromCustomer(Guid orderId)
         {
-            return Ok(_ordersRepository.GetSingleOrderFromSpecificCustomer(orderId));
+            return Ok(_ordersRepo.GetSingleOrderFromSpecificCustomer(orderId));
+        }
+
+
+        // Get a cart item (Get an order that are not finalized for payment)
+        [HttpGet("/cartItem/{customerId}")]
+        public IActionResult GetOrderCartItem(Guid id)
+        {
+            return Ok(_ordersRepo.GetOrdersToPlaceOrderOrDelete(id));
         }
         
+        
+        [HttpPost]
+        public IActionResult CreateOrder(CreateOrderCommand command)
+        {
+            var userToOrder = _usersRepo.GetUserById(command.UserId);
+
+            if (userToOrder == null)
+            {
+                return NotFound("There was no matching user in the database");
+            }
+            //if (paymentToOrder == null)
+            //{
+            //    return NotFound("There was no matching payment in the database");
+            //}
+
+
+            var order = new Orders
+            {
+                CustomerId = command.UserId,
+                PaymentId = command.PaymentId,
+                OrderTotal = command.Price
+            };
+            _ordersRepo.Add(order);
+
+            return Created($"/api/orders/{order.Id}", order);
+        }
     }
 }
