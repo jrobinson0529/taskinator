@@ -11,10 +11,18 @@ namespace Taskinator.Controllers
     [ApiController]
     public class RobotsOrdersController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult Index()
+        RobotsOrdersRepository _robotsOrdersRepo;
+
+        public RobotsOrdersController(RobotsOrdersRepository robotsOrdersRepo)
         {
-            return Ok();
+            _robotsOrdersRepo = robotsOrdersRepo;
+        }
+
+        [HttpGet]
+        public IActionResult GetAllRobotsOrders()
+        {
+            var robotsOrders = _robotsOrdersRepo.GetAll();
+            return Ok(robotsOrders);
         }
     }
 }
