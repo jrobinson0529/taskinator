@@ -9,8 +9,9 @@ namespace Taskinator.Models
     {
         public Guid UserId { get; set; }
         public Guid PaymentId { get; set; }
-        public decimal Price { get; set; }
+        public decimal Total { get; set; }
         public DateTime OrderDate { get; set; }
+        public decimal Quantity { get; set; }
     }
 
 }

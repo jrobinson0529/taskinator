@@ -16,7 +16,7 @@ namespace Taskinator.Controllers
         UsersRepository _usersRepo;
         PaymentsRepository _paymentsRepo;
 
-        public OrdersController(OrdersRepository ordersRepo, 
+        public OrdersController(OrdersRepository ordersRepo,
                                 UsersRepository userRepo,
                                 PaymentsRepository paymentsRepo)
         {
@@ -24,7 +24,6 @@ namespace Taskinator.Controllers
             _usersRepo = userRepo;
             _paymentsRepo = paymentsRepo;
         }
-
 
         [HttpGet]
         //Get all orders from database (admin function?)
@@ -55,8 +54,8 @@ namespace Taskinator.Controllers
         {
             return Ok(_ordersRepo.GetOrdersToPlaceOrderOrDelete(id));
         }
-        
-        
+
+        // Create an order (in cart)
         [HttpPost]
         public IActionResult CreateOrder(CreateOrderCommand command)
         {
@@ -76,11 +75,24 @@ namespace Taskinator.Controllers
             {
                 CustomerId = command.UserId,
                 PaymentId = command.PaymentId,
-                OrderTotal = command.Price
+                OrderTotal = command.Total
             };
             _ordersRepo.Add(order);
 
             return Created($"/api/orders/{order.Id}", order);
         }
+
+        // Update order
+
+        // Place an order (assing date time to order date)
+
+        // Delete order (that is not placed yet)
+        [HttpDelete("/deleteUnplacedOrder/{orderId}")]
+
+        public IActionResult RemoveOrder(Guid orderId)
+        {
+            _ordersRepo.RemoveCartItem(orderId);
+        }
+
     }
 }

@@ -79,7 +79,13 @@ namespace Taskinator.DataAccess
             order.Id = id;
         }
 
+        // Remove Order (only the ones in the cart)
+        internal void RemoveCartItem(Guid orderId)
+        {
+            throw new NotImplementedException();
+        }
+
         // Finalize order (this is to add datetime to finalize the order)
-        
+
     }
 }
