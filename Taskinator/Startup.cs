@@ -40,6 +40,7 @@ namespace Taskinator
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Taskinator", Version = "v1" });
+                c.DescribeAllEnumsAsStrings();
             });
         }
 
@@ -51,6 +52,7 @@ namespace Taskinator
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Taskinator v1"));
+
             }
 
             app.UseHttpsRedirection();

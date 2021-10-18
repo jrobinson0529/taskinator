@@ -11,10 +11,17 @@ namespace Taskinator.Controllers
     [ApiController]
     public class PaymentsController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult Index()
+        PaymentsRepository _payments;
+
+        public PaymentsController(PaymentsRepository payments)
         {
-            return Ok();
+            _payments = payments;
+        }
+        [HttpGet]
+        public IActionResult GetUserPayments(Guid accountNumber)
+        {
+            var payments = _payments.GetPayments(accountNumber);
+            return Ok(payments);
         }
     }
 }

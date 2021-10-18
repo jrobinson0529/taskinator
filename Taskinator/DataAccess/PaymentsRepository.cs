@@ -16,5 +16,15 @@ namespace Taskinator.DataAccess
         {
             _connectionString = config.GetConnectionString("Taskinator");
         }
+
+        internal IEnumerable<Payments> GetPayments(Guid accountNumber)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * FROM Payments
+                        WHERE accountNumber = @accountNumber";
+            var payments = db.Query<Payments>(sql, new { accountNumber });
+            return payments;
+        }
+
     }
 }
