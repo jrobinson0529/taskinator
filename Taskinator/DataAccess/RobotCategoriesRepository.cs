@@ -16,5 +16,22 @@ namespace Taskinator.DataAccess
         {
             _connectionString = config.GetConnectionString("Taskinator");
         }
+
+        internal IEnumerable<RobotCategories> GetAll()
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * FROM Robot_Categories";
+            var categories = db.Query<RobotCategories>(sql);
+            return categories;
+        }
+
+        internal RobotCategories GetSingleCategory(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * FROM Robot_Categories
+                        WHERE Robot_Categories.id = @id";
+            var category = db.QuerySingleOrDefault<RobotCategories>(sql, new { id });
+            return category;
+        }
     }
 }

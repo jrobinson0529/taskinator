@@ -11,10 +11,25 @@ namespace Taskinator.Controllers
     [ApiController]
     public class RobotCategoriesController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult Index()
+
+        RobotCategoriesRepository _categoriesRepo;
+
+        public RobotCategoriesController(RobotCategoriesRepository categoriesRepo)
         {
-            return Ok();
+            _categoriesRepo = categoriesRepo;
+        }
+        [HttpGet]
+        public IActionResult GetAllCategories()
+        {
+            var categories = _categoriesRepo.GetAll();
+            return Ok(categories);
+        }
+        [HttpGet("{id}")]
+        public IActionResult GetCategoryById(Guid id)
+        {
+            var category = _categoriesRepo.GetSingleCategory(id);
+            if (category is null) return NotFound($"A category with id - {id} - was not found");
+            return Ok(category);
         }
     }
 }
