@@ -24,5 +24,24 @@ namespace Taskinator.Controllers
             var robotsOrders = _robotsOrdersRepo.GetAll();
             return Ok(robotsOrders);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetRobotsOrdersById(Guid id)
+        {
+            var robotsOrders = _robotsOrdersRepo.GetByOrderId(id);
+
+            if (robotsOrders == null)
+            {
+                return NotFound($"No robot order with the id '{id}' was found.");
+            }
+            return Ok(robotsOrders);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteRobotsOrders(Guid id)
+        {
+            _robotsOrdersRepo.Remove(id);
+            return Ok($"Robot order number '{id}' has been deleted.");
+        }
     }
 }
