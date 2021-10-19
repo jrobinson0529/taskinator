@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Taskinator.DataAccess;
+using Taskinator.Models;
 
 namespace Taskinator.Controllers
 {
@@ -48,6 +49,13 @@ namespace Taskinator.Controllers
             }
 
             return Ok(robotsOrders);
+        }
+
+        [HttpPost]
+        public IActionResult AddRobotOrder(RobotsOrders robotOrder)
+        {
+            _robotsOrdersRepo.Add(robotOrder);
+            return Created($"/robotsOrders/{robotOrder.Id}", robotOrder);
         }
 
         [HttpDelete("deleteSingleRobotOrderById/{id}")]

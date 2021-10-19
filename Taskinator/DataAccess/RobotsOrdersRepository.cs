@@ -55,5 +55,18 @@ namespace Taskinator.DataAccess
                         WHERE Id = @id";
             db.Execute(sql, new { id });
         }
+
+        internal Guid Add(RobotsOrders robotOrder)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"INSERT INTO Robots_Orders (dayQuantity, robotId, orderId)
+                        OUTPUT INSERTED.id
+                        VALUES(@dayQuantity, @robotId, @orderId)";
+            var id = db.ExecuteScalar<Guid>(sql, robotOrder);
+            robotOrder.Id = id;
+
+            return id;
+        }
     }
 }
