@@ -75,16 +75,17 @@ namespace Taskinator.Controllers
         public IActionResult CreateOrder(CreateOrderCommand command)
         {
             var userToOrder = _usersRepo.GetUserById(command.UserId);
+            var paymentToOrder = _paymentsRepo.GetPayment(command.PaymentId);
 
             if (userToOrder == null)
             {
                 return NotFound("There was no matching user in the database");
             }
-            // this will be added when Payment method is added from Jesse
-            //if (paymentToOrder == null)
-            //{
-            //    return NotFound("There was no matching payment in the database");
-            //}
+           
+            if (paymentToOrder == null)
+            {
+                return NotFound("There was no matching payment in the database");
+            }
 
             var order = new Orders
             {
