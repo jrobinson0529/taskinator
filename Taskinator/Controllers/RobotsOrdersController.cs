@@ -19,6 +19,7 @@ namespace Taskinator.Controllers
             _robotsOrdersRepo = robotsOrdersRepo;
         }
 
+        // gets all the robot orders
         [HttpGet]
         public IActionResult GetAllRobotsOrders()
         {
@@ -27,10 +28,11 @@ namespace Taskinator.Controllers
             return Ok(robotsOrders);
         }
 
+        // gets a single robot order by its id
         [HttpGet("getSingleRobotOrderById/{id}")]
         public IActionResult GetSingleRobotsOrdersById(Guid id)
         {
-            var robotsOrders = _robotsOrdersRepo.GetBySingleRobotsId(id);
+            var robotsOrders = _robotsOrdersRepo.GetBySingleRobotOrderId(id);
             if (robotsOrders == null)
             {
                 return NotFound($"No robot order with the id '{id}' was found.");
@@ -39,8 +41,9 @@ namespace Taskinator.Controllers
             return Ok(robotsOrders);
         }
 
-        [HttpGet("getSingleRobotOrderByOrderId/{orderId}")]
-        public IActionResult GetSingleRobotsOrdersByOrderId(Guid orderId)
+        // gets a single robot order by its order id
+        [HttpGet("getRobotOrderByOrderId/{orderId}")]
+        public IActionResult GetRobotsOrdersByOrderId(Guid orderId)
         {
             var robotsOrders = _robotsOrdersRepo.GetByOrderId(orderId);
             if (robotsOrders == null)
@@ -51,6 +54,7 @@ namespace Taskinator.Controllers
             return Ok(robotsOrders);
         }
 
+        // creates a new robot order
         [HttpPost]
         public IActionResult AddRobotOrder(RobotsOrders robotOrder)
         {
@@ -58,12 +62,32 @@ namespace Taskinator.Controllers
             return Created($"/robotsOrders/{robotOrder.Id}", robotOrder);
         }
 
+        // deletes a robot order by its id
         [HttpDelete("deleteSingleRobotOrderById/{id}")]
         public IActionResult DeleteSingleRobotOrder(Guid id)
         {
-            _robotsOrdersRepo.Remove(id);
+            _robotsOrdersRepo.RemoveRobotOrder(id);
 
             return Ok($"Robot order number '{id}' has been deleted.");
+
+            //var robotOrderToRemove = _robotsOrdersRepo.GetBySingleRobotOrderId(id);
+
+            //if (robotOrderToRemove is null) return NotFound($"No robot order with id '{id}' has been found.");
+            //var removedRobotOrder = _robotsOrdersRepo.RemoveRobotOrder(id);
+
+            //return Ok(removedRobotOrder);
+        }
+
+        // update robot order day quantity by id
+        [HttpPut("updateRobotOrder/{id}")]
+        public IActionResult UpdateRobotOrderDayQuantity(Guid id, RobotsOrders robotOrder)
+        {
+            var robotOrderToUpdate = _robotsOrdersRepo.GetBySingleRobotOrderId(id);
+
+            if (robotOrderToUpdate is null) return NotFound($"No robot order with id '{id}' has been found.");
+            var updatedRobotOrder = _robotsOrdersRepo.Update(id, robotOrder);
+
+            return Ok(updatedRobotOrder);
         }
     }
 }

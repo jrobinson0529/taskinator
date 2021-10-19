@@ -23,16 +23,18 @@ namespace Taskinator.DataAccess
 
             var sql = @"SELECT * FROM Robots_Orders";
             var robotsOrders = db.Query<RobotsOrders>(sql);
+            
             return robotsOrders;
         }
 
-        internal object GetBySingleRobotsId(Guid id)
+        internal object GetBySingleRobotOrderId(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
 
             var sql = @"SELECT * FROM Robots_Orders
                         WHERE id = @id";
             var robotsOrders = db.QuerySingleOrDefault<RobotsOrders>(sql, new { id });
+            
             return robotsOrders;
         }
 
@@ -42,11 +44,12 @@ namespace Taskinator.DataAccess
 
             var sql = @"SELECT * FROM Robots_Orders
                         WHERE orderId = @id";
-            var robotsOrders = db.QuerySingleOrDefault<RobotsOrders>(sql, new { id });
+            //var robotsOrders = db.QuerySingleOrDefault<RobotsOrders>(sql, new { id });
+            var robotsOrders = db.Query<RobotsOrders>(sql, new { id });
             return robotsOrders;
         }
 
-        internal void Remove(Guid id)
+        internal void RemoveRobotOrder(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
 
@@ -67,6 +70,21 @@ namespace Taskinator.DataAccess
             robotOrder.Id = id;
 
             return id;
+        }
+
+        internal object Update(Guid id, RobotsOrders robotOrderToUpdate)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @" UPDATE Robots_Orders
+                         SET dayQuantity = @dayQuantity
+                         OUTPUT INSERTED.*
+                         WHERE id = @Id
+                        ";
+            robotOrderToUpdate.Id = id;
+            var updatedRobotOrder = db.QuerySingleOrDefault<RobotsOrders>(sql, robotOrderToUpdate);
+            
+            return updatedRobotOrder;
         }
     }
 }
