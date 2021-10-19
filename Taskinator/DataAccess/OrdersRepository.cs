@@ -17,7 +17,7 @@ namespace Taskinator.DataAccess
             _connectionString = config.GetConnectionString("Taskinator");
         }
 
-        // Get all orders regardless of customer
+        // Get all orders regardless of customer (maybe needed for admin)
         internal IEnumerable<Orders> GetAllOrders()
         {
             var db = new SqlConnection(_connectionString);
@@ -26,7 +26,7 @@ namespace Taskinator.DataAccess
             return orders;
         }
 
-        // Get all orders from a specific customer
+        // Get all orders from a specific customer 
         internal IEnumerable<Orders> GetAllOrdersFromSpecificCustomer(Guid id)
         {
             var db = new SqlConnection(_connectionString);
@@ -48,7 +48,7 @@ namespace Taskinator.DataAccess
             return order;
         }
 
-        // Get cart item (get orders that are not placed)
+        // Get cart item (order is not placed yet)
         internal IEnumerable<Orders> GetOrdersToPlaceOrderOrDelete(Guid id)
         {
             var db = new SqlConnection(_connectionString);
@@ -59,7 +59,7 @@ namespace Taskinator.DataAccess
             return order;
         }
 
-        // Post order (this is for cart item)
+        // Place order (maybe when "place order" button is clicked)
         internal void Add(Orders order)
         {
             var db = new SqlConnection(_connectionString);
@@ -79,7 +79,7 @@ namespace Taskinator.DataAccess
             order.Id = id;
         }
 
-        // Remove Order (only the ones in the cart)
+        // Remove Order (only cart item can be removed - controlled by sql)
         internal void RemoveCartItem(Guid orderId)
         {
             var db = new SqlConnection(_connectionString);
@@ -91,7 +91,7 @@ namespace Taskinator.DataAccess
 
         }
 
-        // Update Order 
+        // Update Order (only cart item can be updated - controlled by sql)
         internal Orders Update(Guid id, Orders order)
         {
             var db = new SqlConnection(_connectionString);
@@ -116,7 +116,7 @@ namespace Taskinator.DataAccess
                         SET CustomerId = @CustomerId,
                             PaymentId = @PaymentId,
                             OrderTotal = @OrderTotal,
-                            DateTime = GETUTCDATE()
+                            OrderDate = GETUTCDATE()
                             OUTPUT inserted.*
                             WHERE Id = @Id AND orderDate is null";
             order.Id = id;

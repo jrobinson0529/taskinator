@@ -26,7 +26,7 @@ namespace Taskinator.Controllers
         }
 
         [HttpGet]
-        //Get all orders from database (admin function?)
+        //Get all orders from database (admin function)
         public IActionResult GetAllOrders()
         {
             return Ok(_ordersRepo.GetAllOrders());
@@ -55,7 +55,7 @@ namespace Taskinator.Controllers
             return Ok(_ordersRepo.GetOrdersToPlaceOrderOrDelete(customerId));
         }
 
-        // Create an order (in cart)
+        // Create an order in CART
         [HttpPost]
         public IActionResult CreateOrder(CreateOrderCommand command)
         {
@@ -65,11 +65,11 @@ namespace Taskinator.Controllers
             {
                 return NotFound("There was no matching user in the database");
             }
+            // this will be added when Payment method is added from Jesse
             //if (paymentToOrder == null)
             //{
             //    return NotFound("There was no matching payment in the database");
             //}
-
 
             var order = new Orders
             {
@@ -82,7 +82,7 @@ namespace Taskinator.Controllers
             return Created($"/api/orders/{order.Id}", order);
         }
 
-        // Update order
+        // Update order (only cart item can be updated, which is controlled by sql)
         [HttpPut("/updateOrder/{orderId}")]
         public IActionResult UpdateOrder(Guid orderId, Orders order)
         {
@@ -105,15 +105,15 @@ namespace Taskinator.Controllers
             var orderToUpdate = _ordersRepo.GetSingleOrderFromSpecificOrderId(orderId);
             if (orderToUpdate == null)
             {
-                return NotFound($"No order with {orderId} is found");
+                return NotFound($"No order with {orderId} is found or you have already placed an order");
             }
             var finalizedOrder = _ordersRepo.FinalizeOrder(orderId, order);
 
             return Ok(finalizedOrder);
         }
 
-        // Delete order (that is not placed yet) => Sql only selects order with null
-        // So it shows success to any order, but you are not actually deleting any order with orderdate
+        // Delete order in CART. Controlled by sql.
+        // It shows a success message with any order, but only data without orderDate can be deleted
         [HttpDelete("/deleteUnplacedOrder/{orderId}")]
 
         public IActionResult RemoveOrder(Guid orderId)
