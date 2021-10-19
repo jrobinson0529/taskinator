@@ -37,14 +37,24 @@ namespace Taskinator.Controllers
         [HttpGet("/allOrders/{customerId}")]
         public IActionResult GetAllOrdersFromACustomer(Guid customerId)
         {
-            return Ok(_ordersRepo.GetAllOrdersFromSpecificCustomer(customerId));
+            var orders = _ordersRepo.GetAllOrdersFromSpecificCustomer(customerId);
+            if (orders.ToList().Count == 0)
+            {
+                return NotFound($"No order found with {customerId} or the ID is incorrect.");
+            }
+            return Ok(orders);
         }
 
         // Get a single order
         [HttpGet("/singleOrder/{orderId}")]
         public IActionResult GetSingleOrder(Guid orderId)
         {
-            return Ok(_ordersRepo.GetSingleOrderFromSpecificOrderId(orderId));
+            var order = _ordersRepo.GetSingleOrderFromSpecificOrderId(orderId);
+            if (order.ToList().Count == 0)
+            {
+                return NotFound($"No order found with {orderId} or the ID is incorrect.");
+            }
+            return Ok(order);
         }
 
 
@@ -52,7 +62,12 @@ namespace Taskinator.Controllers
         [HttpGet("/cartItem/{customerId}")]
         public IActionResult GetOrderCartItem(Guid customerId)
         {
-            return Ok(_ordersRepo.GetOrdersToPlaceOrderOrDelete(customerId));
+            var order = _ordersRepo.GetOrdersToPlaceOrderOrDelete(customerId);
+            if (order.ToList().Count == 0)
+            {
+                return NotFound($"{customerId} does not have anything in the cart or the ID is incorrect.");
+            }
+            return Ok(order);
         }
 
         // Create an order in CART
@@ -82,45 +97,31 @@ namespace Taskinator.Controllers
             return Created($"/api/orders/{order.Id}", order);
         }
 
-        // Update order (only cart item can be updated, which is controlled by sql)
+        // Update order (only cart item can be updated)
+        // Sql does not update items with OrderDate even though success message shows.
         [HttpPut("/updateOrder/{orderId}")]
         public IActionResult UpdateOrder(Guid orderId, Orders order)
         {
-            var orderToUpdate = _ordersRepo.GetSingleOrderFromSpecificOrderId(orderId);
-
-            if (orderToUpdate == null)
-            {
-                return NotFound($"No order with {orderId} or you have already made a payment so that you cannot update the order");
-            }
             var updatedOrder = _ordersRepo.Update(orderId, order);
-
             return Ok(updatedOrder);
         }
 
-
-        // Place an order (assing date time to order date)
+        // Place an order (passing date time to order date)
+        // Sql does not update items with OrderDate even though success message shows.
         [HttpPut("/placeOrder/{orderId}")]
         public IActionResult FinalizeOrder(Guid orderId, Orders order)
         {
-            var orderToUpdate = _ordersRepo.GetSingleOrderFromSpecificOrderId(orderId);
-            if (orderToUpdate == null)
-            {
-                return NotFound($"No order with {orderId} is found or you have already placed an order");
-            }
             var finalizedOrder = _ordersRepo.FinalizeOrder(orderId, order);
-
             return Ok(finalizedOrder);
         }
 
-        // Delete order in CART. Controlled by sql.
-        // It shows a success message with any order, but only data without orderDate can be deleted
+        // Delete order in CART. 
+        // Sql does not update items with OrderDate even though success message shows.
         [HttpDelete("/deleteUnplacedOrder/{orderId}")]
-
         public IActionResult RemoveOrder(Guid orderId)
         {
             _ordersRepo.RemoveCartItem(orderId);
             return Ok();
         }
-
     }
 }

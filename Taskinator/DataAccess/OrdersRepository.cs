@@ -75,11 +75,10 @@ namespace Taskinator.DataAccess
             };
 
             var id = db.ExecuteScalar<Guid>(sql, parameters);
-
             order.Id = id;
         }
 
-        // Remove Order (only cart item can be removed - controlled by sql)
+        // Remove Order (only cart item can be removed)
         internal void RemoveCartItem(Guid orderId)
         {
             var db = new SqlConnection(_connectionString);
@@ -88,10 +87,9 @@ namespace Taskinator.DataAccess
                         WHERE Id = @orderId AND orderDate is null";           
 
             db.Execute(sql, new { orderId });
-
         }
 
-        // Update Order (only cart item can be updated - controlled by sql)
+        // Update Order (only cart item can be updated)
         internal Orders Update(Guid id, Orders order)
         {
             var db = new SqlConnection(_connectionString);
@@ -104,9 +102,7 @@ namespace Taskinator.DataAccess
             order.Id = id;
             var updatedOrder = db.QuerySingleOrDefault<Orders>(sql, order);
             return updatedOrder;
-
         }
-
 
         // Finalize order (this is to add datetime to finalize the order)
         internal object FinalizeOrder(Guid id, Orders order)
@@ -122,9 +118,6 @@ namespace Taskinator.DataAccess
             order.Id = id;
             var finalizedOrder = db.QuerySingleOrDefault<Orders>(sql, order);
             return finalizedOrder;
-        }
-
-        
-
+        }     
     }
 }
