@@ -16,5 +16,44 @@ namespace Taskinator.DataAccess
         {
             _connectionString = config.GetConnectionString("Taskinator");
         }
+
+        internal IEnumerable<Payments> GetPaymentOptionsByAccount(Guid accountNumber)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * FROM Payments
+                        WHERE accountNumber = @accountNumber";
+            var payments = db.Query<Payments>(sql, new { accountNumber });
+            return payments;
+        }
+
+        internal Payments GetPayment(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * FROM PAYMENTS
+                        WHERE id = @id";
+            var payment = db.QuerySingleOrDefault<Payments>(sql, new { id });
+            return payment;
+        }
+
+        internal Payments Add(Payments payment, Guid userId)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @$"INSERT INTO Payments(accountNumber, paymentType)
+                        OUTPUT INSERTED.id
+                        VALUES('{userId}', @paymentType)";
+            var id = db.ExecuteScalar<Guid>(sql, payment);
+            payment.Id = id;
+            return payment;
+        }
+
+        internal object Delete(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"DELETE FROM Payments
+                        OUTPUT DELETED.*
+                        WHERE id = @id";
+            var deletedPayment = db.QuerySingleOrDefault<Payments>(sql, new { id });
+            return deletedPayment;
+        }
     }
 }
