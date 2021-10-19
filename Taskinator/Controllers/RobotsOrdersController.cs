@@ -26,7 +26,7 @@ namespace Taskinator.Controllers
             return Ok(robotsOrders);
         }
 
-        [HttpGet("getRobotOrderById/{id}")]
+        [HttpGet("getSingleRobotOrderById/{id}")]
         public IActionResult GetSingleRobotsOrdersById(Guid id)
         {
             var robotsOrders = _robotsOrdersRepo.GetBySingleRobotsId(id);
@@ -38,7 +38,7 @@ namespace Taskinator.Controllers
             return Ok(robotsOrders);
         }
 
-        [HttpGet("getRobotOrderByOrderId/{orderId}")]
+        [HttpGet("getSingleRobotOrderByOrderId/{orderId}")]
         public IActionResult GetSingleRobotsOrdersByOrderId(Guid orderId)
         {
             var robotsOrders = _robotsOrdersRepo.GetByOrderId(orderId);
@@ -50,8 +50,8 @@ namespace Taskinator.Controllers
             return Ok(robotsOrders);
         }
 
-        [HttpDelete("deleteRobotOrderById/{id}")]
-        public IActionResult DeleteRobotsOrders(Guid id)
+        [HttpDelete("deleteSingleRobotOrderById/{id}")]
+        public IActionResult DeleteSingleRobotOrder(Guid id)
         {
             _robotsOrdersRepo.Remove(id);
 
