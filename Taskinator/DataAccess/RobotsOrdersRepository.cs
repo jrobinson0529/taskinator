@@ -26,6 +26,16 @@ namespace Taskinator.DataAccess
             return robotsOrders;
         }
 
+        internal object GetBySingleRobotsId(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"SELECT * FROM Robots_Orders
+                        WHERE id = @id";
+            var robotsOrders = db.QuerySingleOrDefault<RobotsOrders>(sql, new { id });
+            return robotsOrders;
+        }
+
         internal object GetByOrderId(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
