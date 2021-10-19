@@ -87,7 +87,7 @@ namespace Taskinator.Controllers
             if (robotOrderToUpdate is null) return NotFound($"No robot order with id '{id}' has been found.");
             var updatedRobotOrder = _robotsOrdersRepo.Update(id, robotOrder);
 
-            return Ok(updatedRobotOrder)
+            return Ok(updatedRobotOrder);
         }
     }
 }
