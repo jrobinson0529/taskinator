@@ -11,7 +11,6 @@ namespace Taskinator.Models
         public Guid PaymentId { get; set; }
         public decimal Total { get; set; }
         public DateTime OrderDate { get; set; }
-        public decimal Quantity { get; set; }
     }
 
 }

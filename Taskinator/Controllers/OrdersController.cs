@@ -35,24 +35,24 @@ namespace Taskinator.Controllers
         //Get all orders from a specific customer
 
         [HttpGet("/allOrders/{customerId}")]
-        public IActionResult GetAllOrdersFromACustomer(Guid id)
+        public IActionResult GetAllOrdersFromACustomer(Guid customerId)
         {
-            return Ok(_ordersRepo.GetAllOrdersFromSpecificCustomer(id));
+            return Ok(_ordersRepo.GetAllOrdersFromSpecificCustomer(customerId));
         }
 
         // Get a single order
         [HttpGet("/singleOrder/{orderId}")]
-        public IActionResult GetSingleOrderFromCustomer(Guid orderId)
+        public IActionResult GetSingleOrder(Guid orderId)
         {
-            return Ok(_ordersRepo.GetSingleOrderFromSpecificCustomer(orderId));
+            return Ok(_ordersRepo.GetSingleOrderFromSpecificOrderId(orderId));
         }
 
 
         // Get a cart item (Get an order that are not finalized for payment)
         [HttpGet("/cartItem/{customerId}")]
-        public IActionResult GetOrderCartItem(Guid id)
+        public IActionResult GetOrderCartItem(Guid customerId)
         {
-            return Ok(_ordersRepo.GetOrdersToPlaceOrderOrDelete(id));
+            return Ok(_ordersRepo.GetOrdersToPlaceOrderOrDelete(customerId));
         }
 
         // Create an order (in cart)
@@ -83,15 +83,43 @@ namespace Taskinator.Controllers
         }
 
         // Update order
+        [HttpPut("/updateOrder/{orderId}")]
+        public IActionResult UpdateOrder(Guid orderId, Orders order)
+        {
+            var orderToUpdate = _ordersRepo.GetSingleOrderFromSpecificOrderId(orderId);
+
+            if (orderToUpdate == null)
+            {
+                return NotFound($"No order with {orderId} or you have already made a payment so that you cannot update the order");
+            }
+            var updatedOrder = _ordersRepo.Update(orderId, order);
+
+            return Ok(updatedOrder);
+        }
+
 
         // Place an order (assing date time to order date)
+        [HttpPut("/placeOrder/{orderId}")]
+        public IActionResult FinalizeOrder(Guid orderId, Orders order)
+        {
+            var orderToUpdate = _ordersRepo.GetSingleOrderFromSpecificOrderId(orderId);
+            if (orderToUpdate == null)
+            {
+                return NotFound($"No order with {orderId} is found");
+            }
+            var finalizedOrder = _ordersRepo.FinalizeOrder(orderId, order);
 
-        // Delete order (that is not placed yet)
+            return Ok(finalizedOrder);
+        }
+
+        // Delete order (that is not placed yet) => Sql only selects order with null
+        // So it shows success to any order, but you are not actually deleting any order with orderdate
         [HttpDelete("/deleteUnplacedOrder/{orderId}")]
 
         public IActionResult RemoveOrder(Guid orderId)
         {
             _ordersRepo.RemoveCartItem(orderId);
+            return Ok();
         }
 
     }
