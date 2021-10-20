@@ -44,8 +44,8 @@ namespace Taskinator.DataAccess
 
             var sql = @"SELECT * FROM Robots_Orders
                         WHERE orderId = @id";
-            //var robotsOrders = db.QuerySingleOrDefault<RobotsOrders>(sql, new { id });
             var robotsOrders = db.Query<RobotsOrders>(sql, new { id });
+
             return robotsOrders;
         }
 

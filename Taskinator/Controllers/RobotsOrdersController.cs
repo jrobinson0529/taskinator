@@ -28,7 +28,7 @@ namespace Taskinator.Controllers
             return Ok(robotsOrders);
         }
 
-        // gets a single robot order by its id
+        // gets a single robot order by its specific id
         [HttpGet("getSingleRobotOrderById/{id}")]
         public IActionResult GetSingleRobotsOrdersById(Guid id)
         {
@@ -41,7 +41,7 @@ namespace Taskinator.Controllers
             return Ok(robotsOrders);
         }
 
-        // gets a single robot order by its order id
+        // gets a robot order or orders by its order id
         [HttpGet("getRobotOrderByOrderId/{orderId}")]
         public IActionResult GetRobotsOrdersByOrderId(Guid orderId)
         {
@@ -66,16 +66,12 @@ namespace Taskinator.Controllers
         [HttpDelete("deleteSingleRobotOrderById/{id}")]
         public IActionResult DeleteSingleRobotOrder(Guid id)
         {
+            var robotOrderToRemove = _robotsOrdersRepo.GetBySingleRobotOrderId(id);
+
+            if (robotOrderToRemove is null) return NotFound($"No robot order with id '{id}' has been found.");
             _robotsOrdersRepo.RemoveRobotOrder(id);
 
             return Ok($"Robot order number '{id}' has been deleted.");
-
-            //var robotOrderToRemove = _robotsOrdersRepo.GetBySingleRobotOrderId(id);
-
-            //if (robotOrderToRemove is null) return NotFound($"No robot order with id '{id}' has been found.");
-            //var removedRobotOrder = _robotsOrdersRepo.RemoveRobotOrder(id);
-
-            //return Ok(removedRobotOrder);
         }
 
         // update robot order day quantity by id
