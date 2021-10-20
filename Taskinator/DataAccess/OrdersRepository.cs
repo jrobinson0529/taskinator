@@ -16,5 +16,108 @@ namespace Taskinator.DataAccess
         {
             _connectionString = config.GetConnectionString("Taskinator");
         }
+
+        // Get all orders regardless of customer (maybe needed for admin)
+        internal IEnumerable<Orders> GetAllOrders()
+        {
+            var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * FROM Orders";
+            var orders = db.Query<Orders>(sql);
+            return orders;
+        }
+
+        // Get all orders from a specific customer 
+        internal IEnumerable<Orders> GetAllOrdersFromSpecificCustomer(Guid id)
+        {
+            var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT *
+                        FROM Orders
+                        WHERE customerId = @id";
+            var order = db.Query<Orders>(sql, new { id });
+            return order;
+        }
+
+        // Get a single order from order id
+        internal IEnumerable<Orders> GetSingleOrderFromSpecificOrderId(Guid orderId)
+        {
+            var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT *
+                        FROM Orders
+                        WHERE id = @orderId";
+            var order = db.Query<Orders>(sql, new { orderId });
+            return order;
+        }
+
+        // Get cart item (order is not placed yet)
+        internal IEnumerable<Orders> GetOrdersToPlaceOrderOrDelete(Guid id)
+        {
+            var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT *
+                        FROM Orders
+                        WHERE orderDate is null AND customerId = @id";
+            var order = db.Query<Orders>(sql, new { id });
+            return order;
+        }
+
+        // Place order (maybe when "place order" button is clicked)
+        internal void Add(Orders order)
+        {
+            var db = new SqlConnection(_connectionString);
+            var sql = @"INSERT INTO Orders(customerId, paymentId, orderTotal)
+                        OUTPUT INSERTED.Id
+                        VALUES(@customerId, @paymentId, @orderTotal)";
+
+            var parameters = new
+            {
+                customerId = order.CustomerId,
+                paymentId = order.PaymentId,
+                orderTotal = order.OrderTotal
+            };
+
+            var id = db.ExecuteScalar<Guid>(sql, parameters);
+            order.Id = id;
+        }
+
+        // Remove Order (only cart item can be removed)
+        internal void RemoveCartItem(Guid orderId)
+        {
+            var db = new SqlConnection(_connectionString);
+            var sql = @"DELETE
+                        FROM Orders
+                        WHERE Id = @orderId AND orderDate is null";           
+
+            db.Execute(sql, new { orderId });
+        }
+
+        // Update Order (only cart item can be updated)
+        internal Orders Update(Guid id, Orders order)
+        {
+            var db = new SqlConnection(_connectionString);
+            var sql = @"UPDATE Orders
+                        SET CustomerId = @CustomerId, 
+                             PaymentId = @PaymentId, 
+                             OrderTotal = @OrderTotal
+                             OUTPUT inserted.*
+                             WHERE Id = @Id AND orderDate is null";
+            order.Id = id;
+            var updatedOrder = db.QuerySingleOrDefault<Orders>(sql, order);
+            return updatedOrder;
+        }
+
+        // Finalize order (this is to add datetime to finalize the order)
+        internal object FinalizeOrder(Guid id, Orders order)
+        {
+            var db = new SqlConnection(_connectionString);
+            var sql = @"UPDATE Orders
+                        SET CustomerId = @CustomerId,
+                            PaymentId = @PaymentId,
+                            OrderTotal = @OrderTotal,
+                            OrderDate = GETUTCDATE()
+                            OUTPUT inserted.*
+                            WHERE Id = @Id AND orderDate is null";
+            order.Id = id;
+            var finalizedOrder = db.QuerySingleOrDefault<Orders>(sql, order);
+            return finalizedOrder;
+        }     
     }
 }
