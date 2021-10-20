@@ -11,6 +11,5 @@ namespace Taskinator.Models
         public Guid RobotId { get; set; }
         public Guid OrderId { get; set; }
         public short DayQuantity { get; set; }
-        
     }
 }
