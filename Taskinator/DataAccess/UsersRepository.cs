@@ -46,6 +46,26 @@ namespace Taskinator.DataAccess
                         
         }
 
+        internal object GetExpanded(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var userSql = @"SELECT * From Users
+                            WHERE id = @id";
+            var paymentSql = @"SELECT * FROM Payments
+                               WHERE accountNumber = @id";
+            var orderSql = @"SELECT * FROM Orders
+                             WHERE customerId = @id
+                             AND orderDate IS NULL";
+
+            var user = db.QuerySingleOrDefault<UsersExpanded>(userSql, new { id });
+            user.payments = db.Query<Payments>(paymentSql, new { id });
+            user.order = db.QuerySingleOrDefault<Orders>(orderSql, new { id });
+
+            return user;
+
+        }
+
         internal Guid Add(Users user)
         {
             using var db = new SqlConnection(_connectionString);
