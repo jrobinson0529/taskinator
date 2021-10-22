@@ -32,7 +32,7 @@ namespace Taskinator.Controllers
             return Ok(_usersRepo.GetAllDeleted());
         }
         // Get a single user by the user guid
-        [HttpGet("user/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetSingleUser(Guid id)
         {
             var user = _usersRepo.GetUserById(id);
@@ -41,7 +41,13 @@ namespace Taskinator.Controllers
 
             return Ok(user);
         }
-        
+        [HttpGet("expanded/{id}")]
+        public IActionResult GetUserExpanded(Guid id)
+        {
+            var expandedUser = _usersRepo.GetExpanded(id);
+            if (expandedUser is null) return NotFound($"No user with id - {id} exists in the database");
+            return Ok(expandedUser);
+        }
         // Add a single user
         [HttpPost]
         public IActionResult AddSingleUser(Users user)
