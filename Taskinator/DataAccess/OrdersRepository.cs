@@ -20,7 +20,7 @@ namespace Taskinator.DataAccess
         // Get all orders regardless of customer (maybe needed for admin)
         internal IEnumerable<Orders> GetAllOrders()
         {
-            var db = new SqlConnection(_connectionString);
+            using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT * FROM Orders";
             var orders = db.Query<Orders>(sql);
             return orders;
@@ -29,7 +29,7 @@ namespace Taskinator.DataAccess
         // Get all orders from a specific customer 
         internal IEnumerable<Orders> GetAllOrdersFromSpecificCustomer(Guid id)
         {
-            var db = new SqlConnection(_connectionString);
+            using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT *
                         FROM Orders
                         WHERE customerId = @id";
@@ -37,10 +37,31 @@ namespace Taskinator.DataAccess
             return order;
         }
 
-        // Get a single order from order id
+        //Get detailed order information from order id (add robots info in the future if necessary)
+        internal IEnumerable<OrdersExtended> GetDetailedOrder(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT *
+                        FROM Orders o
+                        JOIN Users u
+                        ON o.customerId = u.id
+                        JOIN Payments p
+                        ON o.paymentId = p.id
+                        WHERE o.id = @id";
+            var results = db.Query<OrdersExtended, Users, Payments, OrdersExtended>(sql, (order, user, payment) => 
+            {
+                order.customerInfo = user;
+                order.paymentInfo = payment;
+                return order;
+            }, new { id }, splitOn: "id");
+            
+            return results;
+        }
+
+        //Get a single order from order id
         internal IEnumerable<Orders> GetSingleOrderFromSpecificOrderId(Guid orderId)
         {
-            var db = new SqlConnection(_connectionString);
+            using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT *
                         FROM Orders
                         WHERE id = @orderId";
@@ -51,7 +72,7 @@ namespace Taskinator.DataAccess
         // Get cart item (order is not placed yet)
         internal IEnumerable<Orders> GetOrdersToPlaceOrderOrDelete(Guid id)
         {
-            var db = new SqlConnection(_connectionString);
+            using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT *
                         FROM Orders
                         WHERE orderDate is null AND customerId = @id";
@@ -62,7 +83,7 @@ namespace Taskinator.DataAccess
         // Place order (maybe when "place order" button is clicked)
         internal void Add(Orders order)
         {
-            var db = new SqlConnection(_connectionString);
+            using var db = new SqlConnection(_connectionString);
             var sql = @"INSERT INTO Orders(customerId, paymentId, orderTotal)
                         OUTPUT INSERTED.Id
                         VALUES(@customerId, @paymentId, @orderTotal)";
@@ -81,7 +102,7 @@ namespace Taskinator.DataAccess
         // Remove Order (only cart item can be removed)
         internal void RemoveCartItem(Guid orderId)
         {
-            var db = new SqlConnection(_connectionString);
+            using var db = new SqlConnection(_connectionString);
             var sql = @"DELETE
                         FROM Orders
                         WHERE Id = @orderId AND orderDate is null";           
@@ -92,7 +113,7 @@ namespace Taskinator.DataAccess
         // Update Order (only cart item can be updated)
         internal Orders Update(Guid id, Orders order)
         {
-            var db = new SqlConnection(_connectionString);
+            using var db = new SqlConnection(_connectionString);
             var sql = @"UPDATE Orders
                         SET CustomerId = @CustomerId, 
                              PaymentId = @PaymentId, 
@@ -107,7 +128,7 @@ namespace Taskinator.DataAccess
         // Finalize order (this is to add datetime to finalize the order)
         internal object FinalizeOrder(Guid id, Orders order)
         {
-            var db = new SqlConnection(_connectionString);
+            using var db = new SqlConnection(_connectionString);
             var sql = @"UPDATE Orders
                         SET CustomerId = @CustomerId,
                             PaymentId = @PaymentId,

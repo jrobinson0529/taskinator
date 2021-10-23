@@ -45,7 +45,19 @@ namespace Taskinator.Controllers
             return Ok(orders);
         }
 
-        // Get a single order
+        //Get user and payment info from orderId (add robots info in the future if necessary)
+        [HttpGet("/detailedOrderInfo/{orderId}")]
+        public IActionResult GetDetailedOrderInfo(Guid orderId)
+        {
+            var order = _ordersRepo.GetDetailedOrder(orderId);
+            if (order.ToList().Count == 0)
+            {
+                return NotFound($"No order found with {orderId} or the ID is incorrect.");
+            }
+            return Ok(order);
+        }
+
+        //Get a single order
         [HttpGet("/singleOrder/{orderId}")]
         public IActionResult GetSingleOrder(Guid orderId)
         {
