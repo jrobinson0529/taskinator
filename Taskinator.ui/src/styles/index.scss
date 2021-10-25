@@ -1,0 +1,11 @@
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import 'variables';
+
+#root {
+  color: white;
+  background-color: black;
+}
+body {
+  height: 100vh;
+  background-color: $favColor !important;
+}
