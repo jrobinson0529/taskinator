@@ -1,5 +1,4 @@
-import moment from 'moment';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 // import firebase from 'firebase/app';
 import { BrowserRouter as Router } from 'react-router-dom';
 import 'firebase/auth';
@@ -10,14 +9,6 @@ import NavBar from '../components/NavBar';
 function App() {
   // When you set up firebase add setUser method and change useState to null.
   const [user] = useState(false);
-  const [time, setTime] = useState('');
-  // Checking if MomentJS is working
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(moment().format('MMMM Do YYYY, h:mm:ss a'));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
   // Checking for authenticated users. You must set up firebase authentication for this to work!
   // useEffect(() => {
   //   firebase.auth().onAuthStateChanged((authed) => {
@@ -37,7 +28,7 @@ function App() {
     <div className='App'>
      <Router>
         <NavBar user={user}/>
-        <Routes time={time}/>
+        <Routes/>
       </Router>
     </div>
   );

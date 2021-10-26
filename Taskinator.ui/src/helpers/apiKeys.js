@@ -8,5 +8,7 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APP_ID,
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
-
-export default firebaseConfig;
+const apiConfig = {
+  apiUrl: process.env.API_URL
+};
+export { apiConfig, firebaseConfig };
