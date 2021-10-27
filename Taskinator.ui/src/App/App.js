@@ -32,7 +32,6 @@ function App() {
             createUser(userInfo).then(setUser);
           } else {
             setUser(response);
-            console.warn(user);
           }
         });
       } else if (user || user === null) {
@@ -40,7 +39,6 @@ function App() {
       }
     });
   }, []);
-  console.warn(user);
   return (
     <div className='App'>
      <Router>
