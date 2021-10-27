@@ -18,6 +18,5 @@ function Routes({ user }) {
 }
 Routes.propTypes = {
   user: PropTypes.any,
-  time: PropTypes.string,
 };
 export default Routes;

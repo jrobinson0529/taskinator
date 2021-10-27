@@ -49,6 +49,7 @@ namespace Taskinator
         {
             if (env.IsDevelopment())
             {
+                app.UseCors(cfg => cfg.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Taskinator v1"));

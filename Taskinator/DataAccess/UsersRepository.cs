@@ -46,6 +46,16 @@ namespace Taskinator.DataAccess
                         
         }
 
+        internal Users GetUserByGoogleId(string googleId)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * FROM Users
+                        WHERE googleId = @googleId";
+            var user = db.QuerySingleOrDefault<Users>(sql, new { googleId });
+            return user;
+
+        }
+
         internal object GetExpanded(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
@@ -69,9 +79,9 @@ namespace Taskinator.DataAccess
         internal Guid Add(Users user)
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @"INSERT INTO Users(imageUrl, username, firstName, lastName, email, billingAddress, isAdmin)
+            var sql = @"INSERT INTO Users(imageUrl, username, firstName, lastName, email, billingAddress, isAdmin, googleId)
                         OUTPUT INSERTED.id
-                        VALUES(@imageUrl, @username, @firstName, @lastName, @email, @billingAddress, @isAdmin)";
+                        VALUES(@imageUrl, @username, @firstName, @lastName, @email, @billingAddress, @isAdmin, @googleId)";
             var id = db.ExecuteScalar<Guid>(sql, user);
             user.Id = id;
 
