@@ -41,6 +41,15 @@ namespace Taskinator.Controllers
 
             return Ok(user);
         }
+        [HttpGet("uid/{id}")]
+        public IActionResult GetSingleUserByGoogleId(string id)
+        {
+            var user = _usersRepo.GetUserByGoogleId(id);
+
+            if (user is null) return Ok(null);
+
+            return Ok(user);
+        }
         [HttpGet("expanded/{id}")]
         public IActionResult GetUserExpanded(Guid id)
         {
