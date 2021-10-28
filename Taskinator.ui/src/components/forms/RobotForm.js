@@ -4,6 +4,7 @@ import {
 } from 'reactstrap';
 
 export default function RobotForm() {
+  const robotTypes = ['Cooking', 'Cleaning', 'Lawn Care', 'Murdering'];
   return (
     <Form className='p-5'>
       <Label>INFORMATION</Label>
@@ -26,11 +27,10 @@ export default function RobotForm() {
         <FormGroup>
         <Label for="category">CATEGORY</Label>
           <Input type="select" name="robotCategory" id="selectCategory">
-          <option value="">SELECT CATEGORY</option>
-          <option>CLEANING</option>
-          <option>LAWN CARE</option>
-          <option>COOKING</option>
-          <option>MURDERING</option>
+              <option value="">SELECT CATEGORY</option>
+              {robotTypes.map((robotType) => (
+                <option key={robotType}>{robotType}</option>
+              ))};
         </Input>
       </FormGroup>
         </Col>
