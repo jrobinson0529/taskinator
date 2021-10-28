@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
@@ -6,13 +5,4 @@
       "C:\\Users\\Lindsey Satterfield\\.nuget\\packages"
     ]
   }
-=======
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "C:\\Users\\Lindsey Satterfield\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Lindsey Satterfield\\.nuget\\packages"
-    ]
-  }
->>>>>>> Stashed changes
 }
