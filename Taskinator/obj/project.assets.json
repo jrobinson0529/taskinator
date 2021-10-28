@@ -1779,19 +1779,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Jesse\\.nuget\\packages\\": {}
+    "C:\\Users\\rober\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Jesse\\workspace\\projects\\group\\Taskinator\\Taskinator\\Taskinator.csproj",
+      "projectUniqueName": "C:\\Users\\rober\\Source\\Repos\\taskinator\\Taskinator\\Taskinator.csproj",
       "projectName": "Taskinator",
-      "projectPath": "C:\\Users\\Jesse\\workspace\\projects\\group\\Taskinator\\Taskinator\\Taskinator.csproj",
-      "packagesPath": "C:\\Users\\Jesse\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Jesse\\workspace\\projects\\group\\Taskinator\\Taskinator\\obj\\",
+      "projectPath": "C:\\Users\\rober\\Source\\Repos\\taskinator\\Taskinator\\Taskinator.csproj",
+      "packagesPath": "C:\\Users\\rober\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\rober\\Source\\Repos\\taskinator\\Taskinator\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Jesse\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\rober\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1848,7 +1848,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
       }
     }
   }
