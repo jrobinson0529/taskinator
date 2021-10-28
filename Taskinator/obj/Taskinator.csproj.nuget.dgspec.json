@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Jesse\\workspace\\projects\\group\\Taskinator\\Taskinator\\Taskinator.csproj": {}
+    "C:\\Users\\Lindsey Satterfield\\source\\repos\\taskinator\\Taskinator\\Taskinator.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Jesse\\workspace\\projects\\group\\Taskinator\\Taskinator\\Taskinator.csproj": {
+    "C:\\Users\\Lindsey Satterfield\\source\\repos\\taskinator\\Taskinator\\Taskinator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Jesse\\workspace\\projects\\group\\Taskinator\\Taskinator\\Taskinator.csproj",
+        "projectUniqueName": "C:\\Users\\Lindsey Satterfield\\source\\repos\\taskinator\\Taskinator\\Taskinator.csproj",
         "projectName": "Taskinator",
-        "projectPath": "C:\\Users\\Jesse\\workspace\\projects\\group\\Taskinator\\Taskinator\\Taskinator.csproj",
-        "packagesPath": "C:\\Users\\Jesse\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Jesse\\workspace\\projects\\group\\Taskinator\\Taskinator\\obj\\",
+        "projectPath": "C:\\Users\\Lindsey Satterfield\\source\\repos\\taskinator\\Taskinator\\Taskinator.csproj",
+        "packagesPath": "C:\\Users\\Lindsey Satterfield\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Lindsey Satterfield\\source\\repos\\taskinator\\Taskinator\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Jesse\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Lindsey Satterfield\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
