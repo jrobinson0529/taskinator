@@ -27,24 +27,24 @@ function App() {
           googleId: authed.uid,
         };
         // Checking for duplicate users
-        setUser(userInfo);
         getSingleUserByGoogleId(authed.uid).then((response) => {
           if (!response) {
             createUser(userInfo).then(setUser);
+          } else {
+            setUser(response);
           }
         });
       } else if (user || user === null) {
         setUser(false);
       }
-      console.warn(user);
     });
   }, []);
   return (
     <div className='App'>
      <Router>
         <NavBar user={user}/>
-        <Routes/>
-      </Router>
+        <Routes user={user}/>
+     </Router>
     </div>
   );
 }
