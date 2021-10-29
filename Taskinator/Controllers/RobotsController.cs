@@ -35,7 +35,7 @@ namespace Taskinator.Controllers
         }
 
         // Get a single robot
-        [HttpGet("robots/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetSingleRobot(Guid id)
         {
             var robot = _robotsRepo.GetRobotById(id);
@@ -44,7 +44,13 @@ namespace Taskinator.Controllers
 
             return Ok(robot);
         }
-
+        // Return 12 random robots
+        [HttpGet("random")]
+        public IActionResult GetTwelveRobots()
+        {
+            var robots = _robotsRepo.GetRandom();
+            return Ok(robots);
+        }
         // Get robots by category
         [HttpGet("{categoryId}/robots")]
         public IActionResult GetRobotsByCategory(Guid categoryId)
