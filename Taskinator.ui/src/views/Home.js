@@ -3,11 +3,13 @@ import HeroImage from '../components/HeroImage';
 import RobotForm from '../components/forms/RobotForm';
 import PaymentForm from '../components/forms/PaymentForm';
 import ProfileForm from '../components/forms/ProfileForm';
+import AboutUs from '../components/AboutUs';
 
 function Home() {
   return (
     <>
       <HeroImage/>
+      <AboutUs />
       <RobotForm />
       <PaymentForm />
       <ProfileForm />
