@@ -19,14 +19,18 @@ const NavBar = ({ user }) => {
 
   return (
     <div>
-      <Navbar color="dark" dark expand="md">
-        <NavbarBrand href="/">Home</NavbarBrand>
+      <Navbar className="nav" light expand="md">
+        <NavbarBrand href="/">
+          <img
+          src="https://user-images.githubusercontent.com/76854545/139351226-1ecd53ab-eb5f-426a-9aa0-977900e73ec2.png"
+          width="180"
+          className="d-inline-block align-top"
+          alt="React Bootstrap logo"
+        />
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            <NavItem>
-              <Link className="nav-link" to="/about">About</Link>
-            </NavItem>
             <NavItem>
               <Link className="nav-link" to="/users">Users</Link>
             </NavItem>
@@ -34,8 +38,8 @@ const NavBar = ({ user }) => {
           { user !== null
             && <div className='auth-btn-container'>
                 {
-                  user ? <Button color='danger' onClick={signOutUser}>SignOut?</Button>
-                    : <Button color='info' onClick={signInUser}>SignIN!</Button>
+                  user ? <Button className="signOut" onClick={signOutUser}>Sign Out</Button>
+                    : <Button className="signIn" onClick={signInUser}>Sign In</Button>
                 }
               </div>
             }
