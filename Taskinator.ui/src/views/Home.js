@@ -9,10 +9,10 @@ function Home() {
   return (
     <>
       <HeroImage/>
+      <AboutUs />
       <RobotForm />
       <PaymentForm />
       <ProfileForm />
-      <AboutUs />
     </>
   );
 }
