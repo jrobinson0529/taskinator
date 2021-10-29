@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
@@ -5,4 +6,13 @@
       "C:\\Users\\Lindsey Satterfield\\.nuget\\packages"
     ]
   }
+=======
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\uriru\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\uriru\\.nuget\\packages"
+    ]
+  }
+>>>>>>> 4b201fc3d7c3ae67268733e69f0b2707260fba27
 }
