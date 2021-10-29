@@ -8,7 +8,7 @@ function RandomRobotsContainer() {
     getRandomRobots().then(setRobots);
   }, []);
   return (
-    <CardGroup>
+    <CardGroup className='w-75 mx-auto p-5 justify-content-center'>
       {
         robots?.map((robot) => (
         <RobotCard key={robot.id} {...robot}/>
