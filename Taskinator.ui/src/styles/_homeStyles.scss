@@ -1,0 +1,25 @@
+.hero-image {
+  // background-image: url('');
+  // background-position: center;
+  // background-repeat: no-repeat;
+  // background-size: cover;
+  background-color: #ffffff;
+  width:100%;
+  padding: 80px 60px;
+  color: #333333;
+}
+
+.hero-text {
+  display: block;
+  position: relative;
+  color: #333333;
+  padding-top: 100px;
+  text-align: left;
+
+  h2 {
+    font-weight: 700;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    text-align: left;
+  }
+}
