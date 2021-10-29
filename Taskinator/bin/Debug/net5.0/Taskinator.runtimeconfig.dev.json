@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
@@ -5,4 +6,13 @@
       "C:\\Users\\rober\\.nuget\\packages"
     ]
   }
+=======
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\uriru\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\uriru\\.nuget\\packages"
+    ]
+  }
+>>>>>>> master
 }
