@@ -1,22 +1,18 @@
 import React from 'react';
+import RandomRobotsContainer from '../components/RandomRobotsContainer';
 import HeroImage from '../components/HeroImage';
-import RobotForm from '../components/forms/RobotForm';
-import PaymentForm from '../components/forms/PaymentForm';
-import ProfileForm from '../components/forms/ProfileForm';
 import AboutUs from '../components/AboutUs';
 
 function Home() {
   return (
     <>
+      <h1>Welcome to home</h1>
       <HeroImage/>
       <AboutUs />
-      <RobotForm />
-      <PaymentForm />
-      <ProfileForm />
+      <h2>Check it out!</h2>
+      <RandomRobotsContainer />
     </>
   );
 }
-Home.propTypes = {
-};
 
 export default Home;

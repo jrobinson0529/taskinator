@@ -47,6 +47,15 @@ namespace Taskinator.DataAccess
             return robot;
 
         }
+
+        internal IEnumerable<Robots> GetRandom()
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT TOP 12 * FROM [Robots] ORDER BY newid();";
+            var robots = db.Query<Robots>(sql);
+            return robots;
+        }
+
         internal IEnumerable<Robots> GetRobotsByCategoryId(Guid categoryId)
         {
             using var db = new SqlConnection(_connectionString);
