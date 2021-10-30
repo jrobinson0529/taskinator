@@ -14,7 +14,8 @@ export default function RobotForm() {
     description: '',
     available: true,
   });
-  const robotTypes = ['Cooking', 'Cleaning', 'Lawn Care', 'Murdering'];
+  // const robotTypes = ['Cooking', 'Cleaning', 'Lawn Care', 'Murdering'];
+  const categories = ['7cb84331-6135-40ee-9806-60cebd755f1f', 'f81a7280-8b3e-4865-8568-9ada95b19b17', '7aaf5030-971c-4d5c-abcf-d95ebd418ee3', '5b8edfe1-6001-4080-8464-f04d893d1fb0'];
   // const availability = [0, 1];
   const handleInputChange = (e) => {
     setRobot((prevState) => ({
@@ -51,7 +52,7 @@ export default function RobotForm() {
           <FormGroup>
             <Label for="price">PRICE</Label>
             <Input
-              type="number"
+              type=""
               name="price"
               id="robotPrice"
               value={robot.price}
@@ -72,8 +73,8 @@ export default function RobotForm() {
               onChange={handleInputChange}
               id="selectCategory">
               <option value="">SELECT CATEGORY</option>
-              {robotTypes.map((robotType) => (
-                <option key={robotType}>{robotType}</option>
+              {categories.map((category) => (
+                <option key={category}>{category}</option>
               ))};
         </Input>
       </FormGroup>
