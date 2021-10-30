@@ -2,6 +2,7 @@ import React from 'react';
 import RandomRobotsContainer from '../components/RandomRobotsContainer';
 import HeroImage from '../components/HeroImage';
 import AboutUs from '../components/AboutUs';
+import RobotForm from '../components/forms/RobotForm';
 
 function Home() {
   return (
@@ -11,6 +12,8 @@ function Home() {
       <AboutUs />
       <h2>Check it out!</h2>
       <RandomRobotsContainer />
+
+      <RobotForm />
     </>
   );
 }
