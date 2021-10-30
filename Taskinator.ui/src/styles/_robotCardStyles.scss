@@ -1,0 +1,18 @@
+.robot-card-group {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 75%;
+  justify-content: center;
+  margin: 100px auto;   //w-75 justify-content-center mx-auto flex-wrap
+}
+.robot-card {
+  padding: 5px;
+  margin: 10px 20px ;
+  width: 11em;
+  height: 100%;
+  .card-body {
+    padding: 5px;
+    margin: 5px;
+  }
+}
