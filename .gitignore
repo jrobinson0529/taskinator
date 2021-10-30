@@ -4,6 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # User-specific files
+Properties/
 *.rsuser
 *.suo
 *.user
@@ -31,6 +32,7 @@ bld/
 obj/
 [Ll]og/
 [Ll]ogs/
+obj/debug
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -385,4 +387,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 .idea/
-*.sln.iml
+*.sln.
