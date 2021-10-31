@@ -1,31 +1,34 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   Form, Row, Col, FormGroup, Label, Input, Button
 } from 'reactstrap';
 import { createRobot } from '../../helpers/data/robotData';
 
-export default function RobotForm() {
+export default function RobotForm({ robotCategories }) {
   const [robot, setRobot] = useState({
-    // id: '',
     categoryId: '',
     imageUrl: '',
     title: '',
     price: '',
     description: '',
-    available: true,
+    available: '',
   });
-  // const robotTypes = ['Cooking', 'Cleaning', 'Lawn Care', 'Murdering'];
-  const categories = ['7cb84331-6135-40ee-9806-60cebd755f1f', 'f81a7280-8b3e-4865-8568-9ada95b19b17', '7aaf5030-971c-4d5c-abcf-d95ebd418ee3', '5b8edfe1-6001-4080-8464-f04d893d1fb0'];
-  // const availability = [0, 1];
   const handleInputChange = (e) => {
     setRobot((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value === 'categoryId' ? e.target.selected : e.target.value
     }));
   };
+  const handleCheckChange = (e) => {
+    setRobot((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.checked
+    }));
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    createRobot(robot).then((response) => console.warn(response));
+    createRobot(robot).then((response) => setRobot(response));
   };
   return (
     <Form
@@ -69,12 +72,11 @@ export default function RobotForm() {
             <Input
               type="select"
               name="categoryId"
-              value={robot.categoryId}
               onChange={handleInputChange}
               id="selectCategory">
               <option value="">SELECT CATEGORY</option>
-              {categories.map((category) => (
-                <option key={category}>{category}</option>
+              {robotCategories.map((category) => (
+                <option key={category.id} value={category.id}>{category.title}</option>
               ))};
         </Input>
       </FormGroup>
@@ -93,24 +95,6 @@ export default function RobotForm() {
           </FormGroup>
         </Col>
       </Row>
-      {/* <Row form>
-        <Col md={6}>
-        <FormGroup>
-        <Label for="available">Available</Label>
-            <Input
-              type="select"
-              name="available"
-              value={robot.available}
-              onChange={handleInputChange}
-              id="availability">
-              <option value="">Availability</option>
-              {availability.map((avail) => (
-                <option key={availability}>{avail}</option>
-              ))};
-        </Input>
-        </FormGroup>
-        </Col>
-      </Row> */}
       <FormGroup>
         <Label for="description">DESCRIPTION</Label>
         <Input
@@ -122,7 +106,23 @@ export default function RobotForm() {
           placeholder="murder murder murder murder"
         />
       </FormGroup>
+      <FormGroup check>
+        <Input
+          type="checkbox"
+          name="available"
+          id="availabile"
+          checked={robot.available}
+          onChange={handleCheckChange}
+        />
+        <Label check>
+          Available
+        </Label>
+      </FormGroup>
       <Button>Add Robot</Button>
     </Form>
   );
 }
+
+RobotForm.propTypes = {
+  robotCategories: PropTypes.any
+};

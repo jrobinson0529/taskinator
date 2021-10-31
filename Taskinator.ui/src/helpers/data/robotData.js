@@ -8,7 +8,7 @@ const getRandomRobots = () => new Promise((resolve, reject) => {
 });
 
 const createRobot = (robotObj) => new Promise((resolve, reject) => {
-  axios.post(`${apiUrl}/Robots`, robotObj).then((response) => console.warn(response.data)).catch(reject);
+  axios.post(`${apiUrl}/Robots`, robotObj).then((response) => resolve(response.data)).catch(reject);
 });
 
 // eslint-disable-next-line import/prefer-default-export
