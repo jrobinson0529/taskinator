@@ -29,13 +29,6 @@ Routes.propTypes = {
 };
 export default Routes;
 
-function Services() {
-  return (
-     <div>
-       Services
-     </div>
-  );
-}
 // function Robot() {
 //   const { id } = useParams();
 //   return (
