@@ -29,15 +29,6 @@ Routes.propTypes = {
 };
 export default Routes;
 
-// function Robot() {
-//   const { id } = useParams();
-//   return (
-//      <div>
-//        robot number {id}
-//      </div>
-//   );
-// }
-
 function SingleService() {
   const { id } = useParams();
   return (
