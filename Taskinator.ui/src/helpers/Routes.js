@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import PrivateRouteAdmin from './PrivateRouteAdmin';
 import PrivateRoute from './PrivateRoute';
 import Home from '../views/Home';
+import Robot from '../views/Robot';
 
 function Routes({ user }) {
   return (
@@ -34,14 +35,14 @@ function Services() {
      </div>
   );
 }
-function Robot() {
-  const { id } = useParams();
-  return (
-     <div>
-       robot number {id}
-     </div>
-  );
-}
+// function Robot() {
+//   const { id } = useParams();
+//   return (
+//      <div>
+//        robot number {id}
+//      </div>
+//   );
+// }
 
 function SingleService() {
   const { id } = useParams();

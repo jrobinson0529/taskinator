@@ -7,5 +7,11 @@ const getRandomRobots = () => new Promise((resolve, reject) => {
   axios.get(`${apiUrl}/Robots/random`).then((response) => resolve(response.data)).catch(reject);
 });
 
+const getSingleRobot = (id) => new Promise((resolve, reject) => {
+  axios.get(`${apiUrl}/Robots/${id}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
 // eslint-disable-next-line import/prefer-default-export
-export { getRandomRobots };
+export { getRandomRobots, getSingleRobot };
