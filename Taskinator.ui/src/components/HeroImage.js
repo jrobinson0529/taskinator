@@ -14,7 +14,7 @@ export default function HeroImage() {
           </div>
         </Col>
         <Col>
-        <img src="https://user-images.githubusercontent.com/76854545/139349776-b53fec6e-85bb-4fad-bf61-b00bfcdb2810.png" width="250px" />
+        <img src="https://user-images.githubusercontent.com/76854545/139540763-66a9298d-0bf5-4938-9a14-1ebbc933f28c.png" width="250px" />
         </Col>
       </Row>
     </Container>

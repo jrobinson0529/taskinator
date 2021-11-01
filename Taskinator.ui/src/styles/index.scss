@@ -2,11 +2,12 @@
 @import 'variables';
 @import 'homeStyles';
 @import 'navStyles';
+@import 'servicesStyles';
 @import 'robotCardStyles';
 
 #root {
   color: white;
-  background-color: black;
+  background-color: #202020;
 }
 body {
   height: 100vh;

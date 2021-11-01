@@ -14,7 +14,6 @@ function Home({ user }) {
   }, []);
   return (
     <>
-      <h1>Welcome to home</h1>
       <HeroImage/>
       <AboutUs />
       <h2>Check it out!</h2>

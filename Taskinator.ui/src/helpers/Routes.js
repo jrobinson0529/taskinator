@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import PrivateRouteAdmin from './PrivateRouteAdmin';
 import PrivateRoute from './PrivateRoute';
 import Home from '../views/Home';
+import Services from '../views/Services';
 
 function Routes({ user }) {
   return (
@@ -27,13 +28,6 @@ Routes.propTypes = {
 };
 export default Routes;
 
-function Services() {
-  return (
-     <div>
-       Services
-     </div>
-  );
-}
 function Robot() {
   const { id } = useParams();
   return (
