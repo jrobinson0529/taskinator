@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Form, Row, Col, FormGroup, Label, Input, Button
 } from 'reactstrap';
 
-export default function ProfileForm() {
+export default function ProfileForm({ user }) {
   const countries = ['United States', 'Mexico', 'Canada'];
+  console.warn(user);
   return (
     <Form className='p-5'>
       <Label>Information</Label>
@@ -17,8 +19,11 @@ export default function ProfileForm() {
         </Col>
         <Col md={6}>
           <FormGroup>
-            <Label for="username">USERNAME</Label>
-            <Input type="text" name="username" id="username" placeholder="murderbot" />
+            <Label for="username">EMAIL</Label>
+            {user
+              ? <Input type="text" name="username" value={user.email} id="username" />
+              : <Input type="text" name="username" id="username" placeholder="murderbot" />
+            }
           </FormGroup>
         </Col>
       </Row>
@@ -38,7 +43,10 @@ export default function ProfileForm() {
         <Col md={6}>
           <FormGroup>
             <Label for="url">PROFILE IMAGE</Label>
-            <Input type="url" name="profileImage" id="profileImage" placeholder="murderbots.com" />
+            {user
+              ? <Input type="url" name="profileImage" value={user.imageUrl} id="profileImage" placeholder="murderbots.com" />
+              : <Input type="url" name="profileImage" id="profileImage" placeholder="murderbots.com" />
+            }
           </FormGroup>
         </Col>
       </Row>
@@ -58,3 +66,7 @@ export default function ProfileForm() {
     </Form>
   );
 }
+
+ProfileForm.propTypes = {
+  user: PropTypes.any
+};
