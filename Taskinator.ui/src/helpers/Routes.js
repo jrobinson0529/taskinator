@@ -5,6 +5,7 @@ import PrivateRouteAdmin from './PrivateRouteAdmin';
 import PrivateRoute from './PrivateRoute';
 import Home from '../views/Home';
 import Robot from '../views/Robot';
+import Services from '../views/Services';
 
 function Routes({ user }) {
   return (

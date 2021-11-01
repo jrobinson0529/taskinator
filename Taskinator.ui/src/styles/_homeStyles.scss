@@ -1,18 +1,13 @@
 .hero-image {
-  // background-image: url('');
-  // background-position: center;
-  // background-repeat: no-repeat;
-  // background-size: cover;
-  background-color: #ffffff;
   width:100%;
   padding: 80px 60px;
-  color: #333333;
+  color: white;
 }
 
 .hero-text {
   display: block;
   position: relative;
-  color: #333333;
+  color: white;
   padding-top: 100px;
   text-align: left;
 
@@ -22,4 +17,9 @@
     text-transform: uppercase;
     text-align: left;
   }
+}
+
+.about-us-container {
+  background-color: #141414;
+  padding: 50px 100px;
 }
