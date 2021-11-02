@@ -1,3 +1,20 @@
 .services-title {
   padding-bottom: 70px;
 }
+
+.robot-services-group {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  margin: 50px auto;
+}
+
+.feat-services-cont {
+  padding-top: 30px;
+  background-color: #303030;
+  h3{
+    padding-top: 50px;
+  }
+}
