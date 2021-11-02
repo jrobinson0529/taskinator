@@ -43,7 +43,7 @@ function App() {
     <div className='App'>
      <Router>
         <NavBar user={user}/>
-        <Routes user={user}/>
+        <Routes user={user} setUser={setUser}/>
      </Router>
     </div>
   );
