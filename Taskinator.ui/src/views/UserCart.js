@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getCartItem } from '../helpers/data/orderData';
+import CartCard from '../components/CartCard';
 
 export default function UserCart({ user }) {
   const [cart, setCart] = useState([]);
@@ -17,6 +18,7 @@ export default function UserCart({ user }) {
       {cart.map((cartItem) => (
         <div key={cartItem.id}>{cartItem.id}</div>
       ))}
+      <CartCard cart={cart}/>
      </div>
   );
 }

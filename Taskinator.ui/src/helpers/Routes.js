@@ -65,15 +65,6 @@ function EditRobot() {
   );
 }
 
-function UserProfile({ user }) {
-  const { id } = useParams();
-  console.warn(user);
-  return (
-     <div>
-       user number {id}
-     </div>
-  );
-}
 // function UserCart() {
 //   const { id } = useParams();
 //   return (

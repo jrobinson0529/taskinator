@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Collapse,
@@ -16,10 +16,6 @@ const NavBar = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
-  const history = useHistory();
-  const handleClick = () => {
-    history.push(`/cart/${user.id}`);
-  };
 
   return (
     <div>
@@ -47,7 +43,7 @@ const NavBar = ({ user }) => {
                 {
                   user
                     ? <NavItem>
-                        <Link className="nav-link" to="/cart/:id" ><Button onClick={() => handleClick()}><i className="fas fa-shopping-cart" ></i></Button></Link>
+                        <Link className="nav-link" to={`/cart/${user?.id}`}><i className="fas fa-shopping-cart" ></i></Link>
                         <Button className="signOut" onClick={signOutUser}>Sign Out</Button>
                       </NavItem>
                     : <Button className="signIn" onClick={signInUser}>Sign In</Button>
