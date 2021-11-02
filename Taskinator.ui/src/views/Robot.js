@@ -7,12 +7,11 @@ export default function Robot() {
   const { id } = useParams();
 
   useEffect(() => {
-    getSingleRobot(id)
-      .then(setRobot);
+    getSingleRobot(id).then(setRobot);
   }, []);
 
   return (
-    <div>
+    <div className="singleRobotContainer">
       <img src={robot.imageUrl} className="singleRobotImg" alt="image of robot"/>
       <h1 className="singleRobotTitle">{robot.title}</h1>
       <h2 className="singleRobotPrice">Price: ${robot.price} per day</h2>
