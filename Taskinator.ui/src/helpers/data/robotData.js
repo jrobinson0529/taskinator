@@ -19,7 +19,12 @@ const getRobotByCategory = (categoryId) => new Promise((resolve, reject) => {
   axios.get(`${apiUrl}/Robots/${categoryId}/robots`).then((response) => resolve(response.data)).catch(reject);
 });
 
-// eslint-disable-next-line import/prefer-default-export
+const getSingleRobot = (id) => new Promise((resolve, reject) => {
+  axios.get(`${apiUrl}/Robots/${id}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
 export {
-  getRandomRobots, createRobot, getRobotByCategory, getRobots
+  getRandomRobots, createRobot, getSingleRobot, getRobotByCategory, getRobots
 };
