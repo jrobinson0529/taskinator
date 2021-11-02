@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 import PrivateRouteAdmin from './PrivateRouteAdmin';
 import PrivateRoute from './PrivateRoute';
 import Home from '../views/Home';
+import Profile from '../views/Profile';
 import Services from '../views/Services';
 import SingleService from '../views/SingleService';
 
-function Routes({ user }) {
+function Routes({ user, setUser }) {
   return (
     <div>
       <Switch>
@@ -17,7 +18,7 @@ function Routes({ user }) {
         <Route exact path="/robot/:id" component={() => <Robot />} />
         <PrivateRouteAdmin exact path="/create/robot" component={() => <CreateRobot/>} user={user}/>
         <PrivateRouteAdmin exact path="/edit/robot/:id" component={() => <EditRobot/>} user={user}/>
-        <PrivateRoute exact path="/user/:id" component={() => <UserProfile user={user}/>} user={user}/>
+        <PrivateRoute exact path="/user/:id" component={() => <Profile user={user} setUser={setUser}/>} user={user}/>
         <PrivateRoute exact path="/cart/:id" component={() => <UserCart user={user}/>} user={user}/>
         <PrivateRoute exact path="/checkout/:id" component={() => <UserCheckout user={user}/>} user={user}/>
       </Switch>
@@ -26,6 +27,7 @@ function Routes({ user }) {
 }
 Routes.propTypes = {
   user: PropTypes.any,
+  setUser: PropTypes.func,
 };
 export default Routes;
 
@@ -63,15 +65,6 @@ function EditRobot() {
   );
 }
 
-function UserProfile({ user }) {
-  const { id } = useParams();
-  console.warn(user);
-  return (
-     <div>
-       user number {id}
-     </div>
-  );
-}
 function UserCart() {
   const { id } = useParams();
   return (
@@ -88,6 +81,3 @@ function UserCheckout() {
      </div>
   );
 }
-UserProfile.propTypes = {
-  user: PropTypes.any,
-};

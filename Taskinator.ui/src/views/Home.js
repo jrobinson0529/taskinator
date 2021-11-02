@@ -5,9 +5,8 @@ import HeroImage from '../components/HeroImage';
 import AboutUs from '../components/AboutUs';
 import RobotForm from '../components/forms/RobotForm';
 import getRobotCategories from '../helpers/data/robotCategoryData';
-import ProfileForm from '../components/forms/ProfileForm';
 
-function Home({ user }) {
+function Home() {
   const [robotCategories, setRobotCategories] = useState([]);
   useEffect(() => {
     getRobotCategories().then((response) => setRobotCategories(response));
@@ -20,7 +19,6 @@ function Home({ user }) {
       <RandomRobotsContainer />
 
       <RobotForm robotCategories={robotCategories} />
-      <ProfileForm user={user}/>
 
     </>
   );
