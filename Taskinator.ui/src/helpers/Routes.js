@@ -5,6 +5,7 @@ import PrivateRouteAdmin from './PrivateRouteAdmin';
 import PrivateRoute from './PrivateRoute';
 import Home from '../views/Home';
 import Services from '../views/Services';
+import SingleService from '../views/SingleService';
 
 function Routes({ user }) {
   return (
@@ -37,14 +38,14 @@ function Robot() {
   );
 }
 
-function SingleService() {
-  const { id } = useParams();
-  return (
-     <div>
-       service number {id}
-     </div>
-  );
-}
+// function SingleService() {
+//   const { id } = useParams();
+//   return (
+//      <div>
+//        service number {id}
+//      </div>
+//   );
+// }
 
 function CreateRobot() {
   return (

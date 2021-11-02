@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Container, Row } from 'reactstrap';
+import { useHistory } from 'react-router-dom';
+import {
+  Button, Col, Container, Row
+} from 'reactstrap';
 import RobotCard from '../components/RobotCard';
 import ServicesHero from '../components/ServicesHero';
 import { getRobotByCategory } from '../helpers/data/robotData';
@@ -21,6 +24,12 @@ function Services() {
   useEffect(() => {
     getRobotByCategory('5b8edfe1-6001-4080-8464-f04d893d1fb0').then(setMurderRobots);
   }, []);
+
+  const history = useHistory();
+  const handleClick = () => {
+    history.push(`/service/${categoryId}`);
+  };
+
   return (
     <>
     <ServicesHero/>
@@ -29,7 +38,7 @@ function Services() {
       <Container>
         <Row>
           <Col sm={2}>
-            <h3>Cooking</h3>
+            <Button onClick={() => handleClick()}>Cooking</Button>
           </Col>
           <Col sm={10}>
             <div className='robot-services-group'>
