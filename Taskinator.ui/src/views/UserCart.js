@@ -14,10 +14,9 @@ export default function UserCart({ user }) {
   return (
     <div>
       <h1>CART ITEM</h1>
-      {/* {cart.map((cartItem) => (
+      {cart.map((cartItem) => (
         <div key={cartItem.id}>{cartItem.id}</div>
-        <CartItem />
-      ))} */}
+      ))}
      </div>
   );
 }
