@@ -19,10 +19,10 @@ const NavBar = ({ user }) => {
 
   return (
     <div>
-      <Navbar className="nav" light expand="md">
+      <Navbar className="nav" dark light expand="md">
         <NavbarBrand href="/">
           <img
-          src="https://user-images.githubusercontent.com/76854545/139351226-1ecd53ab-eb5f-426a-9aa0-977900e73ec2.png"
+          src="https://user-images.githubusercontent.com/76854545/139541065-de118223-26e2-404d-8197-f31e2325c907.png"
           width="180"
           className="d-inline-block align-top"
           alt="React Bootstrap logo"
@@ -33,6 +33,9 @@ const NavBar = ({ user }) => {
           <Nav className="mr-auto" navbar>
             <NavItem>
               <Link className="nav-link" to={`/user/${user?.id}`}>Users</Link>
+            </NavItem>
+            <NavItem>
+              <Link className="nav-link" to="/services">Robot Services</Link>
             </NavItem>
           </Nav>
           { user !== null
