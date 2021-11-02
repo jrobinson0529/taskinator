@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import PrivateRouteAdmin from './PrivateRouteAdmin';
 import PrivateRoute from './PrivateRoute';
 import Home from '../views/Home';
+import Robot from '../views/Robot';
 import Profile from '../views/Profile';
 import Services from '../views/Services';
 import UserCart from '../views/UserCart';
@@ -30,15 +31,6 @@ Routes.propTypes = {
   setUser: PropTypes.func,
 };
 export default Routes;
-
-function Robot() {
-  const { id } = useParams();
-  return (
-     <div>
-       robot number {id}
-     </div>
-  );
-}
 
 function SingleService() {
   const { id } = useParams();

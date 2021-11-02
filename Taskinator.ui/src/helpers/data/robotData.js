@@ -11,5 +11,11 @@ const createRobot = (robotObj) => new Promise((resolve, reject) => {
   axios.post(`${apiUrl}/Robots`, robotObj).then((response) => resolve(response.data)).catch(reject);
 });
 
+const getSingleRobot = (id) => new Promise((resolve, reject) => {
+  axios.get(`${apiUrl}/Robots/${id}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
 // eslint-disable-next-line import/prefer-default-export
-export { getRandomRobots, createRobot };
+export { getRandomRobots, createRobot, getSingleRobot };
