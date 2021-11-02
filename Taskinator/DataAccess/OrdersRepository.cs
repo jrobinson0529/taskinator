@@ -47,11 +47,17 @@ namespace Taskinator.DataAccess
                         ON o.customerId = u.id
                         JOIN Payments p
                         ON o.paymentId = p.id
+                        JOIN Robots_Orders ro
+                        ON ro.orderId = o.id
+                        JOIN Robots r
+                        ON r.id = ro.robotId
                         WHERE o.id = @id";
-            var results = db.Query<OrdersExtended, Users, Payments, OrdersExtended>(sql, (order, user, payment) => 
+            var results = db.Query<OrdersExtended, Users, Payments, RobotsOrders, Robots, OrdersExtended>(sql, (order, user, payment, robotOrder, robot) => 
             {
                 order.customerInfo = user;
                 order.paymentInfo = payment;
+                order.robotOrderInfo = robotOrder;
+                order.robotInfo = robot;
                 return order;
             }, new { id }, splitOn: "id");
             

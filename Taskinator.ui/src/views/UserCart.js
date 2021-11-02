@@ -1,29 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getCartItem } from '../helpers/data/orderData';
-import CartCard from '../components/CartCard';
 
 export default function UserCart({ user }) {
   const [cart, setCart] = useState([]);
-  let { id } = useParams();
-  id = user.id;
 
   useEffect(() => {
-    getCartItem(id).then((data) => setCart(data));
+    getCartItem(user?.id).then((data) => setCart(data));
   }, []);
   return (
     <div>
       <h1>CART ITEM</h1>
       {cart.map((cartItem) => (
-        <div key={cartItem.id}>{cartItem.id}</div>
+        <div key={cartItem.id}>
+          <h6>{user.firstName}&apos;s cart</h6>
+        </div>
       ))}
-      <CartCard cart={cart}/>
      </div>
   );
 }
 
 UserCart.propTypes = {
-  user: PropTypes.any,
-  id: PropTypes.string
+  user: PropTypes.any
 };
