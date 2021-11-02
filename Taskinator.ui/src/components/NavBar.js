@@ -36,7 +36,7 @@ const NavBar = ({ user }) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <Link className="nav-link" to="/users">Users</Link>
+              <Link className="nav-link" to={`/user/${user?.id}`}>Users</Link>
             </NavItem>
             <NavItem>
               <Link className="nav-link" to="/services">Robot Services</Link>
