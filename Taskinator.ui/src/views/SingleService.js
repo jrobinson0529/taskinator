@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import {
   useParams
 } from 'react-router-dom';
+import CookingRobotsContainer from '../components/CookingRobotsContainer';
 import { getRobotByCategory } from '../helpers/data/robotData';
 
 export default function SingleService() {
@@ -13,6 +14,7 @@ export default function SingleService() {
 
   return (
     <>
+    <CookingRobotsContainer/>
       <h2>Am I working?</h2>
     </>
   );

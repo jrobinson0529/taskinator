@@ -7,7 +7,7 @@ import RobotCard from '../components/RobotCard';
 import ServicesHero from '../components/ServicesHero';
 import { getRobotByCategory } from '../helpers/data/robotData';
 
-function Services() {
+function Services({ ...robots }) {
   const [cookingRobots, setCookingRobots] = useState([]);
   useEffect(() => {
     getRobotByCategory('7aaf5030-971c-4d5c-abcf-d95ebd418ee3').then(setCookingRobots);
@@ -27,7 +27,7 @@ function Services() {
 
   const history = useHistory();
   const handleClick = () => {
-    history.push(`/service/${categoryId}`);
+    history.push(`/services/${robots.categoryId}`);
   };
 
   return (
