@@ -5,6 +5,7 @@ import PrivateRouteAdmin from './PrivateRouteAdmin';
 import PrivateRoute from './PrivateRoute';
 import Home from '../views/Home';
 import Services from '../views/Services';
+import UserCart from '../views/UserCart';
 
 function Routes({ user }) {
   return (
@@ -71,14 +72,14 @@ function UserProfile({ user }) {
      </div>
   );
 }
-function UserCart() {
-  const { id } = useParams();
-  return (
-     <div>
-       cart number {id}
-     </div>
-  );
-}
+// function UserCart() {
+//   const { id } = useParams();
+//   return (
+//      <div>
+//        cart number {id}
+//      </div>
+//   );
+// }
 function UserCheckout() {
   const { id } = useParams();
   return (
