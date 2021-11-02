@@ -5,31 +5,31 @@ import {
 } from 'reactstrap';
 import RobotCard from '../components/RobotCard';
 import ServicesHero from '../components/ServicesHero';
+import getRobotCategories from '../helpers/data/robotCategoryData';
 import { getRobotByCategory } from '../helpers/data/robotData';
 
-function Services({ ...robots }) {
+function Services() {
+  const [robots, setRobots] = useState([]);
+  const history = useHistory();
+  useEffect(() => {
+    getRobotCategories().then(setRobots);
+  }, []);
   const [cookingRobots, setCookingRobots] = useState([]);
+  const [choresRobots, setChoresRobots] = useState([]);
+  const [murderRobots, setMurderRobots] = useState([]);
+  const [lawnCareRobots, setLawnCareRobots] = useState([]);
   useEffect(() => {
     getRobotByCategory('7aaf5030-971c-4d5c-abcf-d95ebd418ee3').then(setCookingRobots);
   }, []);
-  const [choresRobots, setChoresRobots] = useState([]);
-  useEffect(() => {
-    getRobotByCategory('7cb84331-6135-40ee-9806-60cebd755f1f').then(setChoresRobots);
-  }, []);
-  const [lawnCareRobots, setLawnCareRobots] = useState([]);
-  useEffect(() => {
-    getRobotByCategory('f81a7280-8b3e-4865-8568-9ada95b19b17').then(setLawnCareRobots);
-  }, []);
-  const [murderRobots, setMurderRobots] = useState([]);
   useEffect(() => {
     getRobotByCategory('5b8edfe1-6001-4080-8464-f04d893d1fb0').then(setMurderRobots);
   }, []);
-
-  const history = useHistory();
-  const handleClick = () => {
-    history.push(`/services/${robots.categoryId}`);
-  };
-
+  useEffect(() => {
+    getRobotByCategory('7cb84331-6135-40ee-9806-60cebd755f1f').then(setChoresRobots);
+  }, []);
+  useEffect(() => {
+    getRobotByCategory('f81a7280-8b3e-4865-8568-9ada95b19b17').then(setLawnCareRobots);
+  }, []);
   return (
     <>
     <ServicesHero/>
@@ -38,13 +38,13 @@ function Services({ ...robots }) {
       <Container>
         <Row>
           <Col sm={2}>
-            <Button onClick={() => handleClick()}>Cooking</Button>
+            <Button onClick={() => history.push(`/services/${robots[2].id}`)}>Cooking</Button>
           </Col>
           <Col sm={10}>
             <div className='robot-services-group'>
               {
                 cookingRobots?.slice(0, 4).map((robot) => (
-                <RobotCard key={robot.id} {...robot}/>
+                  <RobotCard key={robots.id} {...robot}/>
                 ))
               }
             </div>
@@ -52,13 +52,13 @@ function Services({ ...robots }) {
         </Row>
         <Row>
           <Col sm={2}>
-            <h3>Chores</h3>
+          <Button onClick={() => history.push(`/services/${robots[0].id}`)}>Chores</Button>
           </Col>
           <Col sm={10}>
               <div className='robot-services-group'>
             {
               choresRobots?.slice(0, 4).map((robot) => (
-              <RobotCard key={robot.id} {...robot}/>
+                <RobotCard key={robots.id} {...robot}/>
               ))
             }
             </div>
@@ -66,13 +66,13 @@ function Services({ ...robots }) {
         </Row>
         <Row>
           <Col sm={2}>
-            <h3>Lawn Care</h3>
+          <Button onClick={() => history.push(`/services/${robots[1].id}`)}>Lawn Care</Button>
           </Col>
           <Col sm={10}>
           <div className='robot-services-group'>
         {
           lawnCareRobots?.slice(0, 4).map((robot) => (
-          <RobotCard key={robot.id} {...robot}/>
+            <RobotCard key={robots.id} {...robot}/>
           ))
         }
             </div>
@@ -80,14 +80,14 @@ function Services({ ...robots }) {
         </Row>
         <Row>
           <Col sm={2}>
-            <h3>Murder</h3>
+          <Button onClick={() => history.push(`/services/${robots[3].id}`)}>Lawn Care</Button>
           </Col>
           <Col sm={10}>
               <div className='robot-services-group'>
             {
-              murderRobots?.slice(0, 4).map((robot) => (
-              <RobotCard key={robot.id} {...robot}/>
-              ))
+             murderRobots?.slice(0, 4).map((robot) => (
+              <RobotCard key={robots.id} {...robot}/>
+             ))
             }
           </div>
           </Col>

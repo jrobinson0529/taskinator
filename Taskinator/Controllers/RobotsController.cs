@@ -57,7 +57,7 @@ namespace Taskinator.Controllers
         {
             var robot = _robotsRepo.GetRobotsByCategoryId(categoryId);
 
-            if (robot is null) return NotFound($"No robot with categoryId - {categoryId} exists in the database");
+            if (robot is null) return Ok(null);
 
             return Ok(robot);
         }
