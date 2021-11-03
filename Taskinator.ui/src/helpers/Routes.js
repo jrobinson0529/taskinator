@@ -7,11 +7,8 @@ import Home from '../views/Home';
 import Robot from '../views/Robot';
 import Profile from '../views/Profile';
 import Services from '../views/Services';
-<<<<<<< HEAD
 import SingleService from '../views/SingleService';
-=======
 import UserCart from '../views/UserCart';
->>>>>>> origin
 
 function Routes({ user, setUser }) {
   return (
