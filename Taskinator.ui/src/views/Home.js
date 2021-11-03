@@ -4,7 +4,7 @@ import RandomRobotsContainer from '../components/RandomRobotsContainer';
 import HeroImage from '../components/HeroImage';
 import AboutUs from '../components/AboutUs';
 import RobotForm from '../components/forms/RobotForm';
-import getRobotCategories from '../helpers/data/robotCategoryData';
+import { getRobotCategories } from '../helpers/data/robotCategoryData';
 
 function Home() {
   const [robotCategories, setRobotCategories] = useState([]);

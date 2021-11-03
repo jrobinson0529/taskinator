@@ -7,6 +7,7 @@ import Home from '../views/Home';
 import Robot from '../views/Robot';
 import Profile from '../views/Profile';
 import Services from '../views/Services';
+import SingleService from '../views/SingleService';
 import UserCart from '../views/UserCart';
 
 function Routes({ user, setUser }) {
@@ -15,7 +16,7 @@ function Routes({ user, setUser }) {
       <Switch>
         <Route exact path="/" component={() => <Home user={user}/>} />
         <Route exact path="/services" component={() => <Services />} />
-        <Route exact path="/services/:id" component={() => <SingleService />} />
+        <Route exact path="/services/:categoryId" component={() => <SingleService />} />
         <Route exact path="/robot/:id" component={() => <Robot />} />
         <PrivateRouteAdmin exact path="/create/robot" component={() => <CreateRobot/>} user={user}/>
         <PrivateRouteAdmin exact path="/edit/robot/:id" component={() => <EditRobot/>} user={user}/>
@@ -32,14 +33,14 @@ Routes.propTypes = {
 };
 export default Routes;
 
-function SingleService() {
-  const { id } = useParams();
-  return (
-     <div>
-       service number {id}
-     </div>
-  );
-}
+// function SingleService() {
+//   const { id } = useParams();
+//   return (
+//      <div>
+//        service number {id}
+//      </div>
+//   );
+// }
 
 function CreateRobot() {
   return (
