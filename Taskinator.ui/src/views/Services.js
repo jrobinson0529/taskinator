@@ -80,7 +80,7 @@ function Services() {
         </Row>
         <Row>
           <Col sm={2}>
-          <Button onClick={() => history.push(`/services/${robots[3].id}`)}>Lawn Care</Button>
+          <Button onClick={() => history.push(`/services/${robots[3].id}`)}>Murdering</Button>
           </Col>
           <Col sm={10}>
               <div className='robot-services-group'>
