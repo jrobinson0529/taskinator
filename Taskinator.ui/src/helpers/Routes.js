@@ -7,6 +7,7 @@ import Home from '../views/Home';
 import Robot from '../views/Robot';
 import Profile from '../views/Profile';
 import Services from '../views/Services';
+import UserCart from '../views/UserCart';
 
 function Routes({ user, setUser }) {
   return (
@@ -56,14 +57,14 @@ function EditRobot() {
   );
 }
 
-function UserCart() {
-  const { id } = useParams();
-  return (
-     <div>
-       cart number {id}
-     </div>
-  );
-}
+// function UserCart() {
+//   const { id } = useParams();
+//   return (
+//      <div>
+//        cart number {id}
+//      </div>
+//   );
+// }
 function UserCheckout() {
   const { id } = useParams();
   return (

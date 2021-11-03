@@ -41,7 +41,11 @@ const NavBar = ({ user }) => {
           { user !== null
             && <div className='auth-btn-container'>
                 {
-                  user ? <Button className="signOut" onClick={signOutUser}>Sign Out</Button>
+                  user
+                    ? <NavItem className='nav-cart-signout'>
+                        <Link className="nav-link" to={`/cart/${user?.id}`}><i className="fas fa-shopping-cart" ></i></Link>
+                        <Button className="signOut" onClick={signOutUser}>Sign Out</Button>
+                      </NavItem>
                     : <Button className="signIn" onClick={signInUser}>Sign In</Button>
                 }
               </div>
