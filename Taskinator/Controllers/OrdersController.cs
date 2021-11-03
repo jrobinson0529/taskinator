@@ -34,7 +34,7 @@ namespace Taskinator.Controllers
 
         //Get all orders from a specific customer
 
-        [HttpGet("/allOrders/{customerId}")]
+        [HttpGet("allOrders/{customerId}")]
         public IActionResult GetAllOrdersFromACustomer(Guid customerId)
         {
             var orders = _ordersRepo.GetAllOrdersFromSpecificCustomer(customerId);
@@ -46,7 +46,7 @@ namespace Taskinator.Controllers
         }
 
         //Get user and payment info from orderId (add robots info in the future if necessary)
-        [HttpGet("/detailedOrderInfo/{orderId}")]
+        [HttpGet("detailedOrderInfo/{orderId}")]
         public IActionResult GetDetailedOrderInfo(Guid orderId)
         {
             var order = _ordersRepo.GetDetailedOrder(orderId);
@@ -58,7 +58,7 @@ namespace Taskinator.Controllers
         }
 
         //Get a single order
-        [HttpGet("/singleOrder/{orderId}")]
+        [HttpGet("singleOrder/{orderId}")]
         public IActionResult GetSingleOrder(Guid orderId)
         {
             var order = _ordersRepo.GetSingleOrderFromSpecificOrderId(orderId);
@@ -71,7 +71,7 @@ namespace Taskinator.Controllers
 
 
         // Get a cart item (Get an order that are not finalized for payment)
-        [HttpGet("/cartItem/{customerId}")]
+        [HttpGet("cartItem/{customerId}")]
         public IActionResult GetOrderCartItem(Guid customerId)
         {
             var order = _ordersRepo.GetOrdersToPlaceOrderOrDelete(customerId);
@@ -107,12 +107,12 @@ namespace Taskinator.Controllers
             };
             _ordersRepo.Add(order);
 
-            return Created($"/api/orders/{order.Id}", order);
+            return Created($"orders/{order.Id}", order);
         }
 
         // Update order (only cart item can be updated)
         // Sql does not update items with OrderDate even though success message shows.
-        [HttpPut("/updateOrder/{orderId}")]
+        [HttpPut("updateOrder/{orderId}")]
         public IActionResult UpdateOrder(Guid orderId, Orders order)
         {
             var updatedOrder = _ordersRepo.Update(orderId, order);
@@ -121,7 +121,7 @@ namespace Taskinator.Controllers
 
         // Place an order (passing date time to order date)
         // Sql does not update items with OrderDate even though success message shows.
-        [HttpPut("/placeOrder/{orderId}")]
+        [HttpPut("placeOrder/{orderId}")]
         public IActionResult FinalizeOrder(Guid orderId, Orders order)
         {
             var finalizedOrder = _ordersRepo.FinalizeOrder(orderId, order);
@@ -130,7 +130,7 @@ namespace Taskinator.Controllers
 
         // Delete order in CART. 
         // Sql does not update items with OrderDate even though success message shows.
-        [HttpDelete("/deleteUnplacedOrder/{orderId}")]
+        [HttpDelete("deleteUnplacedOrder/{orderId}")]
         public IActionResult RemoveOrder(Guid orderId)
         {
             _ordersRepo.RemoveCartItem(orderId);
