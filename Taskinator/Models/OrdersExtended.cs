@@ -10,7 +10,8 @@ namespace Taskinator.Models
         public Users customerInfo { get; set; }
         public Payments paymentInfo { get; set; }
 
-        //something to add in the future if necessary
-        //public RobotsOrders robotOrderInfo { get; set; }
+        public RobotsOrders robotOrderInfo { get; set; }
+
+        public Robots robotInfo { get; set; }
     }
 }
