@@ -5,7 +5,7 @@ import 'firebase/auth';
 import './App.scss';
 import Routes from '../helpers/Routes';
 import NavBar from '../components/NavBar';
-import { createUser, getSingleUserByGoogleId } from '../helpers/data/userData';
+import { getSingleUserByGoogleId } from '../helpers/data/userData';
 
 function App() {
   // When you set up firebase add setUser method and change useState to null.
@@ -14,27 +14,10 @@ function App() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authed) => {
       if (authed) {
-        const firstName = authed.displayName.split(' ')[0];
-        const lastName = authed.displayName.split(' ')[1];
-        const userInfo = {
-          imageUrl: authed.photoURL,
-          firstName,
-          lastName,
-          username: authed.email.split('@gmail.com')[0],
-          email: authed.email,
-          billingAddress: ' ',
-          isAdmin: false,
-          googleId: authed.uid,
-        };
-        // Checking for duplicate users
-        getSingleUserByGoogleId(authed.uid).then((response) => {
-          if (!response) {
-            createUser(userInfo).then(setUser);
-          } else {
-            setUser(response);
-          }
-        });
-      } else if (user || user === null) {
+        // eslint-disable-next-line no-undef
+        authed.getIdToken().then((token) => localStorage.setItem('token', token));
+        getSingleUserByGoogleId(authed.uid).then((response) => setUser(response));
+      } else {
         setUser(false);
       }
     });
@@ -42,7 +25,7 @@ function App() {
   return (
     <div className='App'>
      <Router>
-        <NavBar user={user}/>
+        <NavBar user={user} setUser={setUser}/>
         <Routes user={user} setUser={setUser}/>
      </Router>
     </div>
