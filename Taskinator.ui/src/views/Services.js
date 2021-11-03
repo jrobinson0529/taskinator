@@ -5,7 +5,7 @@ import {
 } from 'reactstrap';
 import RobotCard from '../components/RobotCard';
 import ServicesHero from '../components/ServicesHero';
-import getRobotCategories from '../helpers/data/robotCategoryData';
+import { getRobotCategories } from '../helpers/data/robotCategoryData';
 import { getRobotByCategory } from '../helpers/data/robotData';
 
 function Services() {
