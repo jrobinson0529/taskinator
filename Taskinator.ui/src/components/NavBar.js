@@ -12,7 +12,7 @@ import {
 } from 'reactstrap';
 import { signInUser, signOutUser } from '../helpers/auth';
 
-const NavBar = ({ user }) => {
+const NavBar = ({ user, setUser }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -37,25 +37,24 @@ const NavBar = ({ user }) => {
             <NavItem>
               <Link className="nav-link" to="/services">Robot Services</Link>
             </NavItem>
-          </Nav>
-          { user !== null
-            && <div className='auth-btn-container'>
+          </Nav><div className='auth-btn-container'>
                 {
+                  // eslint-disable-next-line no-nested-ternary
                   user
                     ? <NavItem className='nav-cart-signout'>
                         <Link className="nav-link" to={`/cart/${user?.id}`}><i className="fas fa-shopping-cart" ></i></Link>
                         <Button className="signOut" onClick={signOutUser}>Sign Out</Button>
                       </NavItem>
-                    : <Button className="signIn" onClick={signInUser}>Sign In</Button>
+                    : <Button className="signIn" onClick={() => signInUser(setUser)}>Sign In</Button>
                 }
               </div>
-            }
         </Collapse>
       </Navbar>
     </div>
   );
 };
 NavBar.propTypes = {
-  user: PropTypes.any
+  user: PropTypes.any,
+  setUser: PropTypes.func,
 };
 export default NavBar;

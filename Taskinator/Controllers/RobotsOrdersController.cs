@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using Taskinator.Models;
 namespace Taskinator.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class RobotsOrdersController : ControllerBase
     {
