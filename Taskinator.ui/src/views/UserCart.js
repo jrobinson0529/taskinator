@@ -9,7 +9,6 @@ export default function UserCart({ user }) {
       getDetailedOrderFromOrderId(response.id).then((cartObj) => setCart(cartObj));
     });
   }, []);
-  console.warn(cart);
   return (
     <div>
       <h6>{user.firstName}&apos;s cart</h6>

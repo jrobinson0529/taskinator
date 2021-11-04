@@ -31,12 +31,12 @@ function App() {
         if (response.length === 0) {
           const cartInfo = {
             userId: user?.id,
-            paymentId: 'cf245dfd-20e2-4745-90a0-e7a6fa1e1655',
+            paymentId: 'eeaa9dae-3229-4190-ad73-70b25023aa73',
             orderTotal: 0,
           };
-          createCart(cartInfo).then((res) => setCart(res));
+          createCart(cartInfo).then((cartObj) => setCart(cartObj));
         } else {
-          getCartItem(user.id).then((r) => setCart(r));
+          getCartItem(user.id).then((cartObj) => setCart(cartObj));
         }
       });
     }
