@@ -16,4 +16,10 @@ const getDetailedOrderFromOrderId = (id) => new Promise((resolve, reject) => {
   axios.get(`${apiUrl}/Orders/detailedOrderInfo/${id}`).then((response) => resolve(response.data)).catch(reject);
 });
 
-export { getCartItem, getRobotFromOrderId, getDetailedOrderFromOrderId };
+const createCart = (cartObj) => new Promise((resolve, reject) => {
+  axios.post(`${apiUrl}/Orders`, cartObj).then((response) => resolve(response.data)).catch(reject);
+});
+
+export {
+  getCartItem, getRobotFromOrderId, getDetailedOrderFromOrderId, createCart
+};

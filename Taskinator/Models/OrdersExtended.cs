@@ -12,6 +12,7 @@ namespace Taskinator.Models
 
         public RobotsOrders robotOrderInfo { get; set; }
 
+        //public IEnumerable<Robots> robotInfo { get; set; }
         public Robots robotInfo { get; set; }
     }
 }

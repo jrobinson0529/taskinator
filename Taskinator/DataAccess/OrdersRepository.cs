@@ -37,7 +37,7 @@ namespace Taskinator.DataAccess
             return order;
         }
 
-        //Get detailed order information from order id (add robots info in the future if necessary)
+        //Get detailed order information from order id(add robots info in the future if necessary)
         internal IEnumerable<OrdersExtended> GetDetailedOrder(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
@@ -52,7 +52,7 @@ namespace Taskinator.DataAccess
                         JOIN Robots r
                         ON r.id = ro.robotId
                         WHERE o.id = @id";
-            var results = db.Query<OrdersExtended, Users, Payments, RobotsOrders, Robots, OrdersExtended>(sql, (order, user, payment, robotOrder, robot) => 
+            var results = db.Query<OrdersExtended, Users, Payments, RobotsOrders, Robots, OrdersExtended>(sql, (order, user, payment, robotOrder, robot) =>
             {
                 order.customerInfo = user;
                 order.paymentInfo = payment;
@@ -60,10 +60,28 @@ namespace Taskinator.DataAccess
                 order.robotInfo = robot;
                 return order;
             }, new { id }, splitOn: "id");
-            
+
             return results;
         }
 
+        //internal object GetDetailedOrder(Guid id)
+        //{
+        //    using var db = new SqlConnection(_connectionString);
+        //    var sql = @"SELECT *
+        //                FROM Orders o
+        //                WHERE o.id = @id";
+
+        //    var robotSql = @"SELECT ro.*
+        //                    FROM Robots_Orders ro
+        //                    JOIN Robots r
+        //                    ON r.id = ro.robotId
+        //                    WHERE ro.orderId = @id";
+        //    var order = db.QuerySingleOrDefault<OrdersExtended>(sql, new { id });
+        //    order.robotInfo = db.Query<Robots>(robotSql, new { id });
+
+
+        //    return order;
+        //}
         //Get a single order from order id
         internal IEnumerable<Orders> GetSingleOrderFromSpecificOrderId(Guid orderId)
         {

@@ -50,7 +50,7 @@ namespace Taskinator.Controllers
         public IActionResult GetDetailedOrderInfo(Guid orderId)
         {
             var order = _ordersRepo.GetDetailedOrder(orderId);
-            if (order.ToList().Count == 0)
+            if (order is null)
             {
                 return NotFound($"No order found with {orderId} or the ID is incorrect.");
             }
