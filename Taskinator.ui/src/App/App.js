@@ -6,10 +6,12 @@ import './App.scss';
 import Routes from '../helpers/Routes';
 import NavBar from '../components/NavBar';
 import { getSingleUserByGoogleId } from '../helpers/data/userData';
+import { createCart, getCartItem } from '../helpers/data/orderData';
 
 function App() {
   // When you set up firebase add setUser method and change useState to null.
   const [user, setUser] = useState(null);
+  const [cart, setCart] = useState(null);
   // Checking for authenticated users. You must set up firebase authentication for this to work!
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authed) => {
@@ -22,11 +24,28 @@ function App() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      getCartItem(user.id).then((response) => {
+        if (response.length === 0) {
+          const cartInfo = {
+            userId: user?.id,
+            paymentId: 'cf245dfd-20e2-4745-90a0-e7a6fa1e1655',
+            orderTotal: 0,
+          };
+          createCart(cartInfo).then((res) => setCart(res));
+        } else {
+          getCartItem(user.id).then((r) => setCart(r));
+        }
+      });
+    }
+  }, []);
   return (
     <div className='App'>
      <Router>
-        <NavBar user={user} setUser={setUser}/>
-        <Routes user={user} setUser={setUser}/>
+        <NavBar user={user} setUser={setUser} cart={cart}/>
+        <Routes user={user} setUser={setUser} cart={cart}/>
      </Router>
     </div>
   );

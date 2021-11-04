@@ -75,10 +75,6 @@ namespace Taskinator.Controllers
         public IActionResult GetOrderCartItem(Guid customerId)
         {
             var order = _ordersRepo.GetOrdersToPlaceOrderOrDelete(customerId);
-            if (order.ToList().Count == 0)
-            {
-                return NotFound($"{customerId} does not have anything in the cart or the ID is incorrect.");
-            }
             return Ok(order);
         }
 

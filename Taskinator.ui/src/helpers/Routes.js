@@ -10,7 +10,7 @@ import Services from '../views/Services';
 import SingleService from '../views/SingleService';
 import UserCart from '../views/UserCart';
 
-function Routes({ user, setUser }) {
+function Routes({ user, setUser, cart }) {
   return (
     <div>
       <Switch>
@@ -21,7 +21,7 @@ function Routes({ user, setUser }) {
         <PrivateRouteAdmin exact path="/create/robot" component={() => <CreateRobot/>} user={user}/>
         <PrivateRouteAdmin exact path="/edit/robot/:id" component={() => <EditRobot/>} user={user}/>
         <PrivateRoute exact path="/user/:id" component={() => <Profile user={user} setUser={setUser}/>} user={user}/>
-        <PrivateRoute exact path="/cart/:id" component={() => <UserCart user={user}/>} user={user}/>
+        <PrivateRoute exact path="/cart/:id" component={() => <UserCart user={user} cart={cart} />} user={user} cart={cart}/>
         <PrivateRoute exact path="/checkout/:id" component={() => <UserCheckout user={user}/>} user={user}/>
       </Switch>
     </div>
@@ -30,6 +30,7 @@ function Routes({ user, setUser }) {
 Routes.propTypes = {
   user: PropTypes.any,
   setUser: PropTypes.func,
+  cart: PropTypes.any
 };
 export default Routes;
 

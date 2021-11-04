@@ -94,13 +94,13 @@ namespace Taskinator.DataAccess
         }
 
         // Get cart item (order is not placed yet)
-        internal IEnumerable<Orders> GetOrdersToPlaceOrderOrDelete(Guid id)
+        internal Orders GetOrdersToPlaceOrderOrDelete(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT *
                         FROM Orders
                         WHERE orderDate is null AND customerId = @id";
-            var order = db.Query<Orders>(sql, new { id });
+            var order = db.QuerySingleOrDefault<Orders>(sql, new { id });
             return order;
         }
 
