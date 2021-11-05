@@ -30,31 +30,3 @@ export default function UserCart({ user }) {
 UserCart.propTypes = {
   user: PropTypes.any,
 };
-
-// export default function UserCart({ user }) {
-//   const [cart, setCart] = useState([]);
-//   useEffect(() => {
-//     getCartItem(user.id).then((response) => {
-//       getDetailedOrderFromOrderId(response.id).then((cartObj) => setCart(cartObj));
-//     });
-//   }, []);
-//   console.warn(cart);
-//   return (
-//     <div>
-//       <h6>{user.firstName}&apos;s cart</h6>
-//       <h1>CART</h1>
-//       {cart.map((item) => (
-//         <div key={item.robotOrderInfo.id}>
-//           <h1>{item.robotInfo.title}</h1>
-//           <img src={item.robotInfo.imageUrl} />
-//           <label htmlFor="days">DAYS</label>
-//             <select name="days" id="days">
-//               <option>{item.robotOrderInfo.dayQuantity}</option>
-//             </select>
-//           <h2>{item.robotOrderInfo.dayQuantity} days</h2>
-//           <h2>{item.robotInfo.price * item.robotOrderInfo.dayQuantity} dollars</h2>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
