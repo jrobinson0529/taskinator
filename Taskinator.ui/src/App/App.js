@@ -27,7 +27,7 @@ function App() {
       <Router>
         <NavBar user={user} setUser={setUser}/>
         <Routes user={user} setUser={setUser}/>
-     </Router>
+      </Router>
     </div>
   );
 }
