@@ -18,13 +18,15 @@ export default function Robot() {
   const handleInputChange = (e) => {
     setRobot((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value === 'dayQuantity' ? e.target.selected : e.target.value
+      [e.target.name]: e.target.value
     }));
   };
 
+  console.warn(robot);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.warn('hello');
+    console.warn(robot.dayQuantity);
   };
 
   return (
@@ -41,12 +43,13 @@ export default function Robot() {
               name="dayQuantity"
               onChange={handleInputChange}
               id="selectDayQuantity">
+              <option value="" hidden># of days needed?</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
           </Input>
         </FormGroup>
-      <Button onClick={handleSubmit}>ADD TO CART</Button>
+        <Button onClick={handleSubmit}>ADD TO CART</Button>
       </Form>
     </div>
   );
