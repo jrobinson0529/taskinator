@@ -45,7 +45,7 @@ namespace Taskinator.Controllers
             return Ok(orders);
         }
 
-        //Get user and payment info from orderId (add robots info in the future if necessary)
+        ////Get user and payment info from orderId (add robots info in the future if necessary)
         [HttpGet("detailedOrderInfo/{orderId}")]
         public IActionResult GetDetailedOrderInfo(Guid orderId)
         {
@@ -55,6 +55,14 @@ namespace Taskinator.Controllers
                 return NotFound($"No order found with {orderId} or the ID is incorrect.");
             }
             return Ok(order);
+        }
+
+        //Get expanded order
+        [HttpGet("expandedOrder/{orderId}")]
+        public IActionResult GetExpanded(Guid orderId)
+        {
+            var expandedOrder = _ordersRepo.GetOrderExpanded(orderId);
+            return Ok(expandedOrder);
         }
 
         //Get a single order

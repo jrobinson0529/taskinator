@@ -38,7 +38,7 @@ namespace Taskinator.DataAccess
         }
 
         //Get detailed order information from order id(add robots info in the future if necessary)
-        internal IEnumerable<OrdersExtended> GetDetailedOrder(Guid id)
+        internal object GetDetailedOrder(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT *
@@ -56,32 +56,37 @@ namespace Taskinator.DataAccess
             {
                 order.customerInfo = user;
                 order.paymentInfo = payment;
-                order.robotOrderInfo = robotOrder;
-                order.robotInfo = robot;
+                order.robotOrder = robotOrder;
+                order.robotsInformation = robot;
                 return order;
             }, new { id }, splitOn: "id");
 
             return results;
         }
 
-        //internal object GetDetailedOrder(Guid id)
-        //{
-        //    using var db = new SqlConnection(_connectionString);
-        //    var sql = @"SELECT *
-        //                FROM Orders o
-        //                WHERE o.id = @id";
+        internal object GetOrderExpanded(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT *
+                        FROM Orders o
+                        JOIN Users u
+                        ON o.customerId = u.id
+                        JOIN Payments p
+                        ON o.paymentId = p.id
+                        WHERE o.id = @id";
+            var robotSql = @"SELECT *
+                            FROM Robots_Orders ro
+                            JOIN Robots r
+                            ON r.id = ro.robotId
+                            WHERE ro.orderId = @id";
+            var order = db.QuerySingleOrDefault<OrdersExtended>(sql, new { id });
+            order.customerInfo = db.QuerySingleOrDefault<Users>(sql, new { id });
+            order.paymentInfo = db.QuerySingleOrDefault<Payments>(sql, new { id });
+            order.robotOrderInfo = db.Query<RobotsOrders>(robotSql, new { id });
+            order.robotInfo = db.Query<Robots>(robotSql, new { id });
 
-        //    var robotSql = @"SELECT ro.*
-        //                    FROM Robots_Orders ro
-        //                    JOIN Robots r
-        //                    ON r.id = ro.robotId
-        //                    WHERE ro.orderId = @id";
-        //    var order = db.QuerySingleOrDefault<OrdersExtended>(sql, new { id });
-        //    order.robotInfo = db.Query<Robots>(robotSql, new { id });
-
-
-        //    return order;
-        //}
+            return order;
+        }
         //Get a single order from order id
         internal IEnumerable<Orders> GetSingleOrderFromSpecificOrderId(Guid orderId)
         {

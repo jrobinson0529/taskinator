@@ -10,9 +10,9 @@ namespace Taskinator.Models
         public Users customerInfo { get; set; }
         public Payments paymentInfo { get; set; }
 
-        public RobotsOrders robotOrderInfo { get; set; }
-
-        //public IEnumerable<Robots> robotInfo { get; set; }
-        public Robots robotInfo { get; set; }
+        public RobotsOrders robotOrder { get; set; }
+        public Robots robotsInformation { get; set; }
+        public IEnumerable<RobotsOrders> robotOrderInfo { get; set; }
+        public IEnumerable<Robots> robotInfo { get; set; }
     }
 }
