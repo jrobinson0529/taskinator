@@ -41,6 +41,7 @@ function App() {
       });
     }
   }, []);
+  console.warn(cart);
   return (
     <div className='App'>
      <Router>
