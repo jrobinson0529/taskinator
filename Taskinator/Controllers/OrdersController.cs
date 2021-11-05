@@ -62,6 +62,10 @@ namespace Taskinator.Controllers
         public IActionResult GetExpanded(Guid orderId)
         {
             var expandedOrder = _ordersRepo.GetOrderExpanded(orderId);
+            if (expandedOrder is null)
+            {
+                return NotFound($"No order found with {orderId} or the ID is incorrect.");
+            }
             return Ok(expandedOrder);
         }
 

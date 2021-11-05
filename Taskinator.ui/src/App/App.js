@@ -25,8 +25,8 @@ function App() {
   return (
     <div className='App'>
       <Router>
-        <NavBar user={user} setUser={setUser} />
-        <Routes user={user} setUser={setUser} />
+        <NavBar user={user} setUser={setUser}/>
+        <Routes user={user} setUser={setUser}/>
      </Router>
     </div>
   );
