@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
+  Button,
   Card, CardBody, CardTitle, Input
 } from 'reactstrap';
 import { getCartItem, getMappableRobotInfoFromOrderId } from '../helpers/data/orderData';
@@ -35,6 +36,7 @@ export default function CartCard({ user }) {
               <p>Total for this robot: {x.robotOrder?.dayQuantity * x.robotsInformation?.price} dollars</p>
             </div>
           ))}
+          <Button>Order</Button>
         </CardBody>
       </Card>
     </div>
