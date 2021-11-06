@@ -22,12 +22,12 @@ export default function CartCard({ user }) {
   };
   console.warn(cartItem);
   return (
-    <div>
-      <Card className='bg-primary'>
+      <Card className='cart-card'>
         <CardBody>
-          <CardTitle>{user?.firstName}&apos;s cart</CardTitle>
+          <CardTitle> </CardTitle>
+          <div className="cart-container">
           {cartItem.map((x) => (
-            <div key={x.robotOrder?.id}>
+            <div key={x.robotOrder?.id} className="individual-cart-card">
               <h1>{x.robotsInformation?.title}</h1>
               <img src={x.robotsInformation?.imageUrl} />
               <Input
@@ -46,10 +46,9 @@ export default function CartCard({ user }) {
               <p>Total for this robot: {x.robotOrder?.dayQuantity * x.robotsInformation?.price} dollars</p>
             </div>
           ))}
-          <Button>Order</Button>
+          </div>
         </CardBody>
       </Card>
-    </div>
   );
 }
 

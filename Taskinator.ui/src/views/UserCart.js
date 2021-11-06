@@ -20,8 +20,8 @@ export default function UserCart({ user }) {
     });
   }, []);
   return (
-    <div>
-      <h1>Cart ID: {cart.id}</h1>
+    <div className="full-height-section">
+      <h1>Your Shopping Cart</h1>
       <CartCard user={user} cart={cart}/>
     </div>
   );

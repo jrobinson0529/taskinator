@@ -6,6 +6,7 @@ import './App.scss';
 import Routes from '../helpers/Routes';
 import NavBar from '../components/NavBar';
 import { getSingleUserByGoogleId } from '../helpers/data/userData';
+import Footer from '../components/Footer';
 
 function App() {
   // When you set up firebase add setUser method and change useState to null.
@@ -27,6 +28,7 @@ function App() {
       <Router>
         <NavBar user={user} setUser={setUser}/>
         <Routes user={user} setUser={setUser}/>
+        <Footer/>
       </Router>
     </div>
   );
