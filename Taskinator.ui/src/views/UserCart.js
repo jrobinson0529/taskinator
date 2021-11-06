@@ -21,7 +21,7 @@ export default function UserCart({ user }) {
   }, []);
   return (
     <div>
-      <h1>{cart.id}</h1>
+      <h1>Cart ID: {cart.id}</h1>
       <CartCard user={user} cart={cart}/>
     </div>
   );
