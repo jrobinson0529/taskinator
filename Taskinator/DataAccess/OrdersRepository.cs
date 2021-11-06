@@ -37,8 +37,8 @@ namespace Taskinator.DataAccess
             return order;
         }
 
-        //Get detailed order information from order id (add robots info in the future if necessary)
-        internal IEnumerable<OrdersExtended> GetDetailedOrder(Guid id)
+        //Get detailed order information from order id(add robots info in the future if necessary)
+        internal object GetDetailedOrder(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT *
@@ -52,18 +52,41 @@ namespace Taskinator.DataAccess
                         JOIN Robots r
                         ON r.id = ro.robotId
                         WHERE o.id = @id";
-            var results = db.Query<OrdersExtended, Users, Payments, RobotsOrders, Robots, OrdersExtended>(sql, (order, user, payment, robotOrder, robot) => 
+            var results = db.Query<OrdersExtended, Users, Payments, RobotsOrders, Robots, OrdersExtended>(sql, (order, user, payment, robotOrder, robot) =>
             {
                 order.customerInfo = user;
                 order.paymentInfo = payment;
-                order.robotOrderInfo = robotOrder;
-                order.robotInfo = robot;
+                order.robotOrder = robotOrder;
+                order.robotsInformation = robot;
                 return order;
             }, new { id }, splitOn: "id");
-            
+
             return results;
         }
 
+        internal object GetOrderExpanded(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT *
+                        FROM Orders o
+                        JOIN Users u
+                        ON o.customerId = u.id
+                        JOIN Payments p
+                        ON o.paymentId = p.id
+                        WHERE o.id = @id";
+            var robotSql = @"SELECT *
+                            FROM Robots_Orders ro
+                            JOIN Robots r
+                            ON r.id = ro.robotId
+                            WHERE ro.orderId = @id";
+            var order = db.QuerySingleOrDefault<OrdersExtended>(sql, new { id });
+            order.customerInfo = db.QuerySingleOrDefault<Users>(sql, new { id });
+            order.paymentInfo = db.QuerySingleOrDefault<Payments>(sql, new { id });
+            order.robotOrderInfo = db.Query<RobotsOrders>(robotSql, new { id });
+            order.robotInfo = db.Query<Robots>(robotSql, new { id });
+
+            return order;
+        }
         //Get a single order from order id
         internal IEnumerable<Orders> GetSingleOrderFromSpecificOrderId(Guid orderId)
         {
@@ -76,13 +99,13 @@ namespace Taskinator.DataAccess
         }
 
         // Get cart item (order is not placed yet)
-        internal IEnumerable<Orders> GetOrdersToPlaceOrderOrDelete(Guid id)
+        internal Orders GetOrdersToPlaceOrderOrDelete(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT *
                         FROM Orders
                         WHERE orderDate is null AND customerId = @id";
-            var order = db.Query<Orders>(sql, new { id });
+            var order = db.QuerySingleOrDefault<Orders>(sql, new { id });
             return order;
         }
 

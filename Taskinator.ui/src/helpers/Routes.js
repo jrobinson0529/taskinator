@@ -29,7 +29,7 @@ function Routes({ user, setUser }) {
 }
 Routes.propTypes = {
   user: PropTypes.any,
-  setUser: PropTypes.func,
+  setUser: PropTypes.func
 };
 export default Routes;
 
