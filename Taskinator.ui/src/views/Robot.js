@@ -14,7 +14,7 @@ export default function Robot() {
     <div className="singleRobotContainer">
       <img src={robot.imageUrl} className="singleRobotImg" alt="image of robot"/>
       <h1 className="singleRobotTitle">{robot.title}</h1>
-      <h2 className="singleRobotPrice">Price: ${robot.price} per day</h2>
+      <h2 className="singleRobotPrice">Price: {robot.price} per day</h2>
       <h3 className="singleRobotDescription">{robot.description}</h3>
     </div>
   );

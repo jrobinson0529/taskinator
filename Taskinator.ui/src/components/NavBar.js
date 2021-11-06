@@ -37,6 +37,9 @@ const NavBar = ({ user, setUser }) => {
             <NavItem>
               <Link className="nav-link" to="/services">Robot Services</Link>
             </NavItem>
+            <NavItem>
+              <Link className="nav-link" to="/create/robot">Create a Robot</Link>
+            </NavItem>
           </Nav><div className='auth-btn-container'>
                 {
                   // eslint-disable-next-line no-nested-ternary
