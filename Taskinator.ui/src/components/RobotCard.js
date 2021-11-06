@@ -21,9 +21,9 @@ function RobotCard({ ...robot }) {
   };
 
   return (
-    <Card color='danger' className='robot-card'>
+    <Card className='robot-card'>
     {
-      user ? <Button color="danger" onClick={() => handleClick()}><CardImg
+      user ? <Button className="card-button" onClick={() => handleClick()}><CardImg
       alt="Card image cap"
       src={robot.imageUrl}
       top

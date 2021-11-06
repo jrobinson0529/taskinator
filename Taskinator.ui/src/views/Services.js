@@ -43,7 +43,7 @@ function Services() {
       <Container>
         <Row>
           <Col sm={2}>
-            <Button onClick={() => history.push(`/services/${robots[2].id}`)}>Cooking</Button>
+            <Button color="link" onClick={() => history.push(`/services/${robots[2].id}`)} id="cooking">Cooking</Button>
           </Col>
           <Col sm={10}>
             <div className='robot-services-group'>
@@ -57,7 +57,7 @@ function Services() {
         </Row>
         <Row>
           <Col sm={2}>
-          <Button onClick={() => history.push(`/services/${robots[0].id}`)}>Chores</Button>
+          <Button color="link" onClick={() => history.push(`/services/${robots[0].id}`)} id="chores">Chores</Button>
           </Col>
           <Col sm={10}>
               <div className='robot-services-group'>
@@ -71,7 +71,7 @@ function Services() {
         </Row>
         <Row>
           <Col sm={2}>
-          <Button onClick={() => history.push(`/services/${robots[1].id}`)}>Lawn Care</Button>
+          <Button color="link" onClick={() => history.push(`/services/${robots[1].id}`)} id="lawn-care">Lawn Care</Button>
           </Col>
           <Col sm={10}>
           <div className='robot-services-group'>
@@ -85,7 +85,7 @@ function Services() {
         </Row>
         <Row>
           <Col sm={2}>
-          <Button onClick={() => history.push(`/services/${robots[3].id}`)}>Murdering</Button>
+          <Button color="link" onClick={() => history.push(`/services/${robots[3].id}`)} id="murdering">Murdering</Button>
           </Col>
           <Col sm={10}>
               <div className='robot-services-group'>

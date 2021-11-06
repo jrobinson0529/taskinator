@@ -18,15 +18,15 @@ export default function SingleService() {
   }, []);
 
   return (
-    <>
-    <h2 key={robotTitle.id}>{robotTitle.title} Robots</h2>
-    <div className='robot-services-group'>
-      {
-        robots?.map((robot) => (
-        <RobotCard key={robot.id} {...robot}/>
-        ))
-      }
+    <div className="full-height-section services-title">
+      <h2 key={robotTitle.id}>{robotTitle.title} Robots</h2>
+        <div className='robot-services-group'>
+          {
+            robots?.map((robot) => (
+            <RobotCard key={robot.id} {...robot}/>
+            ))
+          }
+        </div>
     </div>
-    </>
   );
 }
