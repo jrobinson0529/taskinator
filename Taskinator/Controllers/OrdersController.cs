@@ -45,16 +45,28 @@ namespace Taskinator.Controllers
             return Ok(orders);
         }
 
-        //Get user and payment info from orderId (add robots info in the future if necessary)
+        ////Get user and payment info from orderId (add robots info in the future if necessary)
         [HttpGet("detailedOrderInfo/{orderId}")]
         public IActionResult GetDetailedOrderInfo(Guid orderId)
         {
             var order = _ordersRepo.GetDetailedOrder(orderId);
-            if (order.ToList().Count == 0)
+            if (order is null)
             {
                 return NotFound($"No order found with {orderId} or the ID is incorrect.");
             }
             return Ok(order);
+        }
+
+        //Get expanded order
+        [HttpGet("expandedOrder/{orderId}")]
+        public IActionResult GetExpanded(Guid orderId)
+        {
+            var expandedOrder = _ordersRepo.GetOrderExpanded(orderId);
+            if (expandedOrder is null)
+            {
+                return NotFound($"No order found with {orderId} or the ID is incorrect.");
+            }
+            return Ok(expandedOrder);
         }
 
         //Get a single order
@@ -75,10 +87,6 @@ namespace Taskinator.Controllers
         public IActionResult GetOrderCartItem(Guid customerId)
         {
             var order = _ordersRepo.GetOrdersToPlaceOrderOrDelete(customerId);
-            if (order.ToList().Count == 0)
-            {
-                return NotFound($"{customerId} does not have anything in the cart or the ID is incorrect.");
-            }
             return Ok(order);
         }
 

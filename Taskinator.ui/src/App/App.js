@@ -24,10 +24,10 @@ function App() {
   }, []);
   return (
     <div className='App'>
-     <Router>
+      <Router>
         <NavBar user={user} setUser={setUser}/>
         <Routes user={user} setUser={setUser}/>
-     </Router>
+      </Router>
     </div>
   );
 }
