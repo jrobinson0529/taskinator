@@ -32,7 +32,12 @@ function Services() {
   }, []);
   return (
     <>
-    <ServicesHero/>
+    <ServicesHero
+      cookingRobotsLength={cookingRobots.length}
+      choresRobotsLength={choresRobots.length}
+      murderRobotsLength={murderRobots.length}
+      lawnCareRobotsLength={lawnCareRobots.length}
+      />
     <div className="feat-services-cont">
       <h2>Featured Robots</h2>
       <Container>
