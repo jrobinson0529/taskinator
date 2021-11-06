@@ -16,6 +16,10 @@ function App() {
       if (authed) {
         // eslint-disable-next-line no-undef
         authed.getIdToken().then((token) => localStorage.setItem('token', token));
+
+        // get my current cart id and store it somewhere that i can access
+        // userservice.getmycart();
+
         getSingleUserByGoogleId(authed.uid).then((response) => setUser(response));
       } else {
         setUser(false);

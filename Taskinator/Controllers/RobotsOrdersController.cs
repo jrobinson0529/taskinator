@@ -15,10 +15,12 @@ namespace Taskinator.Controllers
     public class RobotsOrdersController : ControllerBase
     {
         RobotsOrdersRepository _robotsOrdersRepo;
+        readonly OrdersRepository _ordersRepo;
 
-        public RobotsOrdersController(RobotsOrdersRepository robotsOrdersRepo)
+        public RobotsOrdersController(RobotsOrdersRepository robotsOrdersRepo, OrdersRepository ordersRepo)
         {
             _robotsOrdersRepo = robotsOrdersRepo;
+            _ordersRepo = ordersRepo;
         }
 
         // gets all the robot orders
@@ -60,16 +62,15 @@ namespace Taskinator.Controllers
         [HttpPost]
         public IActionResult AddRobotOrder(RobotsOrders robotOrder)
         {
+            //get the user id
+            //User.Claims.First<string>(claim => claim == "firebase_userid");
+
+            //var cart = _ordersRepo.GetAllOrders().Where(x => x.CustomerId = userid && x.OrderDate == null);
+
+            //robotOrder.OrderId = cart.Id;
+
             _robotsOrdersRepo.Add(robotOrder);
             return Created($"/robotsOrders/{robotOrder.Id}", robotOrder);
-        }
-
-        // adds single robot order to cart
-        [HttpPost]
-        public IActionResult AddRobotOrderToCart(RobotsOrders robotOrder)
-        {
-            _robotsOrdersRepo.AddSingleRobotToCart(robotOrder);
-            return Ok();
         }
 
         // deletes a robot order by its id

@@ -72,11 +72,6 @@ namespace Taskinator.DataAccess
             return id;
         }
 
-        internal void AddSingleRobotToCart(RobotsOrders robotOrder)
-        {
-            throw new NotImplementedException();
-        }
-
         internal object Update(Guid id, RobotsOrders robotOrderToUpdate)
         {
             using var db = new SqlConnection(_connectionString);

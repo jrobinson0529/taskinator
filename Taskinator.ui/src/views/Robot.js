@@ -6,9 +6,7 @@ import { useParams } from 'react-router-dom';
 import { getSingleRobot } from '../helpers/data/robotData';
 
 export default function Robot() {
-  const [robot, setRobot] = useState({
-    dayQuantity: 0
-  });
+  const [robot, setRobot] = useState({});
   const { id } = useParams();
 
   useEffect(() => {
