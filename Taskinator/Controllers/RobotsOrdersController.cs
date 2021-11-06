@@ -64,6 +64,14 @@ namespace Taskinator.Controllers
             return Created($"/robotsOrders/{robotOrder.Id}", robotOrder);
         }
 
+        // adds single robot order to cart
+        [HttpPost]
+        public IActionResult AddRobotOrderToCart(RobotsOrders robotOrder)
+        {
+            _robotsOrdersRepo.AddSingleRobotToCart(robotOrder);
+            return Ok();
+        }
+
         // deletes a robot order by its id
         [HttpDelete("deleteSingleRobotOrderById/{id}")]
         public IActionResult DeleteSingleRobotOrder(Guid id)
