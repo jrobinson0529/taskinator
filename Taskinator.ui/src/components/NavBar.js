@@ -31,14 +31,18 @@ const NavBar = ({ user, setUser }) => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            <NavItem>
-              <Link className="nav-link" to={`/user/${user?.id}`}>Users</Link>
-            </NavItem>
+          {
+                  user?.isAdmin
+                    ? <> <NavItem>
+                        <Link className="nav-link" to={`/user/${user?.id}`}>Users</Link>
+                      </NavItem>
+                      <NavItem>
+                       <Link className="nav-link" to="/create/robot">Create a Robot</Link>
+                     </NavItem> </>
+                    : ''
+          }
             <NavItem>
               <Link className="nav-link" to="/services">Robot Services</Link>
-            </NavItem>
-            <NavItem>
-              <Link className="nav-link" to="/create/robot">Create a Robot</Link>
             </NavItem>
           </Nav><div className='auth-btn-container'>
                 {
