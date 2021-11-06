@@ -1,9 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Container, Row, Col
 } from 'reactstrap';
 
-export default function ServicesHero() {
+export default function ServicesHero({
+  cookingRobotsLength, murderRobotsLength, choresRobotsLength, lawnCareRobotsLength
+}) {
   return (
     <div className="hero-image">
       <Container>
@@ -11,22 +14,28 @@ export default function ServicesHero() {
         <Row>
           <Col>
             <h4>Lawn Care</h4>
-            <p>15 Available</p>
+            <p>{lawnCareRobotsLength} Available</p>
           </Col>
           <Col>
-            <h4>Cleaning</h4>
-            <p>25 Available</p>
+            <h4>Chores</h4>
+            <p>{choresRobotsLength} Available</p>
           </Col>
           <Col>
             <h4>Cooking</h4>
-            <p>10 Available</p>
+            <p>{cookingRobotsLength} Available</p>
           </Col>
           <Col>
-            <h4>Casual Murder</h4>
-            <p>200 Available</p>
+            <h4>Murder</h4>
+            <p>{murderRobotsLength} Available</p>
           </Col>
         </Row>
       </Container>
   </div>
   );
 }
+ServicesHero.propTypes = {
+  cookingRobotsLength: PropTypes.number,
+  murderRobotsLength: PropTypes.number,
+  choresRobotsLength: PropTypes.number,
+  lawnCareRobotsLength: PropTypes.number
+};
