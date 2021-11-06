@@ -10,7 +10,7 @@ export default function HeroImage() {
       <Row>
         <Col>
           <div className="hero-text">
-            <h2>The Taskinator</h2>
+            <h2>Robots for Your Every Need!</h2>
           </div>
         </Col>
         <Col>

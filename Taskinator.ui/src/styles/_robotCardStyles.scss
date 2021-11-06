@@ -7,6 +7,7 @@
   margin: 50px auto;   //w-75 justify-content-center mx-auto flex-wrap
 }
 .robot-card {
+  background-color: #8FC3E4 !important;
   padding: 5px;
   margin: 10px 20px ;
   width: 11em;
@@ -14,5 +15,35 @@
   .card-body {
     padding: 5px;
     margin: 5px;
+  }
+}
+
+.card-button {
+  background-color: #8FC3E4 !important;
+  border: none !important;
+}
+
+.cart-card {
+  margin: 50px auto;
+  background-color: #8FC3E4 !important;
+}
+
+.cart-container {
+  background-color: #8FC3E4 !important;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.individual-cart-card {
+  padding: 50px;
+
+  img {
+    padding: 30px;
+  }
+
+  p {
+    font-weight: 700;
   }
 }

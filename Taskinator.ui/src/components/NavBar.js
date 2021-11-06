@@ -23,7 +23,7 @@ const NavBar = ({ user, setUser }) => {
         <NavbarBrand href="/">
           <img
           src="https://user-images.githubusercontent.com/76854545/139541065-de118223-26e2-404d-8197-f31e2325c907.png"
-          width="180"
+          width="200"
           className="d-inline-block align-top"
           alt="React Bootstrap logo"
         />
@@ -31,9 +31,16 @@ const NavBar = ({ user, setUser }) => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            <NavItem>
-              <Link className="nav-link" to={`/user/${user?.id}`}>Users</Link>
-            </NavItem>
+          {
+                  user?.isAdmin
+                    ? <> <NavItem>
+                        <Link className="nav-link" to={`/user/${user?.id}`}>Users</Link>
+                      </NavItem>
+                      <NavItem>
+                       <Link className="nav-link" to="/create/robot">Create a Robot</Link>
+                     </NavItem> </>
+                    : ''
+          }
             <NavItem>
               <Link className="nav-link" to="/services">Robot Services</Link>
             </NavItem>

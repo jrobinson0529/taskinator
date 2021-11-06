@@ -6,7 +6,7 @@ import { getRobotByCategory } from '../helpers/data/robotData';
 
 export default function SingleService() {
   const [robots, setRobots] = useState([]);
-  const [robotTitle, setRobotTitle] = useState([]);
+  const [robotTitle, setRobotTitle] = useState([]); // Possibly should rename to serviceTitle for readability
   const { categoryId } = useParams();
 
   useEffect(() => {
@@ -18,15 +18,15 @@ export default function SingleService() {
   }, []);
 
   return (
-    <>
-    <h2 key={robotTitle.id}>{robotTitle.title} Robots</h2>
-    <div className='robot-services-group'>
-      {
-        robots?.map((robot) => (
-        <RobotCard key={robot.id} {...robot}/>
-        ))
-      }
+    <div className="full-height-section services-title">
+      <h2 key={robotTitle.id}>{robotTitle.title} Robots</h2>
+        <div className='robot-services-group'>
+          {
+            robots?.map((robot) => (
+            <RobotCard key={robot.id} {...robot}/>
+            ))
+          }
+        </div>
     </div>
-    </>
   );
 }
