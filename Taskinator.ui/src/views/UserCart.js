@@ -21,7 +21,7 @@ export default function UserCart({ user }) {
   }, []);
   return (
     <div className="full-height-section">
-      <h1>{cart.id}</h1>
+      <h1>Your Shopping Cart</h1>
       <CartCard user={user} cart={cart}/>
     </div>
   );

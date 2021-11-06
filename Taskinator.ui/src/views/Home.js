@@ -9,7 +9,7 @@ function Home() {
     <>
       <HeroImage/>
       <AboutUs />
-      <h2>Check it out!</h2>
+      <h2 className="home-heading">Check it out!</h2>
       <RandomRobotsContainer />
     </>
   );
