@@ -9,6 +9,7 @@ import Profile from '../views/Profile';
 import Services from '../views/Services';
 import SingleService from '../views/SingleService';
 import UserCart from '../views/UserCart';
+import CreateRobot from '../views/CreateRobot';
 
 function Routes({ user, setUser }) {
   return (
@@ -42,13 +43,6 @@ export default Routes;
 //   );
 // }
 
-function CreateRobot() {
-  return (
-     <div>
-       Create Robot
-     </div>
-  );
-}
 function EditRobot() {
   const { id } = useParams();
   return (
