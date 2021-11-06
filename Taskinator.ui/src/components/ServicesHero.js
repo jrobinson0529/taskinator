@@ -13,19 +13,19 @@ export default function ServicesHero({
         <h2 className="services-title">Robot Services</h2>
         <Row>
           <Col>
-            <h4>Lawn Care</h4>
+            <h4><a href="#lawn-care">Lawn Care</a></h4>
             <p>{lawnCareRobotsLength} Available</p>
           </Col>
           <Col>
-            <h4>Chores</h4>
+            <h4><a href="#chores">Chores</a></h4>
             <p>{choresRobotsLength} Available</p>
           </Col>
           <Col>
-            <h4>Cooking</h4>
+            <h4><a href="#cooking">Cooking</a></h4>
             <p>{cookingRobotsLength} Available</p>
           </Col>
           <Col>
-            <h4>Murder</h4>
+            <h4><a href="#murdering">Murdering</a></h4>
             <p>{murderRobotsLength} Available</p>
           </Col>
         </Row>

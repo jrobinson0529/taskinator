@@ -11,7 +11,7 @@ export default function Robot() {
   }, []);
 
   return (
-    <div className="singleRobotContainer">
+    <div className="singleRobotContainer full-height-section">
       <img src={robot.imageUrl} className="singleRobotImg" alt="image of robot"/>
       <h1 className="singleRobotTitle">{robot.title}</h1>
       <h2 className="singleRobotPrice">Price: {robot.price} per day</h2>

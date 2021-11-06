@@ -20,7 +20,7 @@ export default function UserCart({ user }) {
     });
   }, []);
   return (
-    <div>
+    <div className="full-height-section">
       <h1>{cart.id}</h1>
       <CartCard user={user} cart={cart}/>
     </div>

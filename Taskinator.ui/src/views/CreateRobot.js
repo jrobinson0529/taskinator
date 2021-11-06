@@ -10,7 +10,7 @@ export default function CreateRobot() {
   }, []);
 
   return (
-    <div>
+    <div className="full-height-section">
       <RobotForm robotCategories={robotCategories} />
     </div>
   );
