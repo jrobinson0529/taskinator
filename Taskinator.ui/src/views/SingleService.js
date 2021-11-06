@@ -6,7 +6,7 @@ import { getRobotByCategory } from '../helpers/data/robotData';
 
 export default function SingleService() {
   const [robots, setRobots] = useState([]);
-  const [robotTitle, setRobotTitle] = useState([]);
+  const [robotTitle, setRobotTitle] = useState([]); // Possibly should rename to serviceTitle for readability
   const { categoryId } = useParams();
 
   useEffect(() => {
