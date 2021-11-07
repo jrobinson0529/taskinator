@@ -52,16 +52,31 @@ namespace Taskinator.DataAccess
                         JOIN Robots r
                         ON r.id = ro.robotId
                         WHERE o.id = @id";
+            
             var results = db.Query<OrdersExtended, Users, Payments, RobotsOrders, Robots, OrdersExtended>(sql, (order, user, payment, robotOrder, robot) =>
             {
                 order.customerInfo = user;
                 order.paymentInfo = payment;
                 order.robotOrder = robotOrder;
                 order.robotsInformation = robot;
+                order.total = robot.Price * robotOrder.DayQuantity;
                 return order;
             }, new { id }, splitOn: "id");
 
             return results;
+        }
+
+        // calculate total
+        internal object GetSubTotal(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sumSql = @"SELECT SUM(dayQuantity * price) AS total
+                        from Robots_Orders ro
+                        join Robots r
+                        on ro.robotId = r.id
+                        where ro.orderId = @id";
+            var subTotal = db.QuerySingleOrDefault(sumSql, new { id });
+            return subTotal;
         }
 
         internal object GetOrderExpanded(Guid id)

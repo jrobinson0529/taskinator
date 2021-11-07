@@ -14,5 +14,9 @@ namespace Taskinator.Models
         public Robots robotsInformation { get; set; }
         public IEnumerable<RobotsOrders> robotOrderInfo { get; set; }
         public IEnumerable<Robots> robotInfo { get; set; }
+
+        public decimal total { get; set; }
+
+        public decimal subTotal { get; set; }
     }
 }
