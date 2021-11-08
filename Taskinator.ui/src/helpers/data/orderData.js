@@ -37,7 +37,7 @@ const deleteRobotsOrder = async (id, orderId) => new Promise((resolve, reject) =
 });
 
 // update robotOrder in Order(Cart) page
-const updateRobotOrder = async (id, orderObj, orderId) => new Promise((resolve, reject) => {
+const updateRobotOrder = (id, orderObj, orderId) => new Promise((resolve, reject) => {
   axios.put(`${apiUrl}/RobotsOrders/updateRobotOrder/${id}`, orderObj)
     .then(() => getMappableRobotInfoFromOrderId(orderId).then((mappableArray) => resolve(mappableArray)))
     .then(() => getSubTotalFromOrderId(orderId).then((data) => resolve(data)))

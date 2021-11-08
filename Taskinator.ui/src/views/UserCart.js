@@ -24,7 +24,6 @@ export default function UserCart({ user }) {
       }
     });
   }, []);
-  console.warn(cart);
   return (
     <div className="full-height-section">
       <h1>Your Shopping Cart</h1>
@@ -37,50 +36,17 @@ export default function UserCart({ user }) {
           setSubTotal={setSubTotal}
         />
       ))}
+      </div>
       {cart.length !== 0
-        && <div>
+        && <div className='order-total-container'>
           <h1>Total for this order: $ {subTotal?.total}</h1>
           <Button>Order</Button>
         </div>
         }
       </div>
-    </div>
   );
 }
 
 UserCart.propTypes = {
   user: PropTypes.any,
 };
-
-// import React, { useEffect, useState } from 'react';
-// import PropTypes from 'prop-types';
-// import { createCart, getCartItem } from '../helpers/data/orderData';
-// import CartCard from '../components/CartCard';
-
-// export default function UserCart({ user }) {
-//   const [cart, setCart] = useState([]);
-//   useEffect(() => {
-//     getCartItem(user.id).then((response) => {
-//       if (!response) {
-//         const cartInfo = {
-//           userId: user?.id,
-//           paymentId: 'eeaa9dae-3229-4190-ad73-70b25023aa73',
-//           orderTotal: 0,
-//         };
-//         createCart(cartInfo).then((cartObj) => setCart(cartObj));
-//       } else {
-//         getCartItem(user.id).then((res) => setCart(res));
-//       }
-//     });
-//   }, []);
-//   return (
-//     <div className="full-height-section">
-//       <h1>Your Shopping Cart</h1>
-//       <CartCard user={user} cart={cart}/>
-//     </div>
-//   );
-// }
-
-// UserCart.propTypes = {
-//   user: PropTypes.any,
-// };
