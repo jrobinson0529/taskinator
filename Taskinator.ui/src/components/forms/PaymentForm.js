@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   Form, Row, Col, FormGroup, Label, Input, Button
 } from 'reactstrap';
 
-export default function PaymentForm() {
+export default function PaymentForm({ user }) {
   const month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   const years = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   const year = new Date().getFullYear() - 1;
   const countries = ['United States', 'Mexico', 'Canada'];
+  const [userObject, setUserObject] = useState({
+    firstName: user?.firstName || '',
+    lastName: user?.lastName || '',
+    username: user?.username || '',
+    billingAddress: user?.billingAddress || '',
+  });
+
+  const handleInputChange = () => {
+    setUserObject((prevState) => ({
+      ...prevState,
+    }));
+  };
+
   return (
     <Form className='p-5'>
       <Row>
@@ -19,10 +33,16 @@ export default function PaymentForm() {
         </Col>
       </Row>
       <Row form>
-        <Col md={6}>
+        <Col md={3}>
           <FormGroup>
-            <Label for="fullName">FULL NAME</Label>
-            <Input type="text" name="fullName" id="fullName" placeholder="John Doe" />
+            <Label for="firstName">FIRST NAME</Label>
+            <Input type="text" name="fullName" id="fullName" placeholder="John" defaultValue={userObject.firstName} />
+          </FormGroup>
+        </Col>
+        <Col md={3}>
+          <FormGroup>
+            <Label for="lastName">LAST NAME</Label>
+            <Input type="text" name="fullName" id="fullName" placeholder="Doe" defaultValue={userObject.lastName} />
           </FormGroup>
         </Col>
         <Col md={6}>
@@ -36,7 +56,8 @@ export default function PaymentForm() {
         <Col md={6}>
           <FormGroup>
             <Label for="address">ADDRESS</Label>
-            <Input type="text" name="address" id="address" placeholder="497 Evergreen Rd." />
+            <Input
+              type="text" name="address" id="address" placeholder="497 Evergreen Rd." defaultValue={userObject.billingAddress} onChange={handleInputChange} />
           </FormGroup>
         </Col>
         <Col md={6}>
@@ -102,3 +123,7 @@ export default function PaymentForm() {
     </Form>
   );
 }
+
+PaymentForm.propTypes = {
+  user: PropTypes.any
+};

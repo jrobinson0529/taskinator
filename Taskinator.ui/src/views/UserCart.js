@@ -5,10 +5,12 @@ import {
   createCart, getCartItem, getMappableRobotInfoFromOrderId, getSubTotalFromOrderId
 } from '../helpers/data/orderData';
 import CartCard from '../components/CartCard';
+import PaymentForm from '../components/forms/PaymentForm';
 
 export default function UserCart({ user }) {
   const [cart, setCart] = useState([]);
   const [subTotal, setSubTotal] = useState();
+  const [openCheckoutForm, setOpenCheckoutForm] = useState();
   useEffect(() => {
     getCartItem(user.id).then((response) => {
       if (!response) {
@@ -24,6 +26,13 @@ export default function UserCart({ user }) {
       }
     });
   }, []);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    setOpenCheckoutForm((prevState) => ({
+      ...prevState,
+    }));
+  };
   return (
     <div className="full-height-section">
       <h1>Your Shopping Cart</h1>
@@ -40,7 +49,10 @@ export default function UserCart({ user }) {
       {cart.length !== 0
         && <div className='order-total-container'>
           <h1>Total for this order: $ {subTotal?.total}</h1>
-          <Button>Checkout</Button>
+        <Button onClick={handleClick}>Checkout</Button>
+        {openCheckoutForm
+          && <PaymentForm user={user}/>
+        }
         </div>
         }
       </div>

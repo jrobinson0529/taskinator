@@ -3,7 +3,7 @@ import { apiConfig } from '../apiKeys';
 
 const { apiUrl } = apiConfig;
 
-// get cart item with order ID
+// get cart item with user ID
 const getCartItem = (id) => new Promise((resolve, reject) => {
   axios.get(`${apiUrl}/Orders/cartItem/${id}`).then((response) => resolve(response.data)).catch(reject);
 });
