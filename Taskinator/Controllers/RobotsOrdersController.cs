@@ -62,13 +62,6 @@ namespace Taskinator.Controllers
         [HttpPost]
         public IActionResult AddRobotOrder(RobotsOrders robotOrder)
         {
-            //get the user id
-            //User.Claims.First<string>(claim => claim == "firebase_userid");
-
-            //var cart = _ordersRepo.GetAllOrders().Where(x => x.CustomerId = userid && x.OrderDate == null);
-
-            //robotOrder.OrderId = cart.Id;
-
             _robotsOrdersRepo.Add(robotOrder);
             return Created($"/robotsOrders/{robotOrder.Id}", robotOrder);
         }
