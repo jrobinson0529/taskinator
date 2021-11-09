@@ -14,7 +14,6 @@ namespace Taskinator.Controllers
     {
 
         UsersRepository _usersRepo;
-
         public UsersController(UsersRepository usersRepo)
         {
             _usersRepo = usersRepo;

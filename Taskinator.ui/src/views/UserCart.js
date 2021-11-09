@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { createCart, getCartItem } from '../helpers/data/orderData';
+import { Button } from 'reactstrap';
+import {
+  createCart, getCartItem, getMappableRobotInfoFromOrderId, getSubTotalFromOrderId
+} from '../helpers/data/orderData';
 import CartCard from '../components/CartCard';
 
 export default function UserCart({ user }) {
   const [cart, setCart] = useState([]);
+  const [subTotal, setSubTotal] = useState();
   useEffect(() => {
     getCartItem(user.id).then((response) => {
       if (!response) {
@@ -15,15 +19,31 @@ export default function UserCart({ user }) {
         };
         createCart(cartInfo).then((cartObj) => setCart(cartObj));
       } else {
-        getCartItem(user.id).then((res) => setCart(res));
+        getMappableRobotInfoFromOrderId(response.id).then((cartObj) => setCart(cartObj));
+        getSubTotalFromOrderId(response.id).then((total) => setSubTotal(total));
       }
     });
   }, []);
   return (
     <div className="full-height-section">
       <h1>Your Shopping Cart</h1>
-      <CartCard user={user} cart={cart}/>
-    </div>
+      {cart.length === 0 && <h2>No Orders</h2>}
+      <div className="cart-container">
+      {cart?.map((cartItem) => (
+        <CartCard key={cartItem.robotOrder?.id}
+          {...cartItem}
+          setCart={setCart}
+          setSubTotal={setSubTotal}
+        />
+      ))}
+      </div>
+      {cart.length !== 0
+        && <div className='order-total-container'>
+          <h1>Total for this order: $ {subTotal?.total}</h1>
+          <Button>Checkout</Button>
+        </div>
+        }
+      </div>
   );
 }
 
