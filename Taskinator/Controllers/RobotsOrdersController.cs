@@ -16,7 +16,7 @@ namespace Taskinator.Controllers
     {
         RobotsOrdersRepository _robotsOrdersRepo;
 
-        public RobotsOrdersController(RobotsOrdersRepository robotsOrdersRepo, OrdersRepository ordersRepo)
+        public RobotsOrdersController(RobotsOrdersRepository robotsOrdersRepo)
         {
             _robotsOrdersRepo = robotsOrdersRepo;
         }
