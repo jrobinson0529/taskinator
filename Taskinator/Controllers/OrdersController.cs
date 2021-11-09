@@ -57,15 +57,19 @@ namespace Taskinator.Controllers
             return Ok(order);
         }
 
+        // Get subtotal
+        [HttpGet("subTotal/{orderId}")]
+        public IActionResult GetTotal(Guid orderId)
+        {
+            var total = _ordersRepo.GetSubTotal(orderId);
+            return Ok(total);
+        }
+
         //Get expanded order
         [HttpGet("expandedOrder/{orderId}")]
         public IActionResult GetExpanded(Guid orderId)
         {
             var expandedOrder = _ordersRepo.GetOrderExpanded(orderId);
-            if (expandedOrder is null)
-            {
-                return NotFound($"No order found with {orderId} or the ID is incorrect.");
-            }
             return Ok(expandedOrder);
         }
 
