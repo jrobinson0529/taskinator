@@ -26,7 +26,7 @@ export default function UserCart({ user }) {
   }, []);
   return (
     <div className="full-height-section">
-      <h1>Your Shopping Cart</h1>
+      <h1 className="cart-title">Your Shopping Cart</h1>
       {cart.length === 0 && <h2>No Orders</h2>}
       <div className="cart-container">
       {cart?.map((cartItem) => (
@@ -39,8 +39,8 @@ export default function UserCart({ user }) {
       </div>
       {cart.length !== 0
         && <div className='order-total-container'>
-          <h1>Total for this order: $ {subTotal?.total}</h1>
-          <Button>Checkout</Button>
+          <h1 className="cart-total">Total for this order: $ {subTotal?.total}</h1>
+          <Button className="checkout-button">Checkout</Button>
         </div>
         }
       </div>

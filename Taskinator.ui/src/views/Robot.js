@@ -69,7 +69,7 @@ export default function Robot({ user }) {
               </Input>
               </FormGroup>
             <Button onClick={handleSubmit}>ADD TO CART</Button>
-            <h4>{message}</h4>
+            <h4 className="success-message">{message}</h4>
           </Form>
           </Col>
         </Row>
