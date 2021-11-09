@@ -40,7 +40,7 @@ export default function UserCart({ user }) {
       {cart.length !== 0
         && <div className='order-total-container'>
           <h1>Total for this order: $ {subTotal?.total}</h1>
-          <Button>Order</Button>
+          <Button>Checkout</Button>
         </div>
         }
       </div>
