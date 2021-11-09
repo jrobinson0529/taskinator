@@ -33,12 +33,16 @@ const NavBar = ({ user, setUser }) => {
           <Nav className="mr-auto" navbar>
           {
                   user?.isAdmin
-                    ? <> <NavItem>
+                    ? <NavItem>
+                       <Link className="nav-link" to="/create/robot">Create a Robot</Link>
+                     </NavItem>
+                    : ''
+          }
+          {
+                  user
+                    ? <NavItem>
                         <Link className="nav-link" to={`/user/${user?.id}`}>Users</Link>
                       </NavItem>
-                      <NavItem>
-                       <Link className="nav-link" to="/create/robot">Create a Robot</Link>
-                     </NavItem> </>
                     : ''
           }
             <NavItem>

@@ -1,3 +1,12 @@
 .full-height-section {
-  height: 100vh;
+  height: 80vh;
+}
+
+.robot-form {
+  color: #161616;
+  text-align: left;
+  label {
+    font-weight: 700 !important;
+    text-transform: capitalize;
+  }
 }
