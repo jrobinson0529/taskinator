@@ -7,7 +7,7 @@ import {
 import CartCard from '../components/CartCard';
 import PaymentForm from '../components/forms/PaymentForm';
 
-export default function UserCart({ user }) {
+export default function UserCart({ user, setUser }) {
   const [cart, setCart] = useState([]);
   const [subTotal, setSubTotal] = useState();
   const [openCheckoutForm, setOpenCheckoutForm] = useState();
@@ -51,7 +51,7 @@ export default function UserCart({ user }) {
           <h1>Total for this order: $ {subTotal?.total}</h1>
         <Button onClick={handleClick}>Checkout</Button>
         {openCheckoutForm
-          && <PaymentForm user={user}/>
+          && <PaymentForm user={user} setUser={setUser} />
         }
         </div>
         }
@@ -61,4 +61,5 @@ export default function UserCart({ user }) {
 
 UserCart.propTypes = {
   user: PropTypes.any,
+  setUser: PropTypes.func
 };
