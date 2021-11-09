@@ -1,28 +1,47 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
   Form, FormGroup, Input, Button, Label
 } from 'reactstrap';
 import { useParams } from 'react-router-dom';
 import { getSingleRobot } from '../helpers/data/robotData';
+import { getCartItem } from '../helpers/data/orderData';
+import addToCart from '../helpers/data/robotOrdersData';
 
-export default function Robot() {
+export default function Robot({ user }) {
   const [robot, setRobot] = useState({});
+  const [orderObject, setOrderObject] = useState({
+    dayQuantity: 1
+  });
+  const [message, setMessage] = useState();
   const { id } = useParams();
+  const days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
   useEffect(() => {
     getSingleRobot(id).then(setRobot);
+    getCartItem(user?.id).then((response) => {
+      setOrderObject((prevState) => ({
+        ...prevState,
+        robotId: id,
+        orderId: response.id
+      }));
+    });
   }, []);
 
   const handleInputChange = (e) => {
-    setRobot((prevState) => ({
+    setOrderObject((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value
+      [e.target.name]: Number(e.target.value)
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.warn(robot.dayQuantity);
+    addToCart(orderObject).then((response) => {
+      if (response) {
+        setMessage('Robot has been added to cart');
+      }
+    });
   };
 
   return (
@@ -39,26 +58,18 @@ export default function Robot() {
               name="dayQuantity"
               onChange={handleInputChange}
               id="selectDayQuantity">
-              <option value="" hidden># of days needed?</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
+            {days.map((day) => (
+              <option defaultValue={orderObject.dayQuantity} key={day}>{day}</option>
+            ))}
           </Input>
         </FormGroup>
         <Button onClick={handleSubmit}>ADD TO CART</Button>
+        <h4>{message}</h4>
       </Form>
     </div>
   );
 }
+
+Robot.propTypes = {
+  user: PropTypes.any
+};
