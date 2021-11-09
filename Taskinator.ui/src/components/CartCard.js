@@ -69,31 +69,6 @@ export default function CartCard({
         </tbody>
       </Table>
     </div>
-  //     <Card className='cart-card'>
-  //   <CardHeader>{robotsInformation.title}</CardHeader>
-  //   <CardBody>
-  //     <CardText>
-  //       <img className="order-cart-img" src={robotsInformation.imageUrl} />
-  //       <div>
-  //           <Input
-  //             type='select'
-  //             name='dayQuantity'
-  //             id='dayQuantity'
-  //             value={duration.dayQuantity}
-  //             onChange={handleInputChange}
-  //           >
-  //             {days.map((day) => (
-  //               <option defaultValue={duration.dayQuantity} key={day}>{day}</option>
-  //             ))}
-  //           </Input>
-  //           </div>
-  //     </CardText>
-  //     <Button onClick={handleUpdate}>Update</Button>
-  //     <p>Price is {robotsInformation.price} dollars per day</p>
-  //         <p defaultValue>Total for this robot: {total} dollars</p>
-  //         <div><Button color="danger" onClick={() => handleClick('delete')}>Remove</Button></div>
-  //   </CardBody>
-  // </Card>
   );
 }
 
