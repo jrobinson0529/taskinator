@@ -15,12 +15,10 @@ namespace Taskinator.Controllers
     public class RobotsOrdersController : ControllerBase
     {
         RobotsOrdersRepository _robotsOrdersRepo;
-        readonly OrdersRepository _ordersRepo;
 
         public RobotsOrdersController(RobotsOrdersRepository robotsOrdersRepo, OrdersRepository ordersRepo)
         {
             _robotsOrdersRepo = robotsOrdersRepo;
-            _ordersRepo = ordersRepo;
         }
 
         // gets all the robot orders
