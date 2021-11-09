@@ -18,7 +18,7 @@ function Routes({ user, setUser }) {
         <Route exact path="/" component={() => <Home user={user}/>} />
         <Route exact path="/services" component={() => <Services />} />
         <Route exact path="/services/:categoryId" component={() => <SingleService />} />
-        <Route exact path="/robot/:id" component={() => <Robot />} />
+        <Route exact path="/robot/:id" component={() => <Robot user={user} /> } />
         <PrivateRouteAdmin exact path="/create/robot" component={() => <CreateRobot/>} user={user}/>
         <PrivateRouteAdmin exact path="/edit/robot/:id" component={() => <EditRobot/>} user={user}/>
         <PrivateRoute exact path="/user/:id" component={() => <Profile user={user} setUser={setUser}/>} user={user}/>
