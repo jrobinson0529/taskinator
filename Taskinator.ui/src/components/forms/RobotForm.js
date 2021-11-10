@@ -35,17 +35,17 @@ export default function RobotForm({ robotCategories }) {
       id='robotForm'
       autoComplete='off'
       onSubmit={handleSubmit}
-      className='p-5'>
+      className='robot-form'>
       <Label>INFORMATION</Label>
       <Row form>
         <Col md={6}>
           <FormGroup>
-            <Label for="robotTitle">TITLE</Label>
+            <Label for="robotTitle">Title</Label>
             <Input
               type="text"
               name="title"
               id="robotTitle"
-              placeholder="MURDERBOT"
+              placeholder="Murderbot"
               value={robot.title}
               onChange={handleInputChange}
             />
@@ -53,7 +53,7 @@ export default function RobotForm({ robotCategories }) {
         </Col>
         <Col md={6}>
           <FormGroup>
-            <Label for="price">PRICE</Label>
+            <Label for="price">Price</Label>
             <Input
               type=""
               name="price"
@@ -68,13 +68,13 @@ export default function RobotForm({ robotCategories }) {
       <Row form>
         <Col md={6}>
         <FormGroup>
-        <Label for="category">CATEGORY</Label>
+        <Label for="category">Category</Label>
             <Input
               type="select"
               name="categoryId"
               onChange={handleInputChange}
               id="selectCategory">
-              <option value="">SELECT CATEGORY</option>
+              <option value="">Select Category</option>
               {robotCategories.map((category) => (
                 <option key={category.id} value={category.id}>{category.title}</option>
               ))};
@@ -83,7 +83,7 @@ export default function RobotForm({ robotCategories }) {
         </Col>
         <Col md={6}>
           <FormGroup>
-            <Label for="url">PRODUCT IMAGE</Label>
+            <Label for="url">Product Image</Label>
             <Input
               type="url"
               name="imageUrl"
@@ -96,7 +96,7 @@ export default function RobotForm({ robotCategories }) {
         </Col>
       </Row>
       <FormGroup>
-        <Label for="description">DESCRIPTION</Label>
+        <Label for="description">Description</Label>
         <Input
           type="textarea"
           name="description"

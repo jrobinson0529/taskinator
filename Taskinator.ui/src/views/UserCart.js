@@ -35,7 +35,7 @@ export default function UserCart({ user, setUser }) {
   };
   return (
     <div className="full-height-section">
-      <h1>Your Shopping Cart</h1>
+      <h1 className="cart-title">Your Shopping Cart</h1>
       {cart.length === 0 && <h2>No Orders</h2>}
       <div className="cart-container">
       {cart?.map((cartItem) => (
@@ -53,6 +53,8 @@ export default function UserCart({ user, setUser }) {
         {openCheckoutForm
           && <PaymentForm user={user} setUser={setUser} />
         }
+          <h1 className="cart-total">Total for this order: $ {subTotal?.total}</h1>
+          <Button className="checkout-button">Checkout</Button>
         </div>
         }
       </div>

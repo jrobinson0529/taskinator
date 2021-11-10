@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Button } from 'reactstrap';
+import {
+  Button, Col, Container, Row
+} from 'reactstrap';
 import PropTypes from 'prop-types';
 import ProfileForm from '../components/forms/ProfileForm';
 // import { useParams } from 'react-router-dom';
@@ -10,14 +12,19 @@ function Profile({ user, setUser }) {
   const handleClick = () => setEditing((prev) => !prev);
   // const { id } = useParams();
   return (
-    <div className="d-flex flex-column full-height-section">
-      <img className="profile-image" src={user.imageUrl}/>
-      <h2>{user.username}</h2>
-      <hr/>
-      { user.billingAddress !== '' ? <h3>{user.billingAddress}</h3> : <h3>You need to set a billing address to complete an order please edit profile and add one!</h3>}
-      <Button onClick={() => handleClick()}>Update Your Information</Button>
-      { editing ? <ProfileForm user={user} setUser={setUser}/> : '' }
-    </div>
+    <div className="single-user-cont">
+    <Container>
+      <Row>
+        <Col>
+          <img className="profile-image" src={user.imageUrl}/>
+          <h2>Username: {user.username}</h2>
+          { user.billingAddress !== '' ? <h3>Address: {user.billingAddress}</h3> : <h3>You need to set a billing address to complete an order please edit profile and add one!</h3>}
+          <Button onClick={() => handleClick()}>Update Your Information</Button>
+          { editing ? <ProfileForm user={user} setUser={setUser}/> : '' }
+        </Col>
+      </Row>
+    </Container>
+  </div>
   );
 }
 Profile.propTypes = {

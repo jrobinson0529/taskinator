@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button,
-  Card, CardBody, CardTitle, Input
+  Button, Input, Table
 } from 'reactstrap';
 import { deleteRobotsOrder, getSubTotalFromOrderId, updateRobotOrder } from '../helpers/data/orderData';
 
@@ -43,29 +42,33 @@ export default function CartCard({
   };
 
   return (
-    <Card className='cart-card'>
-      <CardTitle>{robotsInformation.title}</CardTitle>
-      <CardBody className="card-body">
-        <img className="order-cart-img" src={robotsInformation.imageUrl} />
-        <div>
-          <Input
-            type='select'
-            name='dayQuantity'
-            id='dayQuantity'
-            value={duration.dayQuantity}
-            onChange={handleInputChange}
-          >
-            {days.map((day) => (
-              <option defaultValue={duration.dayQuantity} key={day}>{day}</option>
-            ))}
-          </Input>
-        </div>
-        <Button onClick={handleUpdate}>Update</Button>
-        <p>Price is {robotsInformation.price} dollars per day</p>
-        <p defaultValue>Total for this robot: {total} dollars</p>
-        <div><Button color="danger" onClick={() => handleClick('delete')}>Remove</Button></div>
-      </CardBody>
-    </Card>
+    <div className="cart-table">
+      <Table striped bordered hover>
+        <tbody>
+          <tr>
+            <td><img className="order-cart-img" src={robotsInformation.imageUrl} /></td>
+            <td>{robotsInformation.title}</td>
+            <td><div><Input
+                type='select'
+                name='dayQuantity'
+                id='dayQuantity'
+                value={duration.dayQuantity}
+                onChange={handleInputChange}
+              >
+              {days.map((day) => (
+                <option defaultValue={duration.dayQuantity} key={day}>{day}</option>
+              ))}
+            </Input>
+            </div></td>
+            <td><Button onClick={handleUpdate}>Update</Button></td>
+            <td><p>Price is {robotsInformation.price} dollars per day</p>
+              <p defaultValue>Total for this robot: {total} dollars</p>
+              </td>
+              <td><div><Button color="danger" onClick={() => handleClick('delete')}>Remove</Button></div></td>
+          </tr>
+        </tbody>
+      </Table>
+    </div>
   );
 }
 
