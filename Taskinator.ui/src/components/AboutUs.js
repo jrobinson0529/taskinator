@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchBar from './SearchBar';
 
 export default function AboutUs() {
   return (
@@ -16,6 +17,7 @@ export default function AboutUs() {
       <p>
         To get started, please visit the Robot Services section and browse our collection of available robots.
       </p>
+      <SearchBar/>
     </div>
   );
 }
