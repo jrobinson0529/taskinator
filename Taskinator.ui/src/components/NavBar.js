@@ -41,7 +41,7 @@ const NavBar = ({ user, setUser }) => {
           {
                   user
                     ? <NavItem>
-                        <Link className="nav-link" to={`/user/${user?.id}`}>Users</Link>
+                        <Link className="nav-link" to={`/user/${user?.id}`}>Profile</Link>
                       </NavItem>
                     : ''
           }

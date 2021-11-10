@@ -49,13 +49,17 @@
   font-size: 1.5em;
 }
 
+.cart-table td {
+  width: 400px;
+}
+
 .order-total-container {
   text-align: right !important;
   padding: 30px;
 }
 
 .order-cart-img {
-  width: 10%;
+  width: 80px;
   text-align: center;
 }
 
