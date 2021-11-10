@@ -44,6 +44,14 @@ const updateRobotOrder = (id, orderObj, orderId) => new Promise((resolve, reject
     .catch(reject);
 });
 
+// finalize order
+const finalizeOrder = (orderId, orderObj, cartObj) => new Promise((resolve, reject) => {
+  axios.put(`${apiUrl}/Orders/placeOrder/${orderId}`, orderObj)
+    .then(() => createCart(cartObj).then((data) => resolve(data)))
+    .catch(reject);
+});
+
 export {
-  getCartItem, getRobotInfoFromOrderId, getMappableRobotInfoFromOrderId, createCart, getSubTotalFromOrderId, deleteRobotsOrder, updateRobotOrder
+  getCartItem, getRobotInfoFromOrderId, getMappableRobotInfoFromOrderId,
+  createCart, getSubTotalFromOrderId, deleteRobotsOrder, updateRobotOrder, finalizeOrder
 };

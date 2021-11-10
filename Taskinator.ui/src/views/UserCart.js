@@ -51,10 +51,8 @@ export default function UserCart({ user, setUser }) {
           <h1>Total for this order: $ {subTotal?.total}</h1>
         <Button onClick={handleClick}>Checkout</Button>
         {openCheckoutForm
-          && <PaymentForm user={user} setUser={setUser} />
+          && <PaymentForm user={user} setUser={setUser} cart={cart} setCart={setCart} subTotal={subTotal}/>
         }
-          <h1 className="cart-total">Total for this order: $ {subTotal?.total}</h1>
-          <Button className="checkout-button">Checkout</Button>
         </div>
         }
       </div>
