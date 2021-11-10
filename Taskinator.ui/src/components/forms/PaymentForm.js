@@ -16,9 +16,20 @@ export default function PaymentForm({ user }) {
     username: user?.username || '',
     billingAddress: user?.billingAddress || '',
   });
+  const [paymentObject, setPaymentObject] = useState({
+    accountNumber: user?.id,
+    paymentType: '',
+  });
 
-  const handleInputChange = (e) => {
+  const handleUserInputChange = (e) => {
     setUserObject((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handlePaymentInputChange = (e) => {
+    setPaymentObject((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value
     }));
@@ -42,13 +53,13 @@ export default function PaymentForm({ user }) {
         <Col md={6}>
           <FormGroup>
             <Label for="firstName">FIRST NAME</Label>
-            <Input type="text" name="firstName" id="fullName" placeholder="John" value={userObject.firstName} onChange={handleInputChange} required/>
+            <Input type="text" name="firstName" id="fullName" placeholder="John" value={userObject.firstName} onChange={handleUserInputChange} required/>
           </FormGroup>
         </Col>
         <Col md={6}>
           <FormGroup>
             <Label for="lastName">LAST NAME</Label>
-            <Input type="text" name="lastName" id="fullName" placeholder="Doe" value={userObject.lastName} onChange={handleInputChange} required />
+            <Input type="text" name="lastName" id="fullName" placeholder="Doe" value={userObject.lastName} onChange={handleUserInputChange} required />
           </FormGroup>
         </Col>
       </Row>
@@ -57,7 +68,7 @@ export default function PaymentForm({ user }) {
           <FormGroup>
             <Label for="address">ADDRESS</Label>
             <Input
-              type="text" name="billingAddress" id="address" placeholder="497 Evergreen Rd." value={userObject.billingAddress} onChange={handleInputChange} required/>
+              type="text" name="billingAddress" id="address" placeholder="497 Evergreen Rd." value={userObject.billingAddress} onChange={handleUserInputChange} required/>
           </FormGroup>
         </Col>
       </Row>
@@ -81,7 +92,7 @@ export default function PaymentForm({ user }) {
           <Col md={12}>
             <FormGroup>
               <Label for="cardHolderName">CARDHOLDER NAME</Label>
-              <Input type="text" name="cardHolderName" id="cardHolderName" placeholder="John Doe" onChange={handleInputChange} required/>
+              <Input type="text" name="cardHolderName" id="cardHolderName" placeholder="John Doe" required/>
             </FormGroup>
           </Col>
           </Row>
@@ -89,7 +100,7 @@ export default function PaymentForm({ user }) {
           <Col md={6}>
             <FormGroup>
               <Label for="type">PAYMENT TYPE</Label>
-              <Input type="select" name="paymentType" id="paymentType" placeholder="VISA" onChange={handleInputChange} required>
+                <Input type="select" name="paymentType" id="paymentType" placeholder="VISA" onChange={handlePaymentInputChange} value={paymentObject.type} required>
                 {paymentType.map((pay) => (
                   <option key={pay.value}>{pay}</option>
                 ))}
@@ -99,7 +110,7 @@ export default function PaymentForm({ user }) {
           <Col md={6}>
             <FormGroup>
               <Label for="cvv">CVV</Label>
-              <Input type="text" name="cvv" id="cvv" placeholder="123" onChange={handleInputChange} />
+              <Input type="text" name="cvv" id="cvv" placeholder="123" />
             </FormGroup>
           </Col>
         </Row>
@@ -107,7 +118,7 @@ export default function PaymentForm({ user }) {
           <Col md={6}>
             <FormGroup>
               <Label for="month">MONTH</Label>
-              <Input type="select" name="month" id="month" onChange={handleInputChange}>
+              <Input type="select" name="month" id="month">
                 {month.map((item) => (
                   <option key={item}>{item}</option>
                 ))}
@@ -117,7 +128,7 @@ export default function PaymentForm({ user }) {
           <Col md={6}>
             <FormGroup>
               <Label for="year">YEAR</Label>
-              <Input type="select" name="year" id="year" onChange={handleInputChange}>
+              <Input type="select" name="year" id="year">
                 {years.map((x) => (
                   <option key={year + x}>{year + x}</option>
                 ))}
