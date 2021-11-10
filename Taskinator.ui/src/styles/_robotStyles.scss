@@ -1,0 +1,19 @@
+.single-robot-cont{
+  padding: 50px 20px;
+  height: 80vh;
+  .container {
+    background-color: #ebebeb;
+    padding: 60px;
+    border: 15px solid #8FC3E4;
+  }
+  h1, h2, h3, p {
+    text-align: left;
+    color: #0a0a0a
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  p {
+    padding-top: 30px;
+  }
+}

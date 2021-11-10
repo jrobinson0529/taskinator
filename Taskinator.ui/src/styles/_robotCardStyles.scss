@@ -25,20 +25,50 @@
 
 .cart-card {
   margin: 50px auto;
-  width: 25%;
+  width: 15%;
   background-color: #8FC3E4 !important;
+  border: none !important;
+}
+
+.table td {
+  vertical-align: middle !important;
 }
 
 .cart-container {
-  background-color: #8FC3E4 !important;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: center;
+  background-color: #c5d9e6 !important;
+  h1, h2, h3, h4, h5, p {
+    text-align: left;
+  }
+}
+
+.cart-title {
+  padding-top: 30px;
+}
+
+.cart-total {
+  font-size: 1.5em;
+}
+
+.cart-table td {
+  width: 400px;
+}
+
+.order-total-container {
+  text-align: right !important;
+  padding: 30px;
 }
 
 .order-cart-img {
-  width: 40%;
+  width: 80px;
+  text-align: center;
+}
+
+.cart-table {
+  margin-top: 50px;
+}
+
+.success-message {
+  color: #161616;
 }
 
 .individual-cart-card {

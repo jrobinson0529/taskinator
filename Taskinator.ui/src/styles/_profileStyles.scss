@@ -4,3 +4,25 @@
   margin: 5em auto;
   border-radius: 50%;
 }
+
+.single-user-cont {
+  padding: 50px 20px;
+  height: 100vh;
+  .container {
+    background-color: #ebebeb;
+    padding: 60px;
+    border: 15px solid #8FC3E4;
+  }
+  h1, h2, h3, p {
+    color: #0a0a0a
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  p {
+    padding-top: 30px;
+  }
+  label {
+    color: #0a0a0a
+  }
+}
