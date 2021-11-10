@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Form, FormGroup, Input, Button, Label, Col, Container, Row
+  Form, FormGroup, Input, Button, Label, Col, Container, Row, UncontrolledAlert
 } from 'reactstrap';
 import { useParams } from 'react-router-dom';
 import { getSingleRobot } from '../helpers/data/robotData';
@@ -13,8 +13,9 @@ export default function Robot({ user }) {
   const [orderObject, setOrderObject] = useState({
     dayQuantity: 1
   });
-  const [message, setMessage] = useState();
+  // const [message, setMessage] = useState();
   const { id } = useParams();
+  const [visible, setVisible] = useState(false);
   const days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
   useEffect(() => {
@@ -28,6 +29,13 @@ export default function Robot({ user }) {
     });
   }, []);
 
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setVisible(false);
+  //   }, 6000);
+  //   return () => clearTimeout(timer);
+  // }, []);
+
   const handleInputChange = (e) => {
     setOrderObject((prevState) => ({
       ...prevState,
@@ -37,11 +45,12 @@ export default function Robot({ user }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addToCart(orderObject).then((response) => {
-      if (response) {
-        setMessage('Robot has been added to cart');
-      }
-    });
+    // addToCart(orderObject).then((response) => {
+    //   if (response) {
+    //     setMessage('Robot has been added to cart');
+    //   }
+    // });
+    addToCart(orderObject).then(setVisible(true));
   };
 
   return (
@@ -69,7 +78,15 @@ export default function Robot({ user }) {
               </Input>
               </FormGroup>
             <Button onClick={handleSubmit}>ADD TO CART</Button>
-            <h4 className="success-message">{message}</h4>
+            {/* <h4 className="success-message">{message}</h4> */}
+            {visible
+              ? <div className="alert-container mt-3">
+                  <UncontrolledAlert className="alert" color="dark" fade={true}>
+                    <p className="text-center">{robot.title} has been added to the cart!</p>
+                  </UncontrolledAlert>
+                </div>
+              : ''
+            }
           </Form>
           </Col>
         </Row>
