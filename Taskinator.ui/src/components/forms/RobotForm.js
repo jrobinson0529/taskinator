@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Form, Row, Col, FormGroup, Label, Input, Button
+  Form, Row, Col, FormGroup, Label, Input, Button, UncontrolledAlert
 } from 'reactstrap';
 import { createRobot } from '../../helpers/data/robotData';
 
@@ -14,22 +14,36 @@ export default function RobotForm({ robotCategories }) {
     description: '',
     available: '',
   });
+
+  const [visible, setVisible] = useState(false);
+
   const handleInputChange = (e) => {
     setRobot((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value === 'categoryId' ? e.target.selected : e.target.value
     }));
   };
+
   const handleCheckChange = (e) => {
     setRobot((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.checked
     }));
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setVisible(false);
+    }, 7000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     createRobot(robot).then((response) => setRobot(response));
+    setVisible(true);
   };
+
   return (
     <Form
       id='robotForm'
@@ -119,6 +133,14 @@ export default function RobotForm({ robotCategories }) {
         </Label>
       </FormGroup>
       <Button>Add Robot</Button>
+      {visible
+        ? <div className="alert-container mt-3">
+            <UncontrolledAlert id="alert" className="alert" color="dark" fade={true}>
+              <p className="text-center">{robot.title} has been created!</p>
+            </UncontrolledAlert>
+          </div>
+        : ''
+      }
     </Form>
   );
 }

@@ -29,12 +29,12 @@ export default function Robot({ user }) {
     });
   }, []);
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setVisible(false);
-  //   }, 6000);
-  //   return () => clearTimeout(timer);
-  // }, []);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setVisible(false);
+    }, 7000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleInputChange = (e) => {
     setOrderObject((prevState) => ({
@@ -81,7 +81,7 @@ export default function Robot({ user }) {
             {/* <h4 className="success-message">{message}</h4> */}
             {visible
               ? <div className="alert-container mt-3">
-                  <UncontrolledAlert className="alert" color="dark" fade={true}>
+                  <UncontrolledAlert id="alert" className="alert" color="dark" fade={true}>
                     <p className="text-center">{robot.title} has been added to the cart!</p>
                   </UncontrolledAlert>
                 </div>
