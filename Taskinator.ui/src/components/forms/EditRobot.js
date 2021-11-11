@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Form, Row, Col, FormGroup, Label, Input, Button
+  Button, Col, Container, Row, Label, FormGroup, Form, Input
 } from 'reactstrap';
 import { editRobot } from '../../helpers/data/robotData';
+import { getRobotCategories } from '../../helpers/data/robotCategoryData';
 
-export default function EditRobotForm({ setEditing, robotCategories, ...robotToEdit }) {
-  const [robot, setRobot] = useState({
-    categoryId: robotToEdit?.categoryId,
-    imageUrl: robotToEdit?.imageUrl,
-    title: robotToEdit?.title,
-    price: robotToEdit?.price,
-    description: robotToEdit?.description,
-    available: robotToEdit?.available,
-  });
+export default function EditRobot({ setEditing, robotToEdit }) {
+  const [robot, setRobot] = useState({});
+  useEffect(() => {
+    setRobot({
+      categoryId: robotToEdit?.categoryId,
+      imageUrl: robotToEdit?.imageUrl,
+      title: robotToEdit?.title,
+      price: robotToEdit?.price,
+      description: robotToEdit?.description,
+      available: robotToEdit?.available,
+    });
+  }, [robotToEdit]);
   const handleInputChange = (e) => {
     setRobot((prevState) => ({
       ...prevState,
@@ -30,8 +34,19 @@ export default function EditRobotForm({ setEditing, robotCategories, ...robotToE
     e.preventDefault();
     editRobot(robotToEdit.id, robot).then(() => setEditing(false));
   };
+  const [robotCategories, setRobotCategories] = useState([]);
+  useEffect(() => {
+    getRobotCategories().then((response) => setRobotCategories(response));
+  }, []);
   return (
-    <Form
+    <Container>
+        <Row>
+          <Col>
+            <h2>Editing</h2>
+            <p>You are now editing</p>
+          </Col>
+          <Col>
+          <Form
       id='robotForm'
       autoComplete='off'
       onSubmit={handleSubmit}
@@ -120,11 +135,13 @@ export default function EditRobotForm({ setEditing, robotCategories, ...robotToE
       </FormGroup>
       <Button>Add Robot</Button>
     </Form>
+          </Col>
+        </Row>
+      </Container>
   );
 }
 
-EditRobotForm.propTypes = {
-  robotCategories: PropTypes.any,
-  robotToEdit: PropTypes.object,
+EditRobot.propTypes = {
   setEditing: PropTypes.func,
+  robotToEdit: PropTypes.object,
 };

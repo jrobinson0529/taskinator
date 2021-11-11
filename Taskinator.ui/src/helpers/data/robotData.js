@@ -30,6 +30,38 @@ const getUnavailableRobots = () => new Promise((resolve, reject) => {
 const editRobot = (id, robotObject) => new Promise((resolve, reject) => {
   axios.put(`${apiUrl}/Robots/${id}`, robotObject).then(resolve).catch(reject);
 });
+const getAvailableRobotsAlphabetically = () => new Promise((resolve, reject) => {
+  axios.get(`${apiUrl}/Robots/`).then((response) => {
+    const sortedRobots = response.data.sort((a, b) => {
+      const titleA = a.title.toUpperCase();
+      const titleB = b.title.toUpperCase();
+      if (titleA < titleB) {
+        return -1;
+      }
+      if (titleA > titleB) {
+        return 1;
+      }
+      return 0;
+    });
+    resolve(sortedRobots);
+  }).catch(reject);
+});
+const getUnavailableRobotsAlphabetically = () => new Promise((resolve, reject) => {
+  axios.get(`${apiUrl}/Robots/unavailable`).then((response) => {
+    const sortedRobots = response.data.sort((a, b) => {
+      const titleA = a.title.toUpperCase();
+      const titleB = b.title.toUpperCase();
+      if (titleA < titleB) {
+        return -1;
+      }
+      if (titleA > titleB) {
+        return 1;
+      }
+      return 0;
+    });
+    resolve(sortedRobots);
+  }).catch(reject);
+});
 export {
-  getRandomRobots, createRobot, getSingleRobot, getRobotByCategory, getRobots, getUnavailableRobots, editRobot
+  getRandomRobots, createRobot, getSingleRobot, getRobotByCategory, getRobots, getUnavailableRobots, editRobot, getAvailableRobotsAlphabetically, getUnavailableRobotsAlphabetically
 };

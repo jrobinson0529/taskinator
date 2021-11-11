@@ -1,86 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, Card, CardBody, CardTitle, Col, Container, Row
+  Button, Card, CardBody, CardTitle,
 } from 'reactstrap';
-import EditRobotForm from '../components/forms/EditRobotForm';
-import RobotForm from '../components/forms/RobotForm';
-import { getRobotCategories } from '../helpers/data/robotCategoryData';
-import { getRobots, getSingleRobot, getUnavailableRobots } from '../helpers/data/robotData';
+import CreateRobotForm from '../components/forms/CreateRobotForm';
+import EditRobot from '../components/forms/EditRobot';
+import {
+  getAvailableRobotsAlphabetically, getSingleRobot, getUnavailableRobotsAlphabetically
+} from '../helpers/data/robotData';
 
 export default function AdminTools() {
   const [robotToEdit, setRobotToEdit] = useState({});
   const [editing, setEditing] = useState(false);
+  const [robots, setRobots] = useState([]);
+  const [unavailableRobots, setUnavailableRobots] = useState([]);
+  // Sorting the robots alphabetically for easy viewing
+  useEffect(() => {
+    getUnavailableRobotsAlphabetically().then(setUnavailableRobots);
+    getAvailableRobotsAlphabetically().then(setRobots);
+  }, [editing]);
   return (
     <div className='admin-view-container'>
       <h2 className='text-center admin-tools-header'>Admin Tools</h2>
-      <CreateRobot />
+      <CreateRobotForm />
       {
         editing ? <EditRobot robotToEdit={robotToEdit} setEditing={setEditing}/> : ''
       }
       <h3 className='text-center available-robots-h3'>Available Robots</h3>
-      <AvailableRobots setEditing={setEditing} setRobotToEdit={setRobotToEdit}/>
+      <AvailableRobots setEditing={setEditing} setRobotToEdit={setRobotToEdit} robots={robots}/>
       <h3 className='text-center available-robots-h3'>Unavailable Robots</h3>
-      <UnavailableRobots setEditing={setEditing}/>
+      <UnavailableRobots setEditing={setEditing} unavailableRobots={unavailableRobots}/>
     </div>
   );
 }
-function CreateRobot() {
-  const [robotCategories, setRobotCategories] = useState([]);
-  useEffect(() => {
-    getRobotCategories().then((response) => setRobotCategories(response));
-  }, []);
-  return (
-    <Container>
-        <Row>
-          <Col>
-            <h2>Add a New Robot!</h2>
-            <p>Type in the information to add a new robot to the database. The robot will then show up publicly based on availablity.</p>
-          </Col>
-          <Col>
-            <RobotForm robotCategories={robotCategories} />
-          </Col>
-        </Row>
-      </Container>
-  );
-}
-function EditRobot({ setEditing, robotToEdit }) {
-  const [robotCategories, setRobotCategories] = useState([]);
-  useEffect(() => {
-    getRobotCategories().then((response) => setRobotCategories(response));
-  }, []);
-  return (
-    <Container>
-        <Row>
-          <Col>
-            <h2>Editing</h2>
-            <p>You are now editing</p>
-          </Col>
-          <Col>
-            <EditRobotForm robotCategories={robotCategories} setEditing={setEditing} {...robotToEdit}/>
-          </Col>
-        </Row>
-      </Container>
-  );
-}
-function AvailableRobots({ setRobotToEdit, setEditing }) {
-  const [robots, setRobots] = useState([]);
-  useEffect(() => {
-    getRobots().then((response) => {
-      const sortedRobots = response.sort((a, b) => {
-        const titleA = a.title.toUpperCase();
-        const titleB = b.title.toUpperCase();
-        if (titleA < titleB) {
-          return -1;
-        }
-        if (titleA > titleB) {
-          return 1;
-        }
-        return 0;
-      });
-      setRobots(sortedRobots);
-    });
-  }, []);
+function AvailableRobots({ setRobotToEdit, setEditing, robots }) {
   return (
     <div className='admin-robot-cont'>
       {
@@ -90,30 +43,11 @@ function AvailableRobots({ setRobotToEdit, setEditing }) {
 
   );
 }
-function UnavailableRobots() {
-  const [robots, setRobots] = useState([]);
-  useEffect(() => {
-    getUnavailableRobots().then((response) => {
-      const sortedRobots = response.sort((a, b) => {
-        const titleA = a.title.toUpperCase();
-        const titleB = b.title.toUpperCase();
-        if (titleA < titleB) {
-          return -1;
-        }
-        if (titleA > titleB) {
-          return 1;
-        }
-        return 0;
-      });
-      if (response) {
-        setRobots(sortedRobots);
-      }
-    });
-  }, []);
+function UnavailableRobots({ unavailableRobots }) {
   return (
     <div className='admin-robot-cont'>
       {
-      robots.map((robot) => <AdminRobotCard key={robot.id} {...robot}/>)
+      unavailableRobots.map((robot) => <AdminRobotCard key={robot.id} {...robot}/>)
       }
     </div>
 
@@ -149,9 +83,13 @@ AdminRobotCard.propTypes = {
 };
 AvailableRobots.propTypes = {
   setEditing: PropTypes.func,
-  setRobotToEdit: PropTypes.func
+  setRobotToEdit: PropTypes.func,
+  robots: PropTypes.array
 };
 EditRobot.propTypes = {
   robotToEdit: PropTypes.object,
   setEditing: PropTypes.func,
+};
+UnavailableRobots.propTypes = {
+  unavailableRobots: PropTypes.array,
 };
