@@ -42,11 +42,33 @@ namespace Taskinator.Controllers
             
             return Created($"api/[controller]/{payment.Id}", _payments.Add(payment, userId));
         }
+
+        // Another post
+        [HttpPost("addPayment")]
+        public IActionResult AddPaymentFromOrder(Payments payments)
+        {
+            var payment = new Payments
+            {
+                PaymentType = payments.PaymentType,
+                AccountNumber = payments.AccountNumber
+            };
+            _payments.AddPayment(payment);
+            return Created($"payments/{payment.Id}", payment);
+        }
+
         [HttpDelete("{id}")]
         public IActionResult DeleteUserPayment(Guid id)
         {
             var deletedPayment = _payments.Delete(id);
             return Ok(deletedPayment);
         }
+
+        // get all enum
+        [HttpGet("paymentTypes")]
+        public IActionResult GetPaymentType()
+        {
+            return Ok(_payments.GetPaymentTypes());
+        }
+
     }
 }

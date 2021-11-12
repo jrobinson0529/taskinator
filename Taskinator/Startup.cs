@@ -12,6 +12,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Taskinator.DataAccess;
 
@@ -52,6 +53,8 @@ namespace Taskinator
                     };
                 });
             services.AddControllers();
+            services.AddControllers().AddJsonOptions(options =>
+             options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Taskinator", Version = "v1" });

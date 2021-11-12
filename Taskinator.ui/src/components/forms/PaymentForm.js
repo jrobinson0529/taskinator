@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import {
@@ -6,15 +6,21 @@ import {
 } from 'reactstrap';
 import { updateUser } from '../../helpers/data/userData';
 import { finalizeOrder } from '../../helpers/data/orderData';
+import { getAllPaymentType, addPayment } from '../../helpers/data/paymentData';
 
 export default function PaymentForm({
   user, setUser, cart, subTotal, setCart
 }) {
   const [additionalForm, setAdditionalForm] = useState(false);
+  const [paymentType, setPaymentType] = useState([]);
+
+  useEffect(() => {
+    getAllPaymentType().then((response) => setPaymentType(response));
+  }, []);
+
   const month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   const years = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   const year = new Date().getFullYear() - 1;
-  const paymentType = ['Paypal', 'Visa', 'Mastercard', 'Amex', 'Venmo', 'GooglePay'];
 
   const [userObject, setUserObject] = useState({
     firstName: user?.firstName || '',
@@ -24,7 +30,7 @@ export default function PaymentForm({
 
   const [paymentObject, setPaymentObject] = useState({
     accountNumber: user.id,
-    paymentType: 1
+    paymentType: ''
   });
 
   const finalizeOrderObj = {
@@ -64,7 +70,7 @@ export default function PaymentForm({
   const handleSubmit = async (e) => {
     e.preventDefault();
     await updateUser(user.id, userObject).then((response) => setUser(response.data));
-    // await addPayment(user.id, paymentObject).then((response) => console.warn(response));
+    await addPayment(paymentObject, user.id).then((response) => console.warn(response));
     await finalizeOrder(cart[0].id, finalizeOrderObj, cartInfo).then((response) => setCart(response));
     await history.push(`/checkout/${user.id}`);
   };
@@ -142,8 +148,8 @@ export default function PaymentForm({
                   onChange={handlePaymentInputChange}
                   value={paymentObject.paymentType}
                   required>
-                {paymentType.map((pay) => (
-                  <option key={pay.id}>{pay}</option>
+                {paymentType.map((pay, index) => (
+                  <option key={index}>{pay}</option>
                 ))}
               </Input>
             </FormGroup>
