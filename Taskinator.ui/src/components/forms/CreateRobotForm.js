@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Form, Row, Col, FormGroup, Label, Input, Button, UncontrolledAlert
+  Form, Row, Col, FormGroup, Label, Input, Button, Container, UncontrolledAlert
 } from 'reactstrap';
 import { createRobot } from '../../helpers/data/robotData';
+import { getRobotCategories } from '../../helpers/data/robotCategoryData';
 
-export default function RobotForm({ robotCategories }) {
+export default function CreateRobotForm() {
   const [robot, setRobot] = useState({
     categoryId: '',
     imageUrl: '',
@@ -16,6 +17,11 @@ export default function RobotForm({ robotCategories }) {
   });
 
   const [visible, setVisible] = useState(false);
+
+  const [robotCategories, setRobotCategories] = useState([]);
+  useEffect(() => {
+    getRobotCategories().then((response) => setRobotCategories(response));
+  }, []);
 
   const handleInputChange = (e) => {
     setRobot((prevState) => ({
@@ -45,7 +51,14 @@ export default function RobotForm({ robotCategories }) {
   };
 
   return (
-    <Form
+    <Container>
+        <Row>
+          <Col>
+            <h2>Add a New Robot!</h2>
+            <p>Type in the information to add a new robot to the database. The robot will then show up publicly based on availablity.</p>
+          </Col>
+          <Col>
+          <Form
       id='robotForm'
       autoComplete='off'
       onSubmit={handleSubmit}
@@ -142,9 +155,11 @@ export default function RobotForm({ robotCategories }) {
         : ''
       }
     </Form>
+          </Col>
+        </Row>
+      </Container>
   );
 }
-
-RobotForm.propTypes = {
+CreateRobotForm.propTypes = {
   robotCategories: PropTypes.any
 };
