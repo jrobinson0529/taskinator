@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Form, Row, Col, FormGroup, Label, Input, Button, Container
+  Form, Row, Col, FormGroup, Label, Input, Button, Container, UncontrolledAlert
 } from 'reactstrap';
 import { createRobot, getAllRobotsAlphabetically } from '../../helpers/data/robotData';
 import { getRobotCategories } from '../../helpers/data/robotCategoryData';
@@ -15,29 +15,44 @@ export default function CreateRobotForm({ setRobots }) {
     description: '',
     available: '',
   });
+
   const [robotCategories, setRobotCategories] = useState([]);
   useEffect(() => {
     getRobotCategories().then((response) => setRobotCategories(response));
   }, []);
+
   const handleInputChange = (e) => {
     setRobot((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value === 'categoryId' ? e.target.selected : e.target.value
     }));
   };
+
   const handleCheckChange = (e) => {
     setRobot((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.checked
     }));
   };
+
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setVisible(false);
+    }, 7000);
+    return () => clearTimeout(timer);
+  }, [visible]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     createRobot(robot).then((response) => {
       setRobot(response);
       getAllRobotsAlphabetically().then(setRobots);
     });
+    setVisible(true);
   };
+
   return (
     <Container>
         <Row>
@@ -134,6 +149,14 @@ export default function CreateRobotForm({ setRobots }) {
         </Label>
       </FormGroup>
       <Button>Add Robot</Button>
+      {visible
+        ? <div className="alert-container mt-3">
+            <UncontrolledAlert id="alert" className="alert" color="dark" fade={true}>
+              <p className="text-center">{robot.title} has been created!</p>
+            </UncontrolledAlert>
+          </div>
+        : ''
+      }
     </Form>
           </Col>
         </Row>
