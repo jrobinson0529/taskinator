@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import {
   Form, Row, Col, FormGroup, Label, Input, Button, Container
 } from 'reactstrap';
-import { createRobot } from '../../helpers/data/robotData';
+import { createRobot, getAllRobotsAlphabetically } from '../../helpers/data/robotData';
 import { getRobotCategories } from '../../helpers/data/robotCategoryData';
 
-export default function CreateRobotForm() {
+export default function CreateRobotForm({ setRobots }) {
   const [robot, setRobot] = useState({
     categoryId: '',
     imageUrl: '',
@@ -33,7 +33,10 @@ export default function CreateRobotForm() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    createRobot(robot).then((response) => setRobot(response));
+    createRobot(robot).then((response) => {
+      setRobot(response);
+      getAllRobotsAlphabetically().then(setRobots);
+    });
   };
   return (
     <Container>
@@ -138,5 +141,5 @@ export default function CreateRobotForm() {
   );
 }
 CreateRobotForm.propTypes = {
-  robotCategories: PropTypes.any
+  setRobots: PropTypes.func,
 };
