@@ -18,7 +18,7 @@ export default function AdminTools() {
   return (
     <div className='admin-view-container'>
       <h2 className='text-center admin-tools-header'>Admin Tools</h2>
-      <CreateRobotForm />
+      <CreateRobotForm setRobots={setRobots}/>
       {
         editing ? <EditRobot robotToEdit={robotToEdit} setEditing={setEditing}/> : ''
       }
