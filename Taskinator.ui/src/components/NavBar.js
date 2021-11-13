@@ -34,7 +34,7 @@ const NavBar = ({ user, setUser }) => {
           {
                   user?.isAdmin
                     ? <NavItem>
-                       <Link className="nav-link" to="/create/robot">Create a Robot</Link>
+                       <Link className="nav-link" to="/admin-tools/">Admin Tools</Link>
                      </NavItem>
                     : ''
           }
