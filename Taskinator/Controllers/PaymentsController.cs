@@ -43,7 +43,14 @@ namespace Taskinator.Controllers
             return Created($"api/[controller]/{payment.Id}", _payments.Add(payment, userId));
         }
 
-        // Another post
+        // Search payment
+        [HttpGet("p")]
+        public IActionResult GetP(Guid id, PaymentType paymentType)
+        {
+            var payment = _payments.FindPayment(id, paymentType);
+            return Ok(payment);
+        }
+        // Another post for payment -- trial
         [HttpPost("addPayment")]
         public IActionResult AddPaymentFromOrder(Payments payments)
         {
@@ -52,8 +59,16 @@ namespace Taskinator.Controllers
                 PaymentType = payments.PaymentType,
                 AccountNumber = payments.AccountNumber
             };
-            _payments.AddPayment(payment);
-            return Created($"payments/{payment.Id}", payment);
+            var result = _payments.FindPayment(payment.AccountNumber, payment.PaymentType);
+            if (result.ToList().Count == 0)
+            {
+                _payments.AddPayment(payment);
+                return Created($"payments/{payment.Id}", payment);
+            }
+            else
+            {
+                return Created($"payments/{payment.Id}", payment);
+            }
         }
 
         [HttpDelete("{id}")]

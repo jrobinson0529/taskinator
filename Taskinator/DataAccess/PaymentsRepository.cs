@@ -63,6 +63,17 @@ namespace Taskinator.DataAccess
             return item;
         }
 
+        internal IEnumerable<Payments> FindPayment(Guid accountNumber, PaymentType paymentType)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"Select *
+                        From Payments
+                        where accountNumber = @accountNumber AND paymentType = @paymentType";
+            var payment = db.Query<Payments>(sql, new { accountNumber, paymentType });
+            return payment;
+        }
+
+        // trial add payment without id
         internal void AddPayment(Payments payment)
         {
             using var db = new SqlConnection(_connectionString);

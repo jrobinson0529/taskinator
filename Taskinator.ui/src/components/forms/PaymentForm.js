@@ -29,12 +29,12 @@ export default function PaymentForm({
   });
 
   const [paymentObject, setPaymentObject] = useState({
-    accountNumber: user.id,
+    accountNumber: user?.id,
     paymentType: ''
   });
 
   const finalizeOrderObj = {
-    customerId: user.id,
+    customerId: user?.id,
     paymentId: cart[0].paymentId,
     orderTotal: subTotal.total
   };
@@ -69,10 +69,10 @@ export default function PaymentForm({
   const history = useHistory();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await updateUser(user.id, userObject).then((response) => setUser(response.data));
-    await addPayment(paymentObject, user.id).then((response) => console.warn(response));
+    await updateUser(user?.id, userObject).then((response) => setUser(response.data));
+    await addPayment(paymentObject, user?.id).then((response) => setPaymentType(response));
     await finalizeOrder(cart[0].id, finalizeOrderObj, cartInfo).then((response) => setCart(response));
-    await history.push(`/checkout/${user.id}`);
+    await history.push(`/checkout/${user?.id}`);
   };
   return (
     <>
