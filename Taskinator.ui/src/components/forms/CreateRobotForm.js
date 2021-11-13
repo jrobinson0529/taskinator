@@ -16,8 +16,6 @@ export default function CreateRobotForm() {
     available: '',
   });
 
-  const [visible, setVisible] = useState(false);
-
   const [robotCategories, setRobotCategories] = useState([]);
   useEffect(() => {
     getRobotCategories().then((response) => setRobotCategories(response));
@@ -36,6 +34,8 @@ export default function CreateRobotForm() {
       [e.target.name]: e.target.checked
     }));
   };
+
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
