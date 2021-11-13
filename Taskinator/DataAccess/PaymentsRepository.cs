@@ -55,5 +55,39 @@ namespace Taskinator.DataAccess
             var deletedPayment = db.QuerySingleOrDefault<Payments>(sql, new { id });
             return deletedPayment;
         }
+
+        // get all available enum
+        internal object GetPaymentTypes()
+        {
+            var item = Enum.GetValues(typeof(PaymentType)).Cast<PaymentType>().ToList();
+            return item;
+        }
+
+        // find payment with id and paymentType
+        internal IEnumerable<Payments> FindPayment(Guid accountNumber, PaymentType paymentType)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"Select *
+                        From Payments
+                        where accountNumber = @accountNumber AND paymentType = @paymentType";
+            var payment = db.Query<Payments>(sql, new { accountNumber, paymentType });
+            return payment;
+        }
+
+        // trial add payment without id
+        internal void AddPayment(Payments payment)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @$"INSERT INTO Payments(accountNumber, paymentType)
+                        OUTPUT INSERTED.id
+                        VALUES(@accountNumber, @paymentType)";
+            var parameters = new
+            {
+                accountNumber = payment.AccountNumber,
+                paymentType = payment.PaymentType
+            };
+            var id = db.ExecuteScalar<Guid>(sql, parameters);
+            payment.Id = id;
+        }
     }
 }

@@ -10,6 +10,7 @@ import SingleService from '../views/SingleService';
 import UserCart from '../views/UserCart';
 import Robot from '../views/Robot';
 import AdminTools from '../views/AdminTools';
+import UserCheckout from '../views/UserCheckout';
 
 function Routes({ user, setUser }) {
   return (
@@ -22,7 +23,7 @@ function Routes({ user, setUser }) {
         <PrivateRouteAdmin exact path="/admin-tools/" component={() => <AdminTools />} user={user}/>
         <PrivateRouteAdmin exact path="/edit/robot/:id" user={user}/>
         <PrivateRoute exact path="/user/:id" component={() => <Profile user={user} setUser={setUser}/>} user={user}/>
-        <PrivateRoute exact path="/cart/:id" component={() => <UserCart user={user}/>} user={user}/>
+        <PrivateRoute exact path="/cart/:id" component={() => <UserCart user={user} setUser={setUser}/>} user={user}/>
         <PrivateRoute exact path="/checkout/:id" component={() => <UserCheckout user={user}/>} user={user}/>
       </Switch>
     </div>
@@ -34,6 +35,7 @@ Routes.propTypes = {
 };
 export default Routes;
 
+<<<<<<< HEAD
 function UserCheckout() {
   const { id } = useParams();
   return (
@@ -42,3 +44,39 @@ function UserCheckout() {
      </div>
   );
 }
+=======
+// function SingleService() {
+//   const { id } = useParams();
+//   return (
+//      <div>
+//        service number {id}
+//      </div>
+//   );
+// }
+
+function EditRobot() {
+  const { id } = useParams();
+  return (
+     <div>
+       Edit robot number {id}
+     </div>
+  );
+}
+
+// function UserCart() {
+//   const { id } = useParams();
+//   return (
+//      <div>
+//        cart number {id}
+//      </div>
+//   );
+// }
+// function UserCheckout() {
+//   const { id } = useParams();
+//   return (
+//      <div>
+//        checkout number {id}
+//      </div>
+//   );
+// }
+>>>>>>> master
