@@ -35,8 +35,8 @@ export default function PaymentForm({
 
   const finalizeOrderObj = {
     customerId: user?.id,
-    paymentId: cart[0].paymentId,
-    orderTotal: subTotal.total
+    paymentId: cart[0]?.paymentId,
+    orderTotal: subTotal?.total
   };
 
   const cartInfo = {
@@ -71,7 +71,7 @@ export default function PaymentForm({
     e.preventDefault();
     await updateUser(user?.id, userObject).then((response) => setUser(response.data));
     await addPayment(paymentObject, user?.id).then((response) => setPaymentType(response));
-    await finalizeOrder(cart[0].id, finalizeOrderObj, cartInfo).then((response) => setCart(response));
+    await finalizeOrder(cart[0]?.id, finalizeOrderObj, cartInfo).then((response) => setCart(response));
     await history.push(`/checkout/${user?.id}`);
   };
   return (
@@ -148,6 +148,7 @@ export default function PaymentForm({
                   onChange={handlePaymentInputChange}
                   value={paymentObject.paymentType}
                   required>
+                  <option>Select Payment Type</option>
                 {paymentType.map((pay, index) => (
                   <option key={index}>{pay}</option>
                 ))}
@@ -157,7 +158,7 @@ export default function PaymentForm({
           <Col md={6}>
             <FormGroup>
               <Label for="cvv">CVV</Label>
-              <Input type="text" name="cvv" id="cvv" placeholder="123" />
+              <Input type="text" name="cvv" id="cvv" placeholder="123" required/>
             </FormGroup>
           </Col>
         </Row>
@@ -165,7 +166,7 @@ export default function PaymentForm({
           <Col md={6}>
             <FormGroup>
               <Label for="month">MONTH</Label>
-              <Input type="select" name="month" id="month">
+              <Input type="select" name="month" id="month" required>
                 {month.map((item) => (
                   <option key={item}>{item}</option>
                 ))}

@@ -43,13 +43,6 @@ namespace Taskinator.Controllers
             return Created($"api/[controller]/{payment.Id}", _payments.Add(payment, userId));
         }
 
-        // Search payment
-        [HttpGet("p")]
-        public IActionResult GetP(Guid id, PaymentType paymentType)
-        {
-            var payment = _payments.FindPayment(id, paymentType);
-            return Ok(payment);
-        }
         // Another post for payment -- trial
         [HttpPost("addPayment")]
         public IActionResult AddPaymentFromOrder(Payments payments)

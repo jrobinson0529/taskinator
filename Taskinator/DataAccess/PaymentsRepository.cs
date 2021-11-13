@@ -63,6 +63,7 @@ namespace Taskinator.DataAccess
             return item;
         }
 
+        // find payment with id and paymentType
         internal IEnumerable<Payments> FindPayment(Guid accountNumber, PaymentType paymentType)
         {
             using var db = new SqlConnection(_connectionString);
