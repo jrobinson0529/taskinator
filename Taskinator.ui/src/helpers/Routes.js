@@ -10,6 +10,7 @@ import SingleService from '../views/SingleService';
 import UserCart from '../views/UserCart';
 import CreateRobot from '../views/CreateRobot';
 import Robot from '../views/Robot';
+import UserCheckout from '../views/UserCheckout';
 
 function Routes({ user, setUser }) {
   return (
@@ -22,7 +23,7 @@ function Routes({ user, setUser }) {
         <PrivateRouteAdmin exact path="/create/robot" component={() => <CreateRobot/>} user={user}/>
         <PrivateRouteAdmin exact path="/edit/robot/:id" component={() => <EditRobot/>} user={user}/>
         <PrivateRoute exact path="/user/:id" component={() => <Profile user={user} setUser={setUser}/>} user={user}/>
-        <PrivateRoute exact path="/cart/:id" component={() => <UserCart user={user}/>} user={user}/>
+        <PrivateRoute exact path="/cart/:id" component={() => <UserCart user={user} setUser={setUser}/>} user={user}/>
         <PrivateRoute exact path="/checkout/:id" component={() => <UserCheckout user={user}/>} user={user}/>
       </Switch>
     </div>
@@ -60,11 +61,11 @@ function EditRobot() {
 //      </div>
 //   );
 // }
-function UserCheckout() {
-  const { id } = useParams();
-  return (
-     <div>
-       checkout number {id}
-     </div>
-  );
-}
+// function UserCheckout() {
+//   const { id } = useParams();
+//   return (
+//      <div>
+//        checkout number {id}
+//      </div>
+//   );
+// }

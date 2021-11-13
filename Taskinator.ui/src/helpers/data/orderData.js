@@ -3,7 +3,7 @@ import { apiConfig } from '../apiKeys';
 
 const { apiUrl } = apiConfig;
 
-// get cart item with order ID
+// get cart item with user ID
 const getCartItem = (id) => new Promise((resolve, reject) => {
   axios.get(`${apiUrl}/Orders/cartItem/${id}`).then((response) => resolve(response.data)).catch(reject);
 });
@@ -44,6 +44,14 @@ const updateRobotOrder = (id, orderObj, orderId) => new Promise((resolve, reject
     .catch(reject);
 });
 
+// finalize order
+const finalizeOrder = (orderId, orderObj, cartObj) => new Promise((resolve, reject) => {
+  axios.put(`${apiUrl}/Orders/placeOrder/${orderId}`, orderObj)
+    .then(() => createCart(cartObj).then((data) => resolve(data)))
+    .catch(reject);
+});
+
 export {
-  getCartItem, getRobotInfoFromOrderId, getMappableRobotInfoFromOrderId, createCart, getSubTotalFromOrderId, deleteRobotsOrder, updateRobotOrder
+  getCartItem, getRobotInfoFromOrderId, getMappableRobotInfoFromOrderId,
+  createCart, getSubTotalFromOrderId, deleteRobotsOrder, updateRobotOrder, finalizeOrder
 };
