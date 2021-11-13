@@ -8,6 +8,7 @@ import { getRobotCategories } from '../../helpers/data/robotCategoryData';
 
 export default function EditRobot({ setEditing, robotToEdit }) {
   const [robot, setRobot] = useState({});
+  const [robotCategories, setRobotCategories] = useState([]);
   useEffect(() => {
     setRobot({
       categoryId: robotToEdit?.categoryId,
@@ -34,7 +35,16 @@ export default function EditRobot({ setEditing, robotToEdit }) {
     e.preventDefault();
     editRobot(robotToEdit.id, robot).then(() => setEditing(false));
   };
-  const [robotCategories, setRobotCategories] = useState([]);
+  const DefaultOption = () => {
+    const [category, setCategory] = useState();
+    useEffect(() => {
+      const singleCategory = robotCategories.filter((cat) => cat.id === robot.categoryId)[0];
+      setCategory(singleCategory);
+    }, [setEditing]);
+    return (
+      <option value={category?.id} selected>{category?.title}</option>
+    );
+  };
   useEffect(() => {
     getRobotCategories().then((response) => setRobotCategories(response));
   }, []);
@@ -60,7 +70,6 @@ export default function EditRobot({ setEditing, robotToEdit }) {
               type="text"
               name="title"
               id="robotTitle"
-              placeholder="Murderbot"
               value={robot.title}
               onChange={handleInputChange}
             />
@@ -75,7 +84,6 @@ export default function EditRobot({ setEditing, robotToEdit }) {
               id="robotPrice"
               value={robot.price}
               onChange={handleInputChange}
-              placeholder="150.00"
             />
           </FormGroup>
         </Col>
@@ -89,9 +97,9 @@ export default function EditRobot({ setEditing, robotToEdit }) {
               name="categoryId"
               onChange={handleInputChange}
               id="selectCategory">
-              <option value="">Select Category</option>
+              <DefaultOption />
               {robotCategories.map((category) => (
-                <option key={category.id} value={category.id}>{category.title}</option>
+                <option key={category.id} value={category.id} def>{category.title}</option>
               ))};
         </Input>
       </FormGroup>
@@ -105,7 +113,6 @@ export default function EditRobot({ setEditing, robotToEdit }) {
               id="robotImage"
               value={robot.imageUrl}
               onChange={handleInputChange}
-              placeholder="google.com"
             />
           </FormGroup>
         </Col>
@@ -118,7 +125,6 @@ export default function EditRobot({ setEditing, robotToEdit }) {
           id="robotDescription"
           value={robot.description}
           onChange={handleInputChange}
-          placeholder="murder murder murder murder"
         />
       </FormGroup>
       <FormGroup check>

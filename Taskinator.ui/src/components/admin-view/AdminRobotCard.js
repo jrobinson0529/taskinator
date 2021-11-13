@@ -8,7 +8,6 @@ import { getSingleRobot } from '../../helpers/data/robotData';
 function AdminRobotCard({ setRobotToEdit, setEditing, ...robot }) {
   const handleClick = (e) => {
     getSingleRobot(e.target.id).then((response) => {
-      console.warn(e.target.id);
       setRobotToEdit(response);
       setEditing(true);
     });
@@ -22,8 +21,8 @@ function AdminRobotCard({ setRobotToEdit, setEditing, ...robot }) {
     </CardBody>
     <Button className='bg-primary' onClick={handleClick} id={robot.id}>Edit</Button>
     {
-      robot.available ? <Button className='bg-danger' id='remove-availability-btn'>Remove</Button>
-        : <Button className='bg-success' id='add-availability-btn'>Add</Button>
+      robot.available ? <Button className='bg-success' id='remove-availability-btn'>available</Button>
+        : <Button className='bg-danger' id='add-availability-btn'>unavailable</Button>
     }
   </Card>
   );
