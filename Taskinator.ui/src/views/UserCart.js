@@ -6,7 +6,7 @@ import {
 } from '../helpers/data/orderData';
 import CartCard from '../components/CartCard';
 import PaymentForm from '../components/forms/PaymentForm';
-import OrderHisotry from '../components/OrderHistory';
+import OrderHisotry from '../components/order-history-view/OrderHistory';
 
 export default function UserCart({ user, setUser }) {
   const [cart, setCart] = useState([]);

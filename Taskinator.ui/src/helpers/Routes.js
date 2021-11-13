@@ -11,6 +11,7 @@ import UserCart from '../views/UserCart';
 import Robot from '../views/Robot';
 import AdminTools from '../views/AdminTools';
 import UserCheckout from '../views/UserCheckout';
+import DetailedOrderHistory from '../components/order-history-view/DetailedOrderHistory';
 
 function Routes({ user, setUser }) {
   return (
@@ -24,7 +25,8 @@ function Routes({ user, setUser }) {
         <PrivateRouteAdmin exact path="/edit/robot/:id" user={user}/>
         <PrivateRoute exact path="/user/:id" component={() => <Profile user={user} setUser={setUser}/>} user={user}/>
         <PrivateRoute exact path="/cart/:id" component={() => <UserCart user={user} setUser={setUser}/>} user={user}/>
-        <PrivateRoute exact path="/checkout/:id" component={() => <UserCheckout user={user}/>} user={user}/>
+        <PrivateRoute exact path="/checkout/:id" component={() => <UserCheckout user={user} />} user={user} />
+        <PrivateRoute exact path="/orderHistory/:id" component={() => <DetailedOrderHistory user={user} />} user={user}/>
       </Switch>
     </div>
   );
