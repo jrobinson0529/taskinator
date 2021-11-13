@@ -5,10 +5,12 @@ import {
   createCart, getCartItem, getMappableRobotInfoFromOrderId, getSubTotalFromOrderId
 } from '../helpers/data/orderData';
 import CartCard from '../components/CartCard';
+import PaymentForm from '../components/forms/PaymentForm';
 
-export default function UserCart({ user }) {
+export default function UserCart({ user, setUser }) {
   const [cart, setCart] = useState([]);
   const [subTotal, setSubTotal] = useState();
+  const [openCheckoutForm, setOpenCheckoutForm] = useState();
   useEffect(() => {
     getCartItem(user.id).then((response) => {
       if (!response) {
@@ -24,6 +26,13 @@ export default function UserCart({ user }) {
       }
     });
   }, []);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    setOpenCheckoutForm((prevState) => ({
+      ...prevState,
+    }));
+  };
   return (
     <div className="full-height-section">
       <h1 className="cart-title">Your Shopping Cart</h1>
@@ -39,8 +48,11 @@ export default function UserCart({ user }) {
       </div>
       {cart.length !== 0
         && <div className='order-total-container'>
-          <h1 className="cart-total">Total for this order: $ {subTotal?.total}</h1>
-          <Button className="checkout-button">Checkout</Button>
+          <h1>Total for this order: $ {subTotal?.total}</h1>
+        <Button onClick={handleClick}>Checkout</Button>
+        {openCheckoutForm
+          && <PaymentForm user={user} setUser={setUser} cart={cart} setCart={setCart} subTotal={subTotal}/>
+        }
         </div>
         }
       </div>
@@ -49,4 +61,5 @@ export default function UserCart({ user }) {
 
 UserCart.propTypes = {
   user: PropTypes.any,
+  setUser: PropTypes.func
 };
