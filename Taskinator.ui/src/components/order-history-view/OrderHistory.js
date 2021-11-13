@@ -14,8 +14,8 @@ export default function OrderHisotry({ user }) {
   }, []);
 
   const history = useHistory();
-  const handleClick = () => {
-    history.push(`/orderHistory/${user?.id}`);
+  const handleClick = (id) => {
+    history.push(`/orderHistory/${id}`);
   };
 
   return (
@@ -26,7 +26,7 @@ export default function OrderHisotry({ user }) {
           <CardBody>
             <CardText>Total $ {order.orderTotal}</CardText>
           </CardBody>
-          <Button onClick={handleClick}>View Details</Button>
+          <Button onClick={() => handleClick(order.id)}>View Details</Button>
         </Card>
       ))}
     </div>
