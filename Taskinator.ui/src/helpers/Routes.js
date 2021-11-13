@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, useParams } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PrivateRouteAdmin from './PrivateRouteAdmin';
 import PrivateRoute from './PrivateRoute';
@@ -8,8 +8,8 @@ import Profile from '../views/Profile';
 import Services from '../views/Services';
 import SingleService from '../views/SingleService';
 import UserCart from '../views/UserCart';
-import CreateRobot from '../views/CreateRobot';
 import Robot from '../views/Robot';
+import AdminTools from '../views/AdminTools';
 import UserCheckout from '../views/UserCheckout';
 
 function Routes({ user, setUser }) {
@@ -20,8 +20,8 @@ function Routes({ user, setUser }) {
         <Route exact path="/services" component={() => <Services />} />
         <Route exact path="/services/:categoryId" component={() => <SingleService />} />
         <Route exact path="/robot/:id" component={() => <Robot user={user} /> } />
-        <PrivateRouteAdmin exact path="/create/robot" component={() => <CreateRobot/>} user={user}/>
-        <PrivateRouteAdmin exact path="/edit/robot/:id" component={() => <EditRobot/>} user={user}/>
+        <PrivateRouteAdmin exact path="/admin-tools/" component={() => <AdminTools />} user={user}/>
+        <PrivateRouteAdmin exact path="/edit/robot/:id" user={user}/>
         <PrivateRoute exact path="/user/:id" component={() => <Profile user={user} setUser={setUser}/>} user={user}/>
         <PrivateRoute exact path="/cart/:id" component={() => <UserCart user={user} setUser={setUser}/>} user={user}/>
         <PrivateRoute exact path="/checkout/:id" component={() => <UserCheckout user={user}/>} user={user}/>
@@ -34,38 +34,3 @@ Routes.propTypes = {
   setUser: PropTypes.func
 };
 export default Routes;
-
-// function SingleService() {
-//   const { id } = useParams();
-//   return (
-//      <div>
-//        service number {id}
-//      </div>
-//   );
-// }
-
-function EditRobot() {
-  const { id } = useParams();
-  return (
-     <div>
-       Edit robot number {id}
-     </div>
-  );
-}
-
-// function UserCart() {
-//   const { id } = useParams();
-//   return (
-//      <div>
-//        cart number {id}
-//      </div>
-//   );
-// }
-// function UserCheckout() {
-//   const { id } = useParams();
-//   return (
-//      <div>
-//        checkout number {id}
-//      </div>
-//   );
-// }
