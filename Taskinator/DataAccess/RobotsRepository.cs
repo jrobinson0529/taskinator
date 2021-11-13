@@ -38,6 +38,18 @@ namespace Taskinator.DataAccess
             var robots = db.Query<Robots>(sql);
             return robots;
         }
+
+        internal IEnumerable<Robots> GetAllAlphabetically()
+        {
+            using var db = new SqlConnection(_connectionString);
+
+
+            var sql = @"SELECT * FROM Robots
+                        ORDER BY title;";
+            var robots = db.Query<Robots>(sql);
+            return robots;
+        }
+
         internal Robots GetRobotById(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
