@@ -11,6 +11,7 @@ export default function UserCart({ user, setUser }) {
   const [cart, setCart] = useState([]);
   const [subTotal, setSubTotal] = useState();
   const [openCheckoutForm, setOpenCheckoutForm] = useState();
+  // const [openOrderHistroy, setOpenOrderHistory] = useState(false);
   useEffect(() => {
     getCartItem(user.id).then((response) => {
       if (!response) {
