@@ -13,7 +13,6 @@ export default function Robot({ user }) {
   const [orderObject, setOrderObject] = useState({
     dayQuantity: 1
   });
-  // const [message, setMessage] = useState();
   const { id } = useParams();
   const [visible, setVisible] = useState(false);
   const days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
@@ -45,11 +44,6 @@ export default function Robot({ user }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // addToCart(orderObject).then((response) => {
-    //   if (response) {
-    //     setMessage('Robot has been added to cart');
-    //   }
-    // });
     addToCart(orderObject).then(setVisible(true));
   };
 
@@ -72,13 +66,13 @@ export default function Robot({ user }) {
                   name="dayQuantity"
                   onChange={handleInputChange}
                   id="selectDayQuantity">
+                  <option hidden value=""># of days needed?</option>
                 {days.map((day) => (
                   <option defaultValue={orderObject.dayQuantity} key={day}>{day}</option>
                 ))}
               </Input>
               </FormGroup>
             <Button onClick={handleSubmit}>ADD TO CART</Button>
-            {/* <h4 className="success-message">{message}</h4> */}
             {visible
               ? <div className="alert-container mt-3">
                   <UncontrolledAlert id="alert" className="alert" color="dark" fade={true}>
