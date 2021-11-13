@@ -41,6 +41,7 @@ export default function RobotForm({ robotCategories }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     createRobot(robot).then((response) => setRobot(response));
+    createRobot(robot).then(setRobot).then(setVisible(true));
     setVisible(true);
   };
 
