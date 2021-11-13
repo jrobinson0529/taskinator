@@ -24,7 +24,15 @@ const getSingleRobot = (id) => new Promise((resolve, reject) => {
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
-
+const getUnavailableRobots = () => new Promise((resolve, reject) => {
+  axios.get(`${apiUrl}/Robots/unavailable`).then((response) => resolve(response.data)).catch(reject);
+});
+const editRobot = (id, robotObject) => new Promise((resolve, reject) => {
+  axios.put(`${apiUrl}/Robots/${id}`, robotObject).then(resolve).catch(reject);
+});
+const getAllRobotsAlphabetically = () => new Promise((resolve, reject) => {
+  axios.get(`${apiUrl}/Robots/all`).then((response) => resolve(response.data)).catch(reject);
+});
 export {
-  getRandomRobots, createRobot, getSingleRobot, getRobotByCategory, getRobots
+  getRandomRobots, createRobot, getSingleRobot, getRobotByCategory, getRobots, getUnavailableRobots, editRobot, getAllRobotsAlphabetically
 };
