@@ -8,6 +8,11 @@ const getCartItem = (id) => new Promise((resolve, reject) => {
   axios.get(`${apiUrl}/Orders/cartItem/${id}`).then((response) => resolve(response.data)).catch(reject);
 });
 
+// get order history from customer ID
+const getOrderHistory = (id) => new Promise((resolve, reject) => {
+  axios.get(`${apiUrl}/Orders/allOrders/${id}`).then((response) => resolve(response.data)).catch(reject);
+});
+
 // testing purpose
 const getRobotInfoFromOrderId = (id) => new Promise((resolve, reject) => {
   axios.get(`${apiUrl}/Orders/expandedOrder/${id}`).then((response) => resolve(response.data)).catch(reject);
@@ -52,6 +57,6 @@ const finalizeOrder = (orderId, orderObj, cartObj) => new Promise((resolve, reje
 });
 
 export {
-  getCartItem, getRobotInfoFromOrderId, getMappableRobotInfoFromOrderId,
+  getCartItem, getOrderHistory, getRobotInfoFromOrderId, getMappableRobotInfoFromOrderId,
   createCart, getSubTotalFromOrderId, deleteRobotsOrder, updateRobotOrder, finalizeOrder
 };
