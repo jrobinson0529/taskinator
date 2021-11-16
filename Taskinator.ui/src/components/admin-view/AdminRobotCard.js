@@ -13,7 +13,7 @@ function AdminRobotCard({ setRobotToEdit, setEditing, ...robot }) {
     });
   };
   return (
-    <Card className='admin-robot-card'>
+    <Card className='robot-card'>
     <CardBody>
       <CardTitle tag="h5">
         {robot.title}
