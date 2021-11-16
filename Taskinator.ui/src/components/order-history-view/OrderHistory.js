@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import {
-  Button,
-  Card, CardBody, CardText, CardTitle
+  CardLink, Table
 } from 'reactstrap';
 import { getOrderHistory } from '../../helpers/data/orderData';
 
@@ -19,17 +18,22 @@ export default function OrderHisotry({ user }) {
   };
 
   return (
-    <div className='order-history-container'>
-      {orders?.map((order) => (
-        <Card className='order-history-card' key={order.id}>
-          <CardTitle>{order.orderDate}</CardTitle>
-          <CardBody>
-            <CardText>Total $ {order.orderTotal}</CardText>
-          </CardBody>
-          <Button onClick={() => handleClick(order.id)}>View Details</Button>
-        </Card>
-      ))}
-    </div>
+    <Table striped bordered className='order-history-container'>
+      <tbody className='order-history-card' >
+        <tr>
+          <th>Order Date</th>
+          <th>Total Price</th>
+          <th>Details</th>
+        </tr>
+        {orders?.map((order) => (
+        <tr key={order.id}>
+          <td>{order.orderDate}</td>
+          <td>$ {order.orderTotal}</td>
+          <td><CardLink href='#' onClick={() => handleClick(order.id)}>View Details</CardLink></td>
+        </tr>
+        ))}
+    </tbody>
+  </Table>
   );
 }
 

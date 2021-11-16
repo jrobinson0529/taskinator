@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'reactstrap';
+import { Button, CardLink } from 'reactstrap';
 import {
   createCart, getCartItem, getMappableRobotInfoFromOrderId, getSubTotalFromOrderId
 } from '../helpers/data/orderData';
@@ -62,9 +62,9 @@ export default function UserCart({ user, setUser }) {
         }
         </div>
       }
-      <Button onClick={() => handleOpenHistory()}>
+      <CardLink href='#' onClick={() => handleOpenHistory()}>
         { openOrderHistroy ? 'Close Order History' : 'Order History'}
-      </Button>
+      </CardLink>
       {openOrderHistroy && <OrderHisotry user={user}/>}
       </div>
   );

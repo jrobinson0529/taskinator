@@ -1,11 +1,36 @@
 .order-history-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  margin-top: 2%;
 }
 
-.order-history-card.card {
-  background-color: #c5d9e6;
+tbody.order-history-card {
+  color: #fff;
+}
+
+div.detailed-order-container {
+  min-height: 100vh;
+  margin-top: 5%;
+}
+
+.detailed-order-card.card {
+  background-color: #ebebeb;
+  border: black;
   color: black;
-  width: 30%;
+}
+
+.detailed-order-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+div.detailed-order-robot-container {
+  display: flex;
+  justify-content: center;
+  margin: 5%;
+  border: 15px solid #8FC3E4;
+  background-color: #ebebeb;
+}
+
+.detailed-order-image {
+  width: 50%;
+  margin-bottom: 2%;
 }
