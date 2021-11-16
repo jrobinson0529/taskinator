@@ -26,6 +26,12 @@ export default function PaymentForm({
     firstName: user?.firstName || '',
     lastName: user?.lastName || '',
     billingAddress: user?.billingAddress || '',
+    imageUrl: user?.imageUrl,
+    dateCreated: user?.dateCreated,
+    username: user?.username,
+    email: user?.email,
+    isAdmin: user?.isAdmin,
+    googleId: user?.googleId
   });
 
   const [paymentObject, setPaymentObject] = useState({

@@ -29,11 +29,13 @@ const SearchBar = () => {
      placeholder={'Search Robots by Name'}
      onKeyDown={handleKeyDown}
     />
+    <div className="search-robots">
       {
         filteredData.map((robot) => (
         <RobotCard key={robot.id} {...robot}/>
         ))
       }
+    </div>
     </div>
   );
 };
