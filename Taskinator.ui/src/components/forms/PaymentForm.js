@@ -1,3 +1,6 @@
+/* eslint-disable no-sequences */
+/* eslint-disable no-constant-condition */
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
@@ -6,7 +9,8 @@ import {
 } from 'reactstrap';
 import { updateUser } from '../../helpers/data/userData';
 import { finalizeOrder } from '../../helpers/data/orderData';
-import { getAllPaymentType, addPayment } from '../../helpers/data/paymentData';
+import { addPayment, getAllPaymentType } from '../../helpers/data/paymentData';
+import CreditCardForm from './CreditCardForm';
 
 export default function PaymentForm({
   user, setUser, cart, subTotal, setCart
@@ -18,14 +22,16 @@ export default function PaymentForm({
     getAllPaymentType().then((response) => setPaymentType(response));
   }, []);
 
-  const month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-  const years = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-  const year = new Date().getFullYear() - 1;
-
   const [userObject, setUserObject] = useState({
     firstName: user?.firstName || '',
     lastName: user?.lastName || '',
     billingAddress: user?.billingAddress || '',
+    imageUrl: user?.imageUrl,
+    dateCreated: user?.dateCreated,
+    username: user?.username,
+    email: user?.email,
+    isAdmin: user?.isAdmin,
+    googleId: user?.googleId
   });
 
   const [paymentObject, setPaymentObject] = useState({
@@ -113,6 +119,7 @@ export default function PaymentForm({
         </Col>
       </Row>
       <Button onClick={handleClick}>NEXT</Button>
+      <div className="additional-form">
       {additionalForm
           && <>
           <Row>
@@ -122,22 +129,6 @@ export default function PaymentForm({
           </Row>
           <Row>
           <Col md={12}>
-            <FormGroup>
-              <Label for="cardNumber">CARD NUMBER / ACCOUNT NUMBER</Label>
-              <Input type="text" name="cardNumber" id="cardNumber" placeholder="1234 5678 3456 2456" required/>
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={12}>
-            <FormGroup>
-              <Label for="cardHolderName">CARDHOLDER NAME</Label>
-              <Input type="text" name="cardHolderName" id="cardHolderName" placeholder="John Doe" required/>
-            </FormGroup>
-          </Col>
-          </Row>
-          <Row form>
-          <Col md={6}>
             <FormGroup>
               <Label for="type">PAYMENT TYPE</Label>
                 <Input
@@ -155,38 +146,23 @@ export default function PaymentForm({
               </Input>
             </FormGroup>
           </Col>
-          <Col md={6}>
+          <Col md={12}>
             <FormGroup>
-              <Label for="cvv">CVV</Label>
-              <Input type="text" name="cvv" id="cvv" placeholder="123" required/>
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row form>
-          <Col md={6}>
-            <FormGroup>
-              <Label for="month">MONTH</Label>
-              <Input type="select" name="month" id="month" required>
-                {month.map((item) => (
-                  <option key={item}>{item}</option>
-                ))}
-              </Input>
-            </FormGroup>
-          </Col>
-          <Col md={6}>
-            <FormGroup>
-              <Label for="year">YEAR</Label>
-              <Input type="select" name="year" id="year">
-                {years.map((x) => (
-                  <option key={year + x}>{year + x}</option>
-                ))}
-              </Input>
+            { paymentObject.paymentType === 'Visa' ? <CreditCardForm/>
+              : paymentObject.paymentType === 'Mastercard' ? <CreditCardForm/>
+                : paymentObject.paymentType === 'Amex' ? <CreditCardForm/>
+                  : paymentObject.paymentType === '' ? ''
+                    : paymentObject.paymentType === 'Select Payment Type' ? ''
+                      : <> <Label for="cardNumber">ACCOUNT NUMBER</Label>
+                  <Input type="text" name="cardNumber" id="cardNumber" placeholder="1234 5678 3456 2456" required/> <Label for="cardHolderName">ACCOUNT HOLDER NAME</Label>
+                  <Input type="text" name="cardHolderName" id="cardHolderName" placeholder="John Doe" required/> </> }
             </FormGroup>
           </Col>
         </Row>
           <Button>ORDER</Button>
         </>
       }
+      </div>
       </Form>
       </>
   );

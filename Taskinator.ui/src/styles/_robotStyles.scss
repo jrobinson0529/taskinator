@@ -1,6 +1,6 @@
 .single-robot-cont{
   padding: 50px 20px;
-  height: 80vh;
+  min-height: 80vh;
   .container {
     background-color: #ebebeb;
     padding: 60px;
@@ -20,4 +20,9 @@
   label {
     color: #8FC3E4;
   }
+}
+
+.search-robot-cont {
+  padding: 50px 20px;
+  min-height: 80vh;
 }

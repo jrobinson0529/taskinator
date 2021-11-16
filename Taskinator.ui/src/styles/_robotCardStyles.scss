@@ -16,6 +16,18 @@
     padding: 5px;
     margin: 5px;
   }
+  button {
+    margin: 10px;
+  }
+}
+
+.search-robots {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 75%;
+  justify-content: center;
+  margin: 50px auto;
 }
 
 .card-button {

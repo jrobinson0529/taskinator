@@ -11,6 +11,7 @@ import UserCart from '../views/UserCart';
 import Robot from '../views/Robot';
 import AdminTools from '../views/AdminTools';
 import UserCheckout from '../views/UserCheckout';
+import Search from '../views/Search';
 
 function Routes({ user, setUser }) {
   return (
@@ -18,6 +19,7 @@ function Routes({ user, setUser }) {
       <Switch>
         <Route exact path="/" component={() => <Home user={user}/>} />
         <Route exact path="/services" component={() => <Services />} />
+        <Route exact path="/search" component={() => <Search />} />
         <Route exact path="/services/:categoryId" component={() => <SingleService />} />
         <Route exact path="/robot/:id" component={() => <Robot user={user} /> } />
         <PrivateRouteAdmin exact path="/admin-tools/" component={() => <AdminTools />} user={user}/>

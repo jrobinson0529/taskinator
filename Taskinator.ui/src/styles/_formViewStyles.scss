@@ -1,5 +1,5 @@
 .full-height-section {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .robot-form {
@@ -9,4 +9,12 @@
     font-weight: 700 !important;
     text-transform: capitalize;
   }
+}
+
+.form-container {
+  margin: 60px;
+}
+
+.additional-form {
+  margin: 40px 0px;
 }

@@ -18,10 +18,14 @@ export default function AdminTools() {
   return (
     <div className='admin-view-container'>
       <h2 className='text-center admin-tools-header'>Admin Tools</h2>
+      <div className="form-container">
       <CreateRobotForm setRobots={setRobots}/>
+      </div>
+      <div className="form-container">
       {
         editing ? <EditRobot robotToEdit={robotToEdit} setEditing={setEditing}/> : ''
       }
+      </div>
       <h3 className='text-center available-robots-h3'>Robots View</h3>
       <AllRobots setEditing={setEditing} setRobotToEdit={setRobotToEdit} robots={robots}/>
     </div>
