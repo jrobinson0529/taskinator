@@ -33,6 +33,12 @@ const editRobot = (id, robotObject) => new Promise((resolve, reject) => {
 const getAllRobotsAlphabetically = () => new Promise((resolve, reject) => {
   axios.get(`${apiUrl}/Robots/all`).then((response) => resolve(response.data)).catch(reject);
 });
+const deleteSingleRobot = (id) => new Promise((resolve, reject) => {
+  axios.delete(`${apiUrl}/Robots/delete/${id}`).then(() => {
+    getAllRobotsAlphabetically().then(resolve).catch(reject);
+  });
+});
 export {
-  getRandomRobots, createRobot, getSingleRobot, getRobotByCategory, getRobots, getUnavailableRobots, editRobot, getAllRobotsAlphabetically
+  getRandomRobots, createRobot, getSingleRobot, getRobotByCategory, getRobots, getUnavailableRobots, editRobot, getAllRobotsAlphabetically,
+  deleteSingleRobot
 };

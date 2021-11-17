@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   Button, Col, Container, Row, Label, FormGroup, Form, Input
 } from 'reactstrap';
-import { editRobot } from '../../helpers/data/robotData';
+import { deleteSingleRobot, editRobot } from '../../helpers/data/robotData';
 import { getRobotCategories } from '../../helpers/data/robotCategoryData';
 
 export default function EditRobot({ setEditing, robotToEdit }) {
@@ -25,6 +25,12 @@ export default function EditRobot({ setEditing, robotToEdit }) {
       [e.target.name]: e.target.value === 'categoryId' ? e.target.selected : e.target.value
     }));
   };
+
+  const handleClick = (e) => {
+    console.warn(e.target.id);
+    deleteSingleRobot(e.target.id).then(() => setEditing(false));
+  };
+
   const handleCheckChange = (e) => {
     setRobot((prevState) => ({
       ...prevState,
@@ -139,7 +145,8 @@ export default function EditRobot({ setEditing, robotToEdit }) {
           Available
         </Label>
       </FormGroup>
-      <Button>Add Robot</Button>
+      <Button>Edit Robot</Button>
+      <Button className='bg-danger' id={robotToEdit?.id} onClick={handleClick}>Delete</Button>
     </Form>
           </Col>
         </Row>
