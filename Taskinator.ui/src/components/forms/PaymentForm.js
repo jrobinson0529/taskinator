@@ -97,7 +97,7 @@ export default function PaymentForm({
               name="firstName"
               id="fullName"
               placeholder="John"
-              value={userObject.firstName}
+              value={userObject?.firstName}
               onChange={handleUserInputChange}
               required />
           </FormGroup>
@@ -105,7 +105,7 @@ export default function PaymentForm({
         <Col md={6}>
           <FormGroup>
             <Label for="lastName">LAST NAME</Label>
-            <Input type="text" name="lastName" id="fullName" placeholder="Doe" value={userObject.lastName} onChange={handleUserInputChange} required />
+            <Input type="text" name="lastName" id="fullName" placeholder="Doe" value={userObject?.lastName} onChange={handleUserInputChange} required />
           </FormGroup>
         </Col>
       </Row>
@@ -114,7 +114,7 @@ export default function PaymentForm({
           <FormGroup>
             <Label for="address">ADDRESS</Label>
             <Input
-              type="text" name="billingAddress" id="address" placeholder="497 Evergreen Rd." value={userObject.billingAddress} onChange={handleUserInputChange} required/>
+              type="text" name="billingAddress" id="address" placeholder="497 Evergreen Rd." value={userObject?.billingAddress} onChange={handleUserInputChange} required/>
           </FormGroup>
         </Col>
       </Row>
@@ -137,10 +137,10 @@ export default function PaymentForm({
                   id="paymentType"
                   placeholder="VISA"
                   onChange={handlePaymentInputChange}
-                  value={paymentObject.paymentType}
+                  value={paymentObject?.paymentType}
                   required>
                   <option>Select Payment Type</option>
-                {paymentType.map((pay, index) => (
+                {paymentType?.map((pay, index) => (
                   <option key={index}>{pay}</option>
                 ))}
               </Input>
