@@ -32,7 +32,8 @@ namespace Taskinator.DataAccess
             using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT *
                         FROM Orders
-                        WHERE customerId = @id";
+                        WHERE customerId = @id AND orderDate is not null
+                        ORDER BY orderDate DESC";
             var order = db.Query<Orders>(sql, new { id });
             return order;
         }

@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'reactstrap';
+import { Button, CardLink } from 'reactstrap';
 import {
   createCart, getCartItem, getMappableRobotInfoFromOrderId, getSubTotalFromOrderId
 } from '../helpers/data/orderData';
 import CartCard from '../components/CartCard';
 import PaymentForm from '../components/forms/PaymentForm';
+import OrderHisotry from '../components/order-history-view/OrderHistory';
 
 export default function UserCart({ user, setUser }) {
   const [cart, setCart] = useState([]);
   const [subTotal, setSubTotal] = useState();
   const [openCheckoutForm, setOpenCheckoutForm] = useState();
+  const [openOrderHistroy, setOpenOrderHistory] = useState(false);
   useEffect(() => {
     getCartItem(user.id).then((response) => {
       if (!response) {
@@ -33,6 +35,11 @@ export default function UserCart({ user, setUser }) {
       ...prevState,
     }));
   };
+
+  const handleOpenHistory = () => {
+    setOpenOrderHistory((prevState) => !prevState);
+  };
+
   return (
     <div className="full-height-section">
       <h1 className="cart-title">Your Shopping Cart</h1>
@@ -54,7 +61,11 @@ export default function UserCart({ user, setUser }) {
           && <PaymentForm user={user} setUser={setUser} cart={cart} setCart={setCart} subTotal={subTotal}/>
         }
         </div>
-        }
+      }
+      <CardLink href='#' onClick={() => handleOpenHistory()}>
+        { openOrderHistroy ? 'Close Order History' : 'Order History'}
+      </CardLink>
+      {openOrderHistroy && <OrderHisotry user={user}/>}
       </div>
   );
 }
