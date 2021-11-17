@@ -16,7 +16,7 @@ export default function OrderHisotry({ user }) {
   const handleClick = (id) => {
     history.push(`/orderHistory/${id}`);
   };
-
+  console.warn(orders);
   return (
     <Table striped bordered className='order-history-container'>
       <tbody className='order-history-card' >
