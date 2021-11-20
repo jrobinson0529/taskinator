@@ -13,7 +13,7 @@ export default function CreateRobotForm({ setRobots }) {
     title: '',
     price: '',
     description: '',
-    available: '',
+    available: false,
   });
 
   const [robotCategories, setRobotCategories] = useState([]);

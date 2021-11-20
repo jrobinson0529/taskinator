@@ -4,7 +4,7 @@ import SearchBar from '../components/SearchBar';
 function Search() {
   return (
     <div className="search-robot-cont">
-      <h2>Search for a Robot by Name</h2>
+      <h2>Search for a Robot by Name / Keyword</h2>
       <SearchBar/>
     </div>
   );

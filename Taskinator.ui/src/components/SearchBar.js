@@ -22,13 +22,25 @@ const SearchBar = () => {
       );
     }
   };
+  const handleDescriptionSearch = (e) => {
+    if (e.key === 'Enter') {
+      setFilteredData(
+        robots.filter((robot) => robot.description.toLowerCase().includes(e.target.value.toLowerCase()))
+      );
+    }
+  };
   return (
     <div>
     <input
      style={BarStyling}
      placeholder={'Search Robots by Name'}
      onKeyDown={handleKeyDown}
-    />
+      />
+    <input className='search-description-bar'
+     style={BarStyling}
+     placeholder={'Search Robots by Keyword'}
+     onKeyDown={handleDescriptionSearch}
+      />
     <div className="search-robots">
       {
         filteredData.map((robot) => (
