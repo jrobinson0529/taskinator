@@ -139,7 +139,7 @@ export default function EditRobot({ setEditing, robotToEdit }) {
           Available
         </Label>
       </FormGroup>
-      <Button>Add Robot</Button>
+      <Button>Update Robot</Button>
     </Form>
           </Col>
         </Row>
