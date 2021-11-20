@@ -42,7 +42,7 @@ export default function EditRobot({ setEditing, robotToEdit }) {
       setCategory(singleCategory);
     }, [setEditing]);
     return (
-      <option value={category?.id} selected>{category?.title}</option>
+      <option value={category?.id}>{category?.title}</option>
     );
   };
   useEffect(() => {
