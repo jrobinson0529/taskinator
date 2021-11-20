@@ -51,6 +51,15 @@ namespace Taskinator.Controllers
 
             return Ok(robot);
         }
+        [HttpGet("connections/{id}")]
+        public IActionResult GetRobotConnections(Guid id)
+        {
+            var connections = _robotsRepo.GetConnections(id);
+
+         
+
+            return Ok(connections);
+        }
         // Return 12 random robots
         [HttpGet("random")]
         public IActionResult GetTwelveRobots()

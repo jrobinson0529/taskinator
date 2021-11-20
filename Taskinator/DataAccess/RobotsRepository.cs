@@ -60,6 +60,22 @@ namespace Taskinator.DataAccess
 
         }
 
+        internal object GetConnections(Guid id)
+        {
+                using var db = new SqlConnection(_connectionString);
+                var sql = @"
+                          SELECT * FROM Robots r
+                          JOIN Robots_orders ro
+                          ON r.id = ro.robotId
+                          JOIN Orders o
+                          ON o.id = ro.orderId
+						  WHERE o.orderDate IS NOT NULL
+                          AND ro.robotId = @id
+                        ";
+                var currentConnections = db.Query<RobotsOrders>(sql, new { id });
+                return currentConnections;
+        }
+
         internal IEnumerable<Robots> GetRandom()
         {
             using var db = new SqlConnection(_connectionString);
@@ -95,7 +111,7 @@ namespace Taskinator.DataAccess
             var updatedRobot = db.QuerySingleOrDefault<Robots>(sql, RobotToUpdate);
             return updatedRobot;
         }
-
+      
         internal string RemoveRobot(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
@@ -111,7 +127,7 @@ namespace Taskinator.DataAccess
                                         WHERE id = @Id";
             var deleteRobotSql = @"DELETE FROM Robots
                                    WHERE id = @id";
-            var robotOrdersToRemove = db.Query<RobotsOrders>(robotOrderSql, new { id }).ToList();
+            var robotOrdersToRemove = db.Query(robotOrderSql, new { id }).ToList();
             robotOrdersToRemove.ForEach(robotOrder =>
             {
                 db.Query<RobotsOrders>(deleteRobotOrderSql, new { robotOrder.Id });

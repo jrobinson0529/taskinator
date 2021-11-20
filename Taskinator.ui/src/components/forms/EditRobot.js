@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import {
   Button, Col, Container, Row, Label, FormGroup, Form, Input
 } from 'reactstrap';
-import { deleteSingleRobot, editRobot } from '../../helpers/data/robotData';
+import { deleteSingleRobot, editRobot, getRobotConnections } from '../../helpers/data/robotData';
 import { getRobotCategories } from '../../helpers/data/robotCategoryData';
 
 export default function EditRobot({ setEditing, robotToEdit }) {
   const [robot, setRobot] = useState({});
+  const [canDelete, setCanDelete] = useState(false);
   const [robotCategories, setRobotCategories] = useState([]);
   useEffect(() => {
     setRobot({
@@ -18,6 +19,9 @@ export default function EditRobot({ setEditing, robotToEdit }) {
       description: robotToEdit?.description,
       available: robotToEdit?.available,
     });
+    getRobotConnections(robotToEdit.id).then((response) => {
+      if (response.length === 0) { setCanDelete(true); } else { setCanDelete(false); }
+    });
   }, [robotToEdit]);
   const handleInputChange = (e) => {
     setRobot((prevState) => ({
@@ -27,7 +31,6 @@ export default function EditRobot({ setEditing, robotToEdit }) {
   };
 
   const handleClick = (e) => {
-    console.warn(e.target.id);
     deleteSingleRobot(e.target.id).then(() => setEditing(false));
   };
 
@@ -146,7 +149,7 @@ export default function EditRobot({ setEditing, robotToEdit }) {
         </Label>
       </FormGroup>
       <Button>Edit Robot</Button>
-      <Button className='bg-danger' id={robotToEdit?.id} onClick={handleClick}>Delete</Button>
+      { canDelete ? <Button className='bg-danger' id={robotToEdit?.id} onClick={handleClick}>Delete</Button> : <Button className='bg-danger' id={robotToEdit?.id} onClick={handleClick} disabled>Delete</Button> }
     </Form>
           </Col>
         </Row>

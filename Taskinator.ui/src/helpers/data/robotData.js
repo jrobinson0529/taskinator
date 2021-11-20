@@ -38,7 +38,10 @@ const deleteSingleRobot = (id) => new Promise((resolve, reject) => {
     getAllRobotsAlphabetically().then(resolve).catch(reject);
   });
 });
+const getRobotConnections = (id) => new Promise((resolve, reject) => {
+  axios.get(`${apiUrl}/Robots/connections/${id}`).then((response) => resolve(response.data)).catch(reject);
+});
 export {
   getRandomRobots, createRobot, getSingleRobot, getRobotByCategory, getRobots, getUnavailableRobots, editRobot, getAllRobotsAlphabetically,
-  deleteSingleRobot
+  deleteSingleRobot, getRobotConnections
 };
