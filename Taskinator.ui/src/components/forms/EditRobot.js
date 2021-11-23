@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import {
   Button, Col, Container, Row, Label, FormGroup, Form, Input
 } from 'reactstrap';
-import { editRobot } from '../../helpers/data/robotData';
+import { deleteSingleRobot, editRobot, getRobotConnections } from '../../helpers/data/robotData';
 import { getRobotCategories } from '../../helpers/data/robotCategoryData';
 
 export default function EditRobot({ setEditing, robotToEdit }) {
   const [robot, setRobot] = useState({});
+  const [canDelete, setCanDelete] = useState(false);
   const [robotCategories, setRobotCategories] = useState([]);
   useEffect(() => {
     setRobot({
@@ -18,6 +19,9 @@ export default function EditRobot({ setEditing, robotToEdit }) {
       description: robotToEdit?.description,
       available: robotToEdit?.available,
     });
+    getRobotConnections(robotToEdit.id).then((response) => {
+      if (response.length === 0) { setCanDelete(true); } else { setCanDelete(false); }
+    });
   }, [robotToEdit]);
   const handleInputChange = (e) => {
     setRobot((prevState) => ({
@@ -25,6 +29,11 @@ export default function EditRobot({ setEditing, robotToEdit }) {
       [e.target.name]: e.target.value === 'categoryId' ? e.target.selected : e.target.value
     }));
   };
+
+  const handleClick = (e) => {
+    deleteSingleRobot(e.target.id).then(() => setEditing(false));
+  };
+
   const handleCheckChange = (e) => {
     setRobot((prevState) => ({
       ...prevState,
@@ -140,6 +149,7 @@ export default function EditRobot({ setEditing, robotToEdit }) {
         </Label>
       </FormGroup>
       <Button>Update Robot</Button>
+      { canDelete ? <Button className='bg-danger' id={robotToEdit?.id} onClick={handleClick}>Delete</Button> : <Button className='bg-danger' id={robotToEdit?.id} onClick={handleClick} disabled>Delete</Button> }
     </Form>
           </Col>
         </Row>
