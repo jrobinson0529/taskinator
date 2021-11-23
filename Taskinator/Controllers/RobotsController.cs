@@ -51,6 +51,15 @@ namespace Taskinator.Controllers
 
             return Ok(robot);
         }
+        [HttpGet("connections/{id}")]
+        public IActionResult GetRobotConnections(Guid id)
+        {
+            var connections = _robotsRepo.GetConnections(id);
+
+         
+
+            return Ok(connections);
+        }
         // Return 12 random robots
         [HttpGet("random")]
         public IActionResult GetTwelveRobots()
@@ -89,14 +98,13 @@ namespace Taskinator.Controllers
         }
 
         // Soft Delete a robot
-        [HttpPut("remove/{id}")]
-        public IActionResult RemoveSingleRobot(Guid id, Robots robot)
+        [HttpDelete("delete/{id}")]
+        public IActionResult DeleteSingleRobot(Guid id)
         {
             var robotToRemove = _robotsRepo.GetRobotById(id);
             if (robotToRemove is null) return NotFound($"No robot with id - {id} exists in the database");
 
-            var removedRobot = _robotsRepo.RemoveRobot(id, robotToRemove);
-            return Ok(removedRobot);
+            return Ok(_robotsRepo.RemoveRobot(id));
         }
     }
 }
