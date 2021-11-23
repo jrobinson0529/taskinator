@@ -60,6 +60,22 @@ namespace Taskinator.DataAccess
 
         }
 
+        internal object GetConnections(Guid id)
+        {
+                using var db = new SqlConnection(_connectionString);
+                var sql = @"
+                          SELECT * FROM Robots r
+                          JOIN Robots_orders ro
+                          ON r.id = ro.robotId
+                          JOIN Orders o
+                          ON o.id = ro.orderId
+						  WHERE o.orderDate IS NOT NULL
+                          AND ro.robotId = @id
+                        ";
+                var currentConnections = db.Query<RobotsOrders>(sql, new { id });
+                return currentConnections;
+        }
+
         internal IEnumerable<Robots> GetRandom()
         {
             using var db = new SqlConnection(_connectionString);
@@ -95,23 +111,29 @@ namespace Taskinator.DataAccess
             var updatedRobot = db.QuerySingleOrDefault<Robots>(sql, RobotToUpdate);
             return updatedRobot;
         }
-
-        internal Robots RemoveRobot(Guid id, Robots RobotToRemove)
+      
+        internal string RemoveRobot(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @$" UPDATE Robots
-                         SET imageUrl = null,
-                         title = null,
-                         price = null,
-                         description = null,
-                         available = null
-                         OUTPUT INSERTED.*
-                         WHERE id = @Id
+            var robotOrderSql = @" SELECT * FROM Robots r
+                          JOIN Robots_orders ro
+                          ON r.id = ro.robotId
+                          JOIN Orders o
+                          ON o.id = ro.orderId
+                          WHERE o.orderDate IS NULL
+                          AND ro.robotId = @id
                         ";
-
-            RobotToRemove.Id = id;
-            var updatedRobot = db.QuerySingleOrDefault<Robots>(sql, new { id });
-            return updatedRobot;
+            var deleteRobotOrderSql = @"DELETE FROM Robots_orders
+                                        WHERE id = @Id";
+            var deleteRobotSql = @"DELETE FROM Robots
+                                   WHERE id = @id";
+            var robotOrdersToRemove = db.Query(robotOrderSql, new { id }).ToList();
+            robotOrdersToRemove.ForEach(robotOrder =>
+            {
+                db.Query<RobotsOrders>(deleteRobotOrderSql, new { robotOrder.Id });
+            });
+            db.Execute(deleteRobotSql, new { id });
+            return "Success";
         }
 
         internal Guid Add(Robots robot)
