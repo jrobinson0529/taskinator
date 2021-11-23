@@ -1,7 +1,7 @@
 import React from 'react';
 import Cards from 'react-credit-cards';
 import {
-  Col, Container, Form, Input, Row
+  Col, Container, Input, Row
 } from 'reactstrap';
 
 export default class CreditCardForm extends React.Component {
@@ -38,7 +38,6 @@ export default class CreditCardForm extends React.Component {
               />
             </Col>
             <Col>
-              <Form>
               <Input
                   type="number"
                   name="number"
@@ -67,7 +66,6 @@ export default class CreditCardForm extends React.Component {
                   onChange={this.handleInputChange}
                   onFocus={this.handleInputFocus}
                 />
-              </Form>
             </Col>
           </Row>
         </Container>

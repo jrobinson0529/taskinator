@@ -49,7 +49,7 @@ function Services() {
             <div className='robot-services-group'>
               {
                 cookingRobots?.slice(0, 4).map((robot) => (
-                  <RobotCard key={robots.id} {...robot}/>
+                  <RobotCard key={robot.id} {...robot}/>
                 ))
               }
             </div>
@@ -63,7 +63,7 @@ function Services() {
               <div className='robot-services-group'>
             {
               choresRobots?.slice(0, 4).map((robot) => (
-                <RobotCard key={robots.id} {...robot}/>
+                <RobotCard key={robot.id} {...robot}/>
               ))
             }
             </div>
@@ -77,7 +77,7 @@ function Services() {
           <div className='robot-services-group'>
         {
           lawnCareRobots?.slice(0, 4).map((robot) => (
-            <RobotCard key={robots.id} {...robot}/>
+            <RobotCard key={robot.id} {...robot}/>
           ))
         }
             </div>
@@ -91,7 +91,7 @@ function Services() {
               <div className='robot-services-group'>
             {
              murderRobots?.slice(0, 4).map((robot) => (
-              <RobotCard key={robots.id} {...robot}/>
+              <RobotCard key={robot.id} {...robot}/>
              ))
             }
           </div>

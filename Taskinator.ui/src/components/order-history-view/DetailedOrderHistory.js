@@ -12,7 +12,6 @@ export default function DetailedOrderHistory() {
   useEffect(() => {
     getMappableRobotInfoFromOrderId(id).then((response) => setDetailedOrder(response));
   }, []);
-
   const history = useHistory();
   const handleClick = () => {
     history.push('/');
