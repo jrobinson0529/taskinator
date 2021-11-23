@@ -19,7 +19,7 @@ https://xd.adobe.com/view/24c2718f-4278-4e84-a805-067fcb884c1f-7191/?hints=off
 ### Project Board
 https://github.com/jrobinson0529/taskinator/projects/1
 ### Contributors
-- [Lindsey Satterfield](https://github.com/chiestroud)
-- [Chie Stroud](https://github.com/lindseysatterfield)
+- [Lindsey Satterfield](https://github.com/lindseysatterfield)
+- [Chie Stroud](https://github.com/chiestroud)
 - [Robert Cole](https://github.com/robertncole1)
 - [Jesse Robinson](https://github.com/jrobinson0529)
