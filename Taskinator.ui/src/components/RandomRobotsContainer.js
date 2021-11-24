@@ -5,7 +5,15 @@ import RobotCard from './RobotCard';
 function RandomRobotsContainer() {
   const [robots, setRobots] = useState([]);
   useEffect(() => {
-    getRandomRobots().then(setRobots);
+    let subscription = true;
+    getRandomRobots().then((response) => {
+      if (subscription) {
+        setRobots(response);
+      }
+    });
+    return () => {
+      subscription = false;
+    };
   }, []);
   return (
     <div className='robot-card-group'>
