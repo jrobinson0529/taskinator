@@ -14,13 +14,12 @@ export default function EditRobot({ setEditing, robotToEdit }) {
 
   useEffect(() => {
     setRobot({
-      id: robotToEdit?.id,
-      categoryId: robotToEdit?.categoryId || '',
-      imageUrl: robotToEdit?.imageUrl || '',
-      title: robotToEdit?.title || '',
-      price: robotToEdit?.price || 0,
-      description: robotToEdit?.description || '',
-      available: robotToEdit?.available || false,
+      imageUrl: robotToEdit?.imageUrl,
+      categoryId: robotToEdit?.categoryId,
+      title: robotToEdit?.title,
+      price: robotToEdit?.price,
+      description: robotToEdit?.description,
+      available: robotToEdit?.available,
     });
     getRobotConnections(robotToEdit.id).then((response) => {
       if (response.length === 0) { setCanDelete(true); } else { setCanDelete(false); }
@@ -50,7 +49,7 @@ export default function EditRobot({ setEditing, robotToEdit }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    editRobot(robot.id, robot).then(() => setEditing(false));
+    editRobot(robotToEdit.id, robot).then(() => setEditing(false));
   };
 
   return (
