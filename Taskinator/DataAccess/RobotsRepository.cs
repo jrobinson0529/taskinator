@@ -87,18 +87,19 @@ namespace Taskinator.DataAccess
         internal IEnumerable<Robots> GetRobotsByCategoryId(Guid categoryId)
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @"SELECT * FROM Robots
-                        WHERE categoryId = @categoryId";
+            var sql = @"SELECT * FROM Robots r
+                        WHERE categoryId = @categoryId AND r.available = 1";
             var robot = db.Query<Robots>(sql, new { categoryId });
             return robot;
 
         }
 
-        internal object Update(Guid id, Robots RobotToUpdate)
+        internal object Update(Guid id, Robots robot)
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @" UPDATE Robots
+            var sql = @"UPDATE Robots
                         SET imageUrl = @imageUrl,
+                        categoryId = @categoryId,
                         title = @title,
                         price = @price,
                         description = @description,
@@ -107,8 +108,8 @@ namespace Taskinator.DataAccess
                         WHERE id = @Id
                         ";
 
-            RobotToUpdate.Id = id;
-            var updatedRobot = db.QuerySingleOrDefault<Robots>(sql, RobotToUpdate);
+            robot.Id = id;
+            var updatedRobot = db.QuerySingleOrDefault<Robots>(sql, robot);
             return updatedRobot;
         }
       
