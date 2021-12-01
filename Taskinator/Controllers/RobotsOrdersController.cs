@@ -10,7 +10,7 @@ using Taskinator.Models;
 namespace Taskinator.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+
     [ApiController]
     public class RobotsOrdersController : ControllerBase
     {

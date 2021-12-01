@@ -4,13 +4,12 @@ import {
   Button, Col, Container, Row, Label, FormGroup, Form, Input
 } from 'reactstrap';
 import { deleteSingleRobot, editRobot, getRobotConnections } from '../../helpers/data/robotData';
-import { getRobotCategories, getSingleRobotCategoryById } from '../../helpers/data/robotCategoryData';
+import { getRobotCategories } from '../../helpers/data/robotCategoryData';
 
 export default function EditRobot({ setEditing, robotToEdit }) {
   const [robot, setRobot] = useState({});
   const [canDelete, setCanDelete] = useState(false);
   const [robotCategories, setRobotCategories] = useState([]);
-  const [category, setCategory] = useState([]);
 
   useEffect(() => {
     setRobot({
@@ -23,9 +22,6 @@ export default function EditRobot({ setEditing, robotToEdit }) {
     });
     getRobotConnections(robotToEdit.id).then((response) => {
       if (response.length === 0) { setCanDelete(true); } else { setCanDelete(false); }
-    });
-    getSingleRobotCategoryById(robotToEdit.categoryId).then((response) => {
-      setCategory((response)[0]);
     });
     getRobotCategories().then((response) => setRobotCategories(response));
   }, [robotToEdit, setEditing]);
@@ -51,7 +47,6 @@ export default function EditRobot({ setEditing, robotToEdit }) {
     e.preventDefault();
     editRobot(robotToEdit.id, robot).then(() => setEditing(false));
   };
-
   return (
     <Container>
         <Row>
@@ -100,10 +95,10 @@ export default function EditRobot({ setEditing, robotToEdit }) {
               type="select"
               name="categoryId"
               onChange={handleInputChange}
+              value={robot.categoryId}
               id="selectCategory">
               {robotCategories.map((x) => (
-                category.id === x.id ? <option key={x.id} defaultValue={x.id} selected>{x.title}</option>
-                  : <option key={x.id} defaultValue={x.id}>{x.title}</option>
+                <option value={x.id} key={x.id}>{x.title}</option>
               ))};
         </Input>
       </FormGroup>
