@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +25,7 @@ namespace Taskinator.Controllers
             var robots = _robotsRepo.GetAll();
             return Ok(robots);
         }
-        [Authorize]
+
         [HttpGet("all")]
         public IActionResult GetAllRobotsAlphabetically()
         {

@@ -42,7 +42,7 @@ namespace Taskinator
                 .AddJwtBearer(options =>
                 {
                     options.IncludeErrorDetails = true;
-                    options.Authority = "https://securetoken.google.com/taskinator-6cd45";
+                    //options.Authority = "https://securetoken.google.com/taskinator-6cd45";
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateLifetime = true,
