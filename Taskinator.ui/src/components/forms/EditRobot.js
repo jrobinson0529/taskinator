@@ -4,16 +4,18 @@ import {
   Button, Col, Container, Row, Label, FormGroup, Form, Input
 } from 'reactstrap';
 import { deleteSingleRobot, editRobot, getRobotConnections } from '../../helpers/data/robotData';
-import { getRobotCategories } from '../../helpers/data/robotCategoryData';
+import { getRobotCategories, getSingleRobotCategoryById } from '../../helpers/data/robotCategoryData';
 
 export default function EditRobot({ setEditing, robotToEdit }) {
   const [robot, setRobot] = useState({});
   const [canDelete, setCanDelete] = useState(false);
   const [robotCategories, setRobotCategories] = useState([]);
+  const [category, setCategory] = useState([]);
+
   useEffect(() => {
     setRobot({
-      categoryId: robotToEdit?.categoryId,
       imageUrl: robotToEdit?.imageUrl,
+      categoryId: robotToEdit?.categoryId,
       title: robotToEdit?.title,
       price: robotToEdit?.price,
       description: robotToEdit?.description,
@@ -22,11 +24,16 @@ export default function EditRobot({ setEditing, robotToEdit }) {
     getRobotConnections(robotToEdit.id).then((response) => {
       if (response.length === 0) { setCanDelete(true); } else { setCanDelete(false); }
     });
-  }, [robotToEdit]);
+    getSingleRobotCategoryById(robotToEdit.categoryId).then((response) => {
+      setCategory((response)[0]);
+    });
+    getRobotCategories().then((response) => setRobotCategories(response));
+  }, [robotToEdit, setEditing]);
+
   const handleInputChange = (e) => {
     setRobot((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value === 'categoryId' ? e.target.selected : e.target.value
+      [e.target.name]: e.target.value
     }));
   };
 
@@ -44,19 +51,7 @@ export default function EditRobot({ setEditing, robotToEdit }) {
     e.preventDefault();
     editRobot(robotToEdit.id, robot).then(() => setEditing(false));
   };
-  const DefaultOption = () => {
-    const [category, setCategory] = useState();
-    useEffect(() => {
-      const singleCategory = robotCategories.filter((cat) => cat.id === robot.categoryId)[0];
-      setCategory(singleCategory);
-    }, [setEditing]);
-    return (
-      <option value={category?.id}>{category?.title}</option>
-    );
-  };
-  useEffect(() => {
-    getRobotCategories().then((response) => setRobotCategories(response));
-  }, []);
+
   return (
     <Container>
         <Row>
@@ -106,9 +101,9 @@ export default function EditRobot({ setEditing, robotToEdit }) {
               name="categoryId"
               onChange={handleInputChange}
               id="selectCategory">
-              <DefaultOption />
-              {robotCategories.map((category) => (
-                <option key={category.id} value={category.id} def>{category.title}</option>
+              {robotCategories.map((x) => (
+                category.id === x.id ? <option key={x.id} defaultValue={x.id} selected>{x.title}</option>
+                  : <option key={x.id} defaultValue={x.id}>{x.title}</option>
               ))};
         </Input>
       </FormGroup>
@@ -140,7 +135,7 @@ export default function EditRobot({ setEditing, robotToEdit }) {
         <Input
           type="checkbox"
           name="available"
-          id="availabile"
+          id="available"
           checked={robot.available}
           onChange={handleCheckChange}
         />
@@ -156,7 +151,6 @@ export default function EditRobot({ setEditing, robotToEdit }) {
       </Container>
   );
 }
-
 EditRobot.propTypes = {
   setEditing: PropTypes.func,
   robotToEdit: PropTypes.object,
